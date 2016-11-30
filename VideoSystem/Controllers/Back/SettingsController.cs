@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Security;
+using VideoSystem.Filters;
+using VideoSystem.Models;
+
+namespace VideoSystem.Controllers.Back
+{
+    [CustAuthorize("admin")]
+    public class SettingsController : Controller
+    {
+        private VideoSystemContext vsc = new VideoSystemContext();
+
+        //
+        // GET: /Settings/
+
+        public ActionResult Index()
+        {
+            Manager manager = (Manager)Session["Manager"];
+            return View(manager);
+        }
+
+        //编辑信息
+        public ActionResult EditInfo(string email,string phone)
+        {
+            Manager manager = (Manager)Session["Manager"];
+            manager.ManagerEmail = email;
+            manager.ManagerPhone = phone;
+
+            if (ModelState.IsValid)
+            {
+                vsc.Entry(manager).State = EntityState.Modified;
+                vsc.SaveChanges();
+            }
+            Session["Manager"] = manager;
+            return RedirectToAction("", "Settings");
+        }
+
+        //跳转到修改密码页面
+        public ActionResult ModifyPassPage() {
+            return View();
+        }
+
+        //修改密码
+        public ActionResult ModifyPass(string oldPass,string newPass)
+        {
+            Manager manager = (Manager)Session["Manager"];
+
+            if (oldPass != manager.ManagerPassword)
+            {
+                TempData["erroInfo"] = "原始密码不正确";
+                return RedirectToAction("ModifyPassPage","Settings");
+            }
+            else
+            {
+                manager.ManagerPassword = newPass;
+
+                if (ModelState.IsValid)
+                {
+                    vsc.Entry(manager).State = EntityState.Modified;
+                    vsc.SaveChanges();
+                }
+
+                FormsAuthentication.SignOut();
+                return RedirectToAction("", "Admin");
+            }
+        }
+    }
+}

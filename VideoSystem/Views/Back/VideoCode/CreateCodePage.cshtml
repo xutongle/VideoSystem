@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "CreateCodePage";
+    Layout = "~/Views/Shared/_BackLayout.cshtml";
+}
+@model VideoSystem.Models.Video[]
+@using VideoSystem.Models
+<div class="main" style="margin-left:290px;width:80%">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Content("~/Admin/BackMain/")"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">生成邀请码 </li>
+        </ol>
+    </div>
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">生成邀请码</div>
+                <div class="panel-body">
+                    <p style="color:red;text-align:center;">@TempData["info"]</p>
+                    <form role="form" style="width:300px;margin:auto;" id="" action="@Url.Content("~/VideoCode/CreateCode")" method="post">
+                            <table class="uploadTable">
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class=" control-label">选择视频</label>
+                                    </td>
+                                    <td>
+                                        <select class="form-control"  name="videoID">
+                                            <option value="null">未选择</option>
+                                            @foreach(Video v in Model){
+                                                <option value="@v.VideoID">@v.VideoName</option>
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class=" control-label">邀请码数量</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="codeCounts" name="codeCounts">
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div style="text-align:center;margin-top:20px;">
+                                    <button type="submit" class="btn btn-primary">开始生成</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

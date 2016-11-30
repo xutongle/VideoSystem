@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "RegistPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    jQuery(document).ready(function () {
+        var UserEquipmentType = jQuery("#UserEquipmentType");
+        var EquipmentCode = jQuery("#EquipmentCode");
+        UserEquipmentType.val(12312);
+        EquipmentCode.val("4565656");
+    })
+</script>
+
+<div class="container">
+    <div class="row vid_loac">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-md-offset-3" id="div_login">
+            <h3 style="text-align: center">用户注册</h3>
+            <form class="form-horizontal" role="form" method="post" action="@Url.Content("~/Home/Regist")">
+                <div class="form_table">
+                    <table>
+                        <tr>
+                            <td>
+                                <label class="control-label">账号</label>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="UserAccount" name="UserAccount" value="" required autofocus onblur="isAccountExist();">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="control-label">密码</label>
+                            </td>
+                            <td>
+                                <input type="password" class="form-control" id="UserPassword" name="UserPassword" value="123456789" required onblur="passLenth();">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="control-label">确认</label>
+                            </td>
+                            <td>
+                                <input type="password" class="form-control" id="UserConfirmPassword" name="UserConfirmPassword" value="123456789" required onblur="isPassSame();">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="control-label">邮箱</label>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="email" name="UserEmail" value="245730400@qq.com" required onblur="checkEmail();">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="control-label">手机</label>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="phone" name="UserPhone" value="15709782993" required onblur="checkPhone();">
+                                <input type="hidden" id="UserEquipmentType" name="UserEquipmentType" />
+                                <input type="hidden" id="EquipmentCode" name="EquipmentCode" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style="margin: auto; margin-top: 10px;">
+                    <tr>
+                        <td style="width: 100px">
+                            <input type="text" class="form-control" id="code" name="code" style="width: 100px;" required onblur="verifyCode();">
+                        </td>
+                        <td style="padding-left: 10px;">
+                            <a onclick="refreshCode();" >
+                                <img src="@Url.Content("~/VerifyCode")" style="width: 140px; height: 50px;" id="codeImg"/>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="margin-top: 10px; text-align: center">
+                    <button type="submit" class="btn btn-success">注册</button>
+                    <button type="reset" class="btn btn-success" style="margin-left: 10px">重置</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var pass = jQuery("#UserPassword");
+    var confirmPass = jQuery("#UserConfirmPassword");
+    var accountElement = jQuery("#UserAccount");
+    var verifycode = jQuery("#verifycode");
+
+    /*
+       检查账号是否存在
+    */
+    function isAccountExist() {
+        if (accountElement.val().length <= 0) {
+            alert("账号不能为空!");
+            accountElement.focus();
+            return;
+        }
+
+        jQuery.post(
+            "@Url.Content("~/Home/IsRegistAccountExist")",
+            { "account": accountElement.val() },
+            function (data, statusText, xhr) {
+                if (data == 2) {
+                    alert("此账号已存在，请重新输入!");
+                    accountElement.val("");
+                    accountElement.focus();
+                    return;
+                }
+            },
+            "text"
+        );
+    }
+
+    /*
+       检查密码长度
+    */
+    function passLenth() {
+        if (pass.val().length <= 0) {
+            alert("密码不能为空！");
+            pass.focus();
+            return;
+        }
+        if (pass.val().length < 8) {
+            alert("密码长度不能小于8位！");
+            pass.focus();
+            return;
+        }
+    }
+
+    /*
+        检查密码是否一致
+    */
+    function isPassSame() {
+
+        if (pass.val().length > 0) {
+            if (confirmPass.val() != pass.val()) {
+                alert("两次密码不一致，请重新输入!");
+                confirmPass.val("");
+                confirmPass.focus();
+                return;
+            }
+        }
+    }
+
+   
+</script>

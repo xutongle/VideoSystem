@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "UploadPage";
+    Layout = "~/Views/Shared/_BackLayout.cshtml";
+}
+@using System.IO;
+
+<style>
+    .bar {
+        height: 18px;
+        background: green;
+    }
+</style>
+
+
+
+<script>
+		jQuery(function() {
+		    jQuery('#uploadify').uploadify({
+		        'height': 30,
+		        'width': 100,
+		        //指定swf文件
+		        'swf': "/plugin/uploadify/uploadify.swf",
+		        //后台处理的页面
+		        'uploader': "@Url.Content("~/Upload/UploadImage")",
+		        //按钮显示的文字
+				'buttonText': '选择图片',
+		        //允许上传的文件后缀
+				'fileTypeExts': '*.gif; *.jpg; *.png',
+		        //上传文件页面中，你想要用来作为文件队列的元素的id, 默认为false  自动生成,  不带#
+				'queueID': 'Imagequeue',
+				'fileSizeLimit': '5MB',
+		        //选择文件后自动上传
+				'auto': true,
+		        //设置为true将允许多文件上传
+				'multi': false,
+		        'method':"post",
+				'onUploadSuccess': function (file, data, response) {
+				    jQuery("#" + file.id).html("上传成功");
+				    jQuery("#ImageUrl").val(data);
+				    jQuery("#ImagePreview").attr("src", data);
+				}
+		    });
+		    
+		    jQuery('#uploadVideo').uploadify({
+		        'height': 30,
+		        'width': 100,
+		        //指定swf文件
+		        'swf': "/plugin/uploadify/uploadify.swf",
+		        //后台处理的页面
+		        'uploader': "@Url.Content("~/Upload/UploadVideo")",
+		        //按钮显示的文字
+		        'buttonText': '选择视频',
+		        //允许上传的文件后缀
+		        'fileTypeExts': '*.mp4; *.qsv; *.bhd',
+		        //上传文件页面中，你想要用来作为文件队列的元素的id, 默认为false  自动生成,  不带#
+		        'queueID': 'Videoqueue',
+		        'sizeLimit ': 0,
+		        //选择文件后自动上传
+		        'auto': true,
+		        //设置为true将允许多文件上传
+		        'multi': false,
+		        'method': "post",
+		        'speed':50,
+		        'onUploadSuccess': function (file, data, response) {
+		            jQuery("#" + file.id).html("上传成功");
+		            jQuery("#VideoUrl").val(data);
+		        }
+		    });
+
+
+		    
+		});
+
+		
+</script>
+
+<div class="main" style="margin-left:290px;width:80%">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Content("~/Admin/BackMain/")"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">上传视频</li>
+        </ol>
+    </div>
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">上传视频</div>
+                <div class="panel-body">
+                    <form role="form" style="width:900px;margin:auto;" id="uploadForm">
+                            <table class="uploadTable">
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class=" control-label">视频名称</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="VideoName" name="" placeholder="请输入视频名称">
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class=" control-label">视频首图</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="ImageUrl" name="" readonly="true">
+                                    </td>
+                                    <td>
+                                        <input type="file" name="uploadify" id="uploadify" />
+                                    </td>
+                                    <td class="queue">
+                                        <div id="Imagequeue"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2" style="">
+                                        <img src="" id="ImagePreview"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class="control-label">视频文件</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="VideoUrl" name="" readonly="true">
+                                    </td>
+                                    <td>
+                                        <input id="uploadVideo" type="file">
+                                    </td>
+                                    <td class="queue">
+                                        <div id="Videoqueue"></div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div style="text-align:center;margin-top:20px;">
+                                    <button type="button" class="btn btn-default">确定</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    
+</script>

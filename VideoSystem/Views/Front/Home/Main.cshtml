@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "古驿平安视频系统";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model VideoSystem.Models.Code[]
+
+
+<link href="@Url.Content("~/plugin/VideoJS/video-js.css")" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/plugin/VideoJS/video.js")"></script>
+
+<script>
+    videojs.options.flash.swf = "@Url.Content("~/VideoJS/video-js.swf")";
+</script>
+
+<div class="container">
+    <div class="row vid_loac">
+        <div class="col-sm-12 col-md-9 col-lg-9 " style="background-color:white;">
+
+            <video id="video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" data-setup="{}">
+                <source src="@Url.Content("~/UploadFiles/Videos/16112722251791137526.mp4")" type='video/mp4' />
+                <source src="@Url.Content("~/plugin/VideoJS/test.webm")" type='video/webm' />
+                <source src="@Url.Content("~/plugin/VideoJS/test.ogg")" type='video/ogg' />
+                <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+                <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+            </video>
+            <div class="current_video">
+                <h4>产品名称</h4>
+                <p>时长:31:00&nbsp;&nbsp;&nbsp;难度指数:2星</p>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-3 col-lg-3 top">
+            <div class="pc_video_list">
+                <table>
+                    @foreach(VideoSystem.Models.Code c in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a id="@c.Video.VideoLocal">
+                                    <img src="~@c.Video.VideoImageLocal" style="border: solid 2px #00ff21" />
+                                </a>
+                            </td>
+                            <td>
+                                <h4>@c.Video.VideoName</h4>
+                                <p>时长：31:00</p>
+                                <p>难度指数：2星</p>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="phone_video_list">
+                <h4>我的视频</h4>
+                <table>
+                    <tr>
+                        <td>
+                            <a>
+                                <img src="~/Image/video_img.jpeg" />
+                            </a>
+                            <h4>产品名称</h4>
+                            <p>时长:31:00&nbsp;&nbsp;&nbsp;难度指数:1星</p>
+                        </td>
+                        <td>
+                            <a>
+                                <img src="~/Image/video_img.jpeg" />
+                            </a>
+                            <h4>产品名称</h4>
+                            <p>时长:31:00&nbsp;&nbsp;&nbsp;难度指数:1星</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col-sm-12 col-md-6 col-lg-6 get_video">
+            <h4>获取视频</h4>
+            <form class="form-inline" role="form" action="@Url.Content("~/Home/GetVideo")" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="videoCode" id="name" placeholder="输入邀请码获取视频">
+                </div>
+                <button type="submit" class="btn btn-default">获取</button>
+                <button type="reset" class="btn btn-default">清除</button>
+            </form>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6 top suggest">
+            <h4>意见反馈</h4>
+            <form role="form">
+                <div class="form-group">
+                    <textarea class="form-control" rows="4" name="suggestText" id="suggestText" required></textarea>
+                </div>
+                <button type="button" class="btn btn-default" onclick="submitSuggest();">提交</button>
+                <button type="reset" class="btn btn-default">清除</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //自动播放
+    var myPlayer = videojs('video');
+    //videojs("video").ready(function () {
+    //    var myPlayer = this;
+    //    myPlayer.play();
+    //});
+
+    //让播放器高度随设备变化
+    var screen_width = screen.availWidth;
+    if (screen_width >= 1024) {
+        myPlayer.height(500);
+    }
+    else if (screen_width >= 768) {
+        myPlayer.height(400);
+    }
+    else {
+        myPlayer.height(250);
+    }
+
+    function submitSuggest()
+    {
+        var suggestText = jQuery("#suggestText");
+        if (suggestText.val().length<=0)
+        {
+            alert("反馈内容不能为空!");
+            suggestText.focus();
+            return;
+        }
+        jQuery.post(
+            "@Url.Content("~/Home/UserSuggest")",
+            { "suggestText": suggestText.val()},
+            function (data) {
+                alert("反馈成功!");
+                suggestText.val("");
+            },
+            "text"
+        );
+    }
+</script>

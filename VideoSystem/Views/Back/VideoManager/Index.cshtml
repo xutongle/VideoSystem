@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BackLayout.cshtml";
+}
+@using VideoSystem.Models
+@model VideoSystem.Concrete.Paging
+<div class="main" style="margin-left:290px;width:80%">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Content("~/Admin/BackMain/")"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">视频列表</li>
+        </ol>
+    </div>
+    <!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">视频列表</div>
+                <div class="panel-body">
+                    <form role="form">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" id="name" placeholder="搜索" style="width: 200px;" />
+                                </td>
+                                <td>
+                                    <select class="form-control" style="width: 100px;">
+                                        <option>按编号</option>
+                                        <option>按名称</option>
+                                        <option>按时间</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-default">搜索</button>
+                                </td>
+                                <td style="padding-left:10px;">
+                                    <button type="submit" class="btn btn-primary">打印全部邀请码</button>
+                                </td>
+                                <td style="padding-left:10px;">
+                                    <button type="submit" class="btn btn-primary">打印所选视频的邀请码</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <table class="table table-bordered table-hover class" style="margin-top:10px;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" />
+                                </th>
+                                <th>编号</th>
+                                <th>名称</th>
+                                <th>上传时间</th>
+                                <th>邀请码数量</th>
+                                <th>已使用</th>
+                                <th>未使用</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Video v in Model.returnData)
+                            { 
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" />
+                                    </td>
+                                    <td>@v.VideoID</td>
+                                    <td>@v.VideoName</td>
+                                    <td>@v.UploadTime</td>
+                                    <td>@v.CodeCounts</td>
+                                    <td>@v.CodeUsed</td>
+                                    <td>@v.CodeNotUsed</td>
+                                    <td>
+                                        <a href="#">[编辑]</a>
+                                        <a href="#">[删除]</a>
+                                        <a href="#">[查看邀请码]</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    @{
+                        int prePageId = (Model.request_page > 1) ? Model.request_page - 1 : 1;
+                        int nextPageId = (Model.request_page < Model.total_pages) ? Model.request_page + 1 : Model.total_pages;
+                    }
+
+                    <div style="text-align: center">
+                        <ul class="pagination">
+                            <li><a href="@Url.Content("~/VideoManager/Index/Page1")">首页</a></li>
+                            <li><a href="@Url.Content("~/VideoManager/Index/Page" + prePageId)">&laquo;</a></li>
+                            @for (int i = Model.start_page_num; i <= Model.end_page_num; i++)
+                            {
+                                <li><a id="@i" href="@Url.Content("~/VideoManager/Index/Page" + i)">@i</a></li>
+                            }
+                            <li><a href="@Url.Content("~/VideoManager/Index/Page" + nextPageId)">&raquo;</a></li>
+                            <li><a href="@Url.Content("~/VideoManager/Index/Page" + Model.total_pages)">末页</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
