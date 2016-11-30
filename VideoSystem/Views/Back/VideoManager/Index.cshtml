@@ -35,10 +35,10 @@
                                     <button type="submit" class="btn btn-default">搜索</button>
                                 </td>
                                 <td style="padding-left:10px;">
-                                    <button type="submit" class="btn btn-primary">打印全部邀请码</button>
+                                    <button type="submit" class="btn btn-primary">导出全部邀请码</button>
                                 </td>
                                 <td style="padding-left:10px;">
-                                    <button type="submit" class="btn btn-primary">打印所选视频的邀请码</button>
+                                    <button type="submit" class="btn btn-primary">导出所选视频的邀请码</button>
                                 </td>
                             </tr>
                         </table>
@@ -74,12 +74,14 @@
                                     <td>
                                         <a href="#">[编辑]</a>
                                         <a href="#">[删除]</a>
-                                        <a href="#">[查看邀请码]</a>
+                                        <a id="@v.VideoID" onclick="exportExcel(this.id);">[导出邀请码]</a>
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
+
+                    <p style="color:red;text-align:center">@TempData["info"]</p>
 
                     @{
                         int prePageId = (Model.request_page > 1) ? Model.request_page - 1 : 1;
@@ -104,3 +106,15 @@
     </div>
 
 </div>
+
+<script>
+    function exportExcel(videoID)
+    {
+        var num = prompt("请输入要导出的数量，输入'0'表示导出全部邀请码");
+        if(num != null)
+        {
+            window.location.href = "/VideoCode/ExportExcel?videoID=" + videoID + "&num=" + num;
+        }
+    }
+
+</script>

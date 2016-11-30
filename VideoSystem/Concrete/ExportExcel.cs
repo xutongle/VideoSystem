@@ -1,22 +1,40 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.IO;
-using System.Linq;
-using System.Web;
 using VideoSystem.Abstract;
+using VideoSystem.Models;
 
 
 namespace VideoSystem.Concrete
 {
     public class ExportExcel : IExportExcel
     {
-        public static void WriteExcel(DataTable dt, string filePath)
+
+        //构造DataTable表格
+        public DataTable MakeDataTable(Code[] codeArray)
         {
-            if (!string.IsNullOrEmpty(filePath) && null != dt && dt.Rows.Count > 0)
+            DataTable dt = new DataTable("邀请码列表");
+            dt.Columns.Add("视频编号");
+            dt.Columns.Add("视频名称");
+            dt.Columns.Add("邀请码编号");
+            dt.Columns.Add("邀请码");
+
+            foreach(Code c in codeArray)
+            {
+                dt.Rows.Add(c.Video.VideoID,c.Video.VideoName,c.CodeID,c.CodeValue);
+            }
+
+            return dt;
+        }
+
+        public byte[] WriteExcel(Code[] codeArray)
+        {
+
+            DataTable dt = MakeDataTable(codeArray);
+
+            if (null != dt && dt.Rows.Count > 0)
             {
                 HSSFWorkbook book = new HSSFWorkbook();
                 ISheet sheet = book.CreateSheet(dt.TableName);
@@ -34,19 +52,12 @@ namespace VideoSystem.Concrete
                         row2.CreateCell(j).SetCellValue(Convert.ToString(dt.Rows[i][j]));
                     }
                 }
-                // 写入到客户端  
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    book.Write(ms);
-                    using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-                    {
-                        byte[] data = ms.ToArray();
-                        fs.Write(data, 0, data.Length);
-                        fs.Flush();
-                    }
-                    book = null;
-                }
+
+                MemoryStream ms = new MemoryStream();
+                book.Write(ms);
+                return ms.ToArray();
             }
+            return null;
         }
     }
 }
