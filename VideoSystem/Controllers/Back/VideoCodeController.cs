@@ -95,8 +95,8 @@ namespace VideoSystem.Controllers.Back
         }
 
         // GET: /VideoCode/ExportExcel
-
-        public ActionResult ExportExcel(int num = 0, int videoID = -1, int[] videoArray = null)
+        //导出邀请码
+        public ActionResult ExportExcel(int num = 0, int videoID = -1)
         {
             Code[] codeArray = null;
             string fileName = null;
@@ -115,31 +115,26 @@ namespace VideoSystem.Controllers.Back
                     //请求的数量大于已有的数量
                     if (num > count)
                     {
-                        TempData["info"] = "邀请码数量不足";
-                        return RedirectToAction("", "VideoManager");
+                        return Content("1");
                     }
 
                     codeArray = (from item in vsc.Codes
                                  where item.VideoID == videoID && item.CodeStatus == 0
                                  orderby item.CodeID descending
-                                 select item).Take(num);
+                                 select item).Take(num).ToArray();
 
                 }
                 fileName = codeArray[0].Video.VideoName;
             }
-            //导出多个视频的邀请码
-            else if (videoArray != null)
-            {
-                
-            }
             //导出全部视频的邀请码
             else {
-                codeArray = (vsc.Codes).ToArray();
+                codeArray = (from item in vsc.Codes
+                             orderby item.CodeID descending
+                             select item).ToArray();
+                fileName = "全部视频";
             }
+
             byte[] bytes = ie.WriteExcel(codeArray);
-
-            
-
             return File(bytes, "application/vnd.ms-excel", fileName+".xls");
         }
     }

@@ -4,6 +4,8 @@
 }
 @using VideoSystem.Models
 @model VideoSystem.Concrete.Paging
+
+
 <div class="main" style="margin-left:290px;width:80%">
     <div class="row">
         <ol class="breadcrumb">
@@ -35,10 +37,7 @@
                                     <button type="submit" class="btn btn-default">搜索</button>
                                 </td>
                                 <td style="padding-left:10px;">
-                                    <button type="submit" class="btn btn-primary">导出全部邀请码</button>
-                                </td>
-                                <td style="padding-left:10px;">
-                                    <button type="submit" class="btn btn-primary">导出所选视频的邀请码</button>
+                                    <button type="button" class="btn btn-primary" onclick="exportAll();">导出全部邀请码</button>
                                 </td>
                             </tr>
                         </table>
@@ -46,9 +45,6 @@
                     <table class="table table-bordered table-hover class" style="margin-top:10px;">
                         <thead>
                             <tr>
-                                <th>
-                                    <input type="checkbox" />
-                                </th>
                                 <th>编号</th>
                                 <th>名称</th>
                                 <th>上传时间</th>
@@ -62,9 +58,6 @@
                             @foreach (Video v in Model.returnData)
                             { 
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" />
-                                    </td>
                                     <td>@v.VideoID</td>
                                     <td>@v.VideoName</td>
                                     <td>@v.UploadTime</td>
@@ -81,7 +74,6 @@
                         </tbody>
                     </table>
 
-                    <p style="color:red;text-align:center">@TempData["info"]</p>
 
                     @{
                         int prePageId = (Model.request_page > 1) ? Model.request_page - 1 : 1;
@@ -108,13 +100,39 @@
 </div>
 
 <script>
+    //导出单个视频的邀请码
     function exportExcel(videoID)
     {
-        var num = prompt("请输入要导出的数量，输入'0'表示导出全部邀请码");
-        if(num != null)
-        {
-            window.location.href = "/VideoCode/ExportExcel?videoID=" + videoID + "&num=" + num;
-        }
+        var html = "<div style='padding:10px;'>数量：<input type='text' id='num' name='num' /></div>";
+        var submit = function (v, h, f) {
+            if (f.num == '') {
+                $.jBox.tip("请输入要导出的邀请码数量。", 'error', { focusId: "num" });
+                return false;
+            }
+            $.ajax({
+                url: "/VideoCode/ExportExcel",
+                data: {
+                    "videoID": videoID,
+                    "num": f.num
+                },
+                success: function (data)
+                {
+                    if(data == "1")
+                    {
+                        $.jBox.info('邀请码数量不足', '提示');
+                        return;
+                    }
+                    window.location.href = "/VideoCode/ExportExcel?videoID=" + videoID + "&num=" + f.num;
+                }
+            });
+            return true;
+        };
+        $.jBox(html, { title: "输入邀请码数量", submit: submit });
     }
 
+    //导出全部邀请码
+    function exportAll()
+    {
+        window.location.href = "/VideoCode/ExportExcel?videoID=-1";
+    }
 </script>
