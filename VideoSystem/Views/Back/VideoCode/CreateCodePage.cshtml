@@ -17,16 +17,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading">生成邀请码</div>
                 <div class="panel-body">
-                    <p style="color:red;text-align:center;">@TempData["info"]</p>
-                    <form role="form" style="width:300px;margin:auto;" id="" action="@Url.Content("~/VideoCode/CreateCode")" method="post">
+                    <form role="form" style="width:300px;margin:auto;" id="createCodeForm">
                             <table class="uploadTable">
                                 <tr>
                                     <td class="ut_title">
                                         <label class=" control-label">选择视频</label>
                                     </td>
                                     <td>
-                                        <select class="form-control"  name="videoID">
-                                            <option value="null">未选择</option>
+                                        <select class="form-control" id="videoID"  name="videoID">
+                                            <option value="-1">未选择</option>
                                             @foreach(Video v in Model){
                                                 <option value="@v.VideoID">@v.VideoName</option>
                                             }
@@ -44,7 +43,7 @@
                             </table>
 
                             <div style="text-align:center;margin-top:20px;">
-                                    <button type="submit" class="btn btn-primary">开始生成</button>
+                                    <button type="button" class="btn btn-primary" onclick="createCode();">开始生成</button>
                             </div>
                     </form>
                 </div>
@@ -52,3 +51,26 @@
         </div>
     </div>
 </div>
+<script>
+    function createCode()
+    {
+        reg = /^\+?[1-9][0-9]*$/
+        if (!reg.test(jQuery("#codeCounts").val())) {
+            $.jBox.tip('请输入正确的数字', 'error', { focusId: "codeCounts" });
+            return;
+        }
+        $.ajax({
+            url: "/VideoCode/CreateCode",
+            type: "POST",
+            data: jQuery("#createCodeForm").serialize(),
+            success: function (data) {
+                if (data == "0") {
+                    $.jBox.info('生成失败', '提示');
+                }
+                else {
+                    $.jBox.info('生成成功' + data, '提示');
+                }
+            }
+        });
+    }
+</script>

@@ -47,6 +47,7 @@
                             <tr>
                                 <th>编号</th>
                                 <th>名称</th>
+                                <th>首图</th>
                                 <th>上传时间</th>
                                 <th>邀请码数量</th>
                                 <th>已使用</th>
@@ -60,14 +61,17 @@
                                 <tr>
                                     <td>@v.VideoID</td>
                                     <td>@v.VideoName</td>
+                                    <td>
+                                        <img style="width:100px;height:70px;" src="@v.VideoImageLocal"/>
+                                    </td>
                                     <td>@v.UploadTime</td>
                                     <td>@v.CodeCounts</td>
                                     <td>@v.CodeUsed</td>
                                     <td>@v.CodeNotUsed</td>
                                     <td>
-                                        <a href="#">[编辑]</a>
-                                        <a href="#">[删除]</a>
-                                        <a id="@v.VideoID" onclick="exportExcel(this.id);">[导出邀请码]</a>
+                                        <a onclick="createCode(@v.VideoID);">[生成邀请码]</a>
+                                        <a onclick="deleteVideo(@v.VideoID);">[删除]</a>
+                                        <a onclick="exportExcel(@v.VideoID);">[导出邀请码]</a>
                                     </td>
                                 </tr>
                             }
@@ -103,7 +107,7 @@
     //导出单个视频的邀请码
     function exportExcel(videoID)
     {
-        var html = "<div style='padding:10px;'>数量：<input type='text' id='num' name='num' /></div>";
+        var html = "<div style='padding:10px;'><p style='color:red;'>请输入要导出的邀请码数量，0表示导出全部邀请码</p>数量：<input type='text' id='num' name='num' /></div>";
         var submit = function (v, h, f) {
             if (f.num == '') {
                 $.jBox.tip("请输入要导出的邀请码数量。", 'error', { focusId: "num" });
@@ -134,5 +138,67 @@
     function exportAll()
     {
         window.location.href = "/VideoCode/ExportExcel?videoID=-1";
+    }
+
+    //删除视频
+    function deleteVideo(VideoID)
+    {
+        var submit = function (v, h, f) {
+            if (v == 'ok')
+            {
+                $.ajax({
+                    url: "/VideoManager/DeleteVideo",
+                    data: {
+                        "VideoID": VideoID
+                    },
+                    success: function (data) {
+                        if (data = "1") {
+                            window.location.href = "/VideoManager";
+                        }
+                    }
+                });
+            }
+            else if (v == 'cancel')
+                jBox.tip("取消操作", 'info');
+
+            return true; //close
+        };
+
+        $.jBox.confirm("删除视频将导致视频所对应的全部邀请码一并删除，请再次确认操作！", "提示", submit);
+    }
+
+    //生成邀请码
+    function createCode(videoID)
+    {
+        var html = "<div style='padding:10px;'>数量：<input type='text' id='codeCounts' name='codeCounts' /></div>";
+        var submit = function (v, h, f) {
+            if (f.codeCounts == '') {
+                $.jBox.tip("请输入要生成的邀请码数量。", 'error', { focusId: "codeCounts" });
+                return false;
+            }
+            reg = /^\+?[1-9][0-9]*$/
+            if (!reg.test(f.codeCounts)) {
+                $.jBox.tip('请输入正确的数字', 'error', { focusId: "codeCounts" });
+                return false;
+            }
+            $.ajax({
+                url: "/VideoCode/CreateCode",
+                type:"POST",
+                data: {
+                    "videoID": videoID,
+                    "codeCounts": f.codeCounts
+                },
+                success: function (data) {
+                    if (data == "0") {
+                        $.jBox.info('生成失败', '提示');
+                    }
+                    else {
+                        $.jBox.info('生成成功', '提示');
+                    }
+                }
+            });
+            return true;
+        };
+        $.jBox(html, { title: "输入邀请码数量", submit: submit });
     }
 </script>

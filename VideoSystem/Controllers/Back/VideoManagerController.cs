@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -55,6 +56,28 @@ namespace VideoSystem.Controllers.Back
                 TempData["info"] = "请选择视频首图和要上传的视频文件";
                 return RedirectToAction("UploadPage", "VideoManager");
             }
+        }
+
+
+        //编辑视频
+        public ActionResult EditVideo()
+        {
+
+            return null;
+        }
+
+
+        //删除视频
+        public ActionResult DeleteVideo(int VideoID)
+        {
+            Video v = vsc.Videos.Find(VideoID);
+            if(ModelState.IsValid)
+            {
+                vsc.Videos.Remove(v);
+                vsc.SaveChanges();
+                return Content("1");
+            }
+            return Content("0");
         }
     }
 }

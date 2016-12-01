@@ -67,31 +67,35 @@ namespace VideoSystem.Controllers.Back
         }
 
         [HttpPost]
-        public ActionResult CreateCode(int videoID, int codeCounts)
+        public ActionResult CreateCode(int codeCounts,int videoID)
         {
-            Video video = vsc.Videos.Find(videoID);
-            List<string> codeList = icreateCode.createCode(codeCounts, video);
-
-            foreach(string code in codeList)
+            if (videoID != -1)
             {
-                Code c = new Code() { CodeStatus = 0, CodeValue = code, Video = video, VideoID = video.VideoID,UserID = -1};
+                Video video = vsc.Videos.Find(videoID);
+                List<string> codeList = icreateCode.createCode(codeCounts, video);
+
+                foreach (string code in codeList)
+                {
+                    Code c = new Code() { CodeStatus = 0, CodeValue = code, Video = video, VideoID = video.VideoID, UserID = -1 };
+                    if (ModelState.IsValid)
+                    {
+                        vsc.Codes.Add(c);
+                        vsc.SaveChanges();
+                    }
+
+                }
+
+                video.CodeNotUsed += codeCounts;
                 if (ModelState.IsValid)
                 {
-                    vsc.Codes.Add(c);
+                    vsc.Entry(video).State = EntityState.Modified;
                     vsc.SaveChanges();
                 }
-                
+                return Content("1");
             }
             
-            video.CodeNotUsed += codeCounts;
-            if (ModelState.IsValid)
-            {
-                vsc.Entry(video).State = EntityState.Modified;
-                vsc.SaveChanges();
-            }
 
-            TempData["info"] = "生成成功";
-            return RedirectToAction("CreateCodePage", "VideoCode");
+            return Content("0");
         }
 
         // GET: /VideoCode/ExportExcel
@@ -133,6 +137,18 @@ namespace VideoSystem.Controllers.Back
                              select item).ToArray();
                 fileName = "全部视频";
             }
+
+
+            foreach (Code c in codeArray)
+            {
+                c.CodeStatus = 1;
+                if (ModelState.IsValid)
+                {
+                    vsc.Entry(c).State = EntityState.Modified;
+                    vsc.SaveChanges();
+                }
+            }
+            
 
             byte[] bytes = ie.WriteExcel(codeArray);
             return File(bytes, "application/vnd.ms-excel", fileName+".xls");
