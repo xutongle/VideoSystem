@@ -23,7 +23,6 @@ namespace VideoSystem.Models
         [Required]
         public int ManagerStatus { get; set; }
 
-        public ICollection<Log> Logs { get; set; }
         public ICollection<ManagerLimit> ManagerLimits { get; set; }
     }
 
@@ -41,17 +40,5 @@ namespace VideoSystem.Models
         public virtual Manager Manager { get; set; }
     }
 
-    public class Log
-    {
-        [Key]
-        public int LogID { get; set; }
-        [Required]
-        public string Operate { get; set; }
-        [Required]
-        public DateTime OperateTime { get; set; }
-        [Required]
-        public int ManagerID { get; set; }
-
-        public virtual Manager Manager { get; set; }
-    }
+ 
 }

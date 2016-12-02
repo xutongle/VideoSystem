@@ -55,7 +55,18 @@ namespace VideoSystem.Controllers.Back
                            orderby items.CodeID
                            select items;
             }
-            
+
+            TempData["codeCount"] = (from items in vsc.Codes
+                                     select items).Count();
+
+            TempData["codeCountNotExport"] = (from items in vsc.Codes
+                                     where items.CodeStatus == 0
+                                     select items).Count();
+
+            TempData["codeCountUsed"] = (from items in vsc.Codes
+                                         where items.CodeStatus == 2
+                                        select items).Count();
+
             ip.GetCurrentPageData(codeList, page_id);
             return View(ip);
         }

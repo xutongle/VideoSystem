@@ -161,8 +161,6 @@
     <Compile Include="Concrete\SimpleVerifyCode.cs" />
     <Compile Include="Concrete\UploadFile.cs" />
     <Compile Include="Controllers\Back\AdminController.cs" />
-    <Compile Include="Controllers\Back\LimitsManagerController.cs" />
-    <Compile Include="Controllers\Back\LogManagerController.cs" />
     <Compile Include="Controllers\Back\SettingsController.cs" />
     <Compile Include="Controllers\Back\UploadController.cs" />
     <Compile Include="Controllers\Back\UserManagerController.cs" />
@@ -182,6 +180,10 @@
     <Compile Include="Migrations\201611291516382_alter1.cs" />
     <Compile Include="Migrations\201611291516382_alter1.Designer.cs">
       <DependentUpon>201611291516382_alter1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612020722274_deleteLog.cs" />
+    <Compile Include="Migrations\201612020722274_deleteLog.Designer.cs">
+      <DependentUpon>201612020722274_deleteLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Manager.cs" />
@@ -616,7 +618,6 @@
     <Content Include="Views\Back\Admin\Index.cshtml" />
     <Content Include="Views\Front\Home\Index.cshtml" />
     <Content Include="Views\Shared\_BackLayout.cshtml" />
-    <Content Include="Views\Front\Home\Main.cshtml" />
     <Content Include="Views\Front\Home\RegistPage.cshtml" />
     <Content Include="plugin\VideoJS\test.webm" />
     <Content Include="plugin\VideoJS\test.ogg" />
@@ -624,11 +625,8 @@
     <Content Include="Views\Back\VideoManager\UploadPage.cshtml" />
     <Content Include="Views\Back\VideoCode\Index.cshtml" />
     <Content Include="Views\Back\VideoCode\CreateCodePage.cshtml" />
-    <Content Include="Views\Back\LimitsManager\Index.cshtml" />
-    <Content Include="Views\Back\LimitsManager\AddManagerPage.cshtml" />
     <Content Include="Views\Back\Settings\Index.cshtml" />
     <Content Include="Views\Back\Settings\ModifyPassPage.cshtml" />
-    <Content Include="Views\Back\LogManager\Index.cshtml" />
     <Content Include="Views\Back\UserManager\Index.cshtml" />
     <Content Include="Views\Back\UserManager\UserSuggestPage.cshtml" />
     <Content Include="Views\Back\Admin\BackMain.cshtml" />
@@ -649,6 +647,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611291516382_alter1.resx">
       <DependentUpon>201611291516382_alter1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612020722274_deleteLog.resx">
+      <DependentUpon>201612020722274_deleteLog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

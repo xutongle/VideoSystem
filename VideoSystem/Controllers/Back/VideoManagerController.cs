@@ -30,6 +30,9 @@ namespace VideoSystem.Controllers.Back
                                           orderby items.UploadTime
                                           select items;
 
+            TempData["videoCount"] = (from items in vsc.Videos
+                                      select items).Count();
+
             ip.GetCurrentPageData(videoList, page_id);
             return View(ip);
         }

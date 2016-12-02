@@ -19,6 +19,5 @@ namespace VideoSystem.Models
         public DbSet<Suggest> Suggests { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<ManagerLimit> ManagerLimits { get; set; }
-        public DbSet<Log> Logs { get; set; }
     }
 }

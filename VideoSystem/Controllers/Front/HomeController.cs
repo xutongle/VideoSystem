@@ -69,6 +69,7 @@ namespace VideoSystem.Controllers.Front
             return View();
         }
 
+       
         //用户注册
         [HttpPost]
         public ActionResult Regist(User user) {
@@ -85,6 +86,7 @@ namespace VideoSystem.Controllers.Front
             }
         }
 
+        //判断注册的账号是否存在
         [HttpPost]
         public ContentResult IsRegistAccountExist(string account)
         {
@@ -101,6 +103,7 @@ namespace VideoSystem.Controllers.Front
             }
         }
 
+        //用户反馈
         [CustAuthorize("user")]
         [HttpPost]
         public ContentResult UserSuggest(string suggestText)
@@ -116,9 +119,11 @@ namespace VideoSystem.Controllers.Front
                 vsc.Suggests.Add(suggest);
                 vsc.SaveChanges();
             }
+
             return Content("ok");
         }
 
+        //获取视频
         [CustAuthorize("user")]
         [HttpPost]
         public ActionResult GetVideo(string videoCode)
