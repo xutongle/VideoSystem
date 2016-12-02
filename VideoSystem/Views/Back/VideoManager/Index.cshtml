@@ -39,6 +39,9 @@
                                 <td style="padding-left:10px;">
                                     <button type="button" class="btn btn-primary" onclick="exportAll();">导出全部邀请码</button>
                                 </td>
+                                <td style="padding-left:10px;">
+                                    <a href="@Url.Content("~/VideoManager/UploadPage")" class="btn btn-primary" >上传视频</a>
+                                </td>
                             </tr>
                         </table>
                     </form>
@@ -190,10 +193,10 @@
                 },
                 success: function (data) {
                     if (data == "0") {
-                        $.jBox.info('生成失败', '提示');
+                        $.jBox.tip('生成失败', '提示');
                     }
                     else {
-                        $.jBox.info('生成成功', '提示');
+                        $.jBox.tip('生成成功', '提示');
                     }
                 }
             });

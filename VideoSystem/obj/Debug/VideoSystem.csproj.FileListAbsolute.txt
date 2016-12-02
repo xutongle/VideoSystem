@@ -172,4 +172,3 @@ E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.pdb
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.createdatabase.resources
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.alter1.resources
-E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache

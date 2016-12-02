@@ -105,53 +105,69 @@ namespace VideoSystem.Controllers.Back
             Code[] codeArray = null;
             string fileName = null;
 
-            //导出单个视频的邀请码
-            if (videoID != -1)
+
+            if (Request.IsAjaxRequest())
             {
-                if (num == 0)
+                int count = (from item in vsc.Codes
+                             where item.VideoID == videoID && item.CodeStatus == 0
+                             select item).Count();
+                //请求的数量大于已有的数量
+                if (num > count)
                 {
-                    codeArray = vsc.Codes.Where(c => c.VideoID == videoID && c.CodeStatus == 0).ToArray();
+                    return Content("1");
                 }
-                else {
-                    int count = (from item in vsc.Codes
-                                 where item.VideoID == videoID && item.CodeStatus == 0
-                                 select item).Count();
-                    //请求的数量大于已有的数量
-                    if (num > count)
-                    {
-                        return Content("1");
-                    }
-
-                    codeArray = (from item in vsc.Codes
-                                 where item.VideoID == videoID && item.CodeStatus == 0
-                                 orderby item.CodeID descending
-                                 select item).Take(num).ToArray();
-
-                }
-                fileName = codeArray[0].Video.VideoName;
+                return Content("0");
             }
-            //导出全部视频的邀请码
             else {
-                codeArray = (from item in vsc.Codes
-                             orderby item.CodeID descending
-                             select item).ToArray();
-                fileName = "全部视频";
-            }
-
-
-            foreach (Code c in codeArray)
-            {
-                c.CodeStatus = 1;
-                if (ModelState.IsValid)
+                //导出单个视频的邀请码
+                if (videoID != -1)
                 {
-                    vsc.Entry(c).State = EntityState.Modified;
-                    vsc.SaveChanges();
-                }
-            }
-            
+                    if (num == 0)
+                    {
+                        codeArray = vsc.Codes.Where(c => c.VideoID == videoID && c.CodeStatus == 0).ToArray();
+                    }
+                    else
+                    {
+                        int count = (from item in vsc.Codes
+                                     where item.VideoID == videoID && item.CodeStatus == 0
+                                     select item).Count();
+                        //请求的数量大于已有的数量
+                        if (num > count)
+                        {
+                            return RedirectToAction("", "VideoManager");
+                        }
 
-            byte[] bytes = ie.WriteExcel(codeArray);
-            return File(bytes, "application/vnd.ms-excel", fileName+".xls");
+                        codeArray = (from item in vsc.Codes
+                                     where item.VideoID == videoID && item.CodeStatus == 0
+                                     orderby item.CodeID descending
+                                     select item).Take(num).ToArray();
+
+                    }
+                    fileName = codeArray[0].Video.VideoName;
+                }
+                //导出全部视频的邀请码
+                else
+                {
+                    codeArray = (from item in vsc.Codes
+                                 orderby item.CodeID descending
+                                 select item).ToArray();
+                    fileName = "全部视频";
+                }
+
+
+                foreach (Code c in codeArray)
+                {
+                    c.CodeStatus = 1;
+                    if (ModelState.IsValid)
+                    {
+                        vsc.Entry(c).State = EntityState.Modified;
+                        vsc.SaveChanges();
+                    }
+                }
+
+                byte[] bytes = ie.WriteExcel(codeArray);
+                return File(bytes, "application/vnd.ms-excel", fileName + ".xls");
+            }
         }
     }
 }
