@@ -34,11 +34,15 @@ namespace VideoSystem.Controllers.Back
                                       select items).Count();
 
             ip.GetCurrentPageData(videoList, page_id);
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.account = manager.ManagerAccount;
             return View(ip);
         }
 
 
         public ActionResult UploadPage() {
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.account = manager.ManagerAccount;
             return View();
         }
 

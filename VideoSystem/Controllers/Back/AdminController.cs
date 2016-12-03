@@ -23,6 +23,8 @@ namespace VideoSystem.Controllers.Back
         [CustAuthorize("admin")]
         public ActionResult BackMain()
         {
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.account = manager.ManagerAccount;
             return View();
         }
 
@@ -40,17 +42,18 @@ namespace VideoSystem.Controllers.Back
             {
                 FormsAuthentication.SetAuthCookie("Manager", false);
 
+                Response.Cookies["abcd"].Value = Convert.ToString(managerArray[0].ManagerID);
+                Response.Cookies["abcd"].Expires = DateTime.MaxValue;
                 Session["Manager"] = managerArray[0];
-                ViewBag.account = managerArray[0].ManagerAccount;
                 return RedirectToAction("BackMain", "Admin");
             }
-            //FormsAuthentication.SetAuthCookie("Manager", false);
-            //return RedirectToAction("BackMain", "Admin");
         }
 
+        //退出登录
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Response.Cookies.Clear();
             return RedirectToAction("","Admin");
         }
 

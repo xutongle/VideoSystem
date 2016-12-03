@@ -29,6 +29,8 @@ namespace VideoSystem.Controllers.Back
                                          orderby items.UserID
                                          select items;
             ip.GetCurrentPageData(userList, page_id);
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.account = manager.ManagerAccount;
             return View(ip);
         }
 
@@ -38,7 +40,8 @@ namespace VideoSystem.Controllers.Back
             IEnumerable<Suggest> suggestList = from items in vsc.Suggests
                                                orderby items.SuggestID
                                                select items;
-
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.account = manager.ManagerAccount;
             ip.GetCurrentPageData(suggestList, page_id);
             return View(ip);
         }

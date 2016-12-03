@@ -20,14 +20,17 @@ namespace VideoSystem.Controllers.Back
 
         public ActionResult Index()
         {
-            Manager manager = (Manager)Session["Manager"];
+            int managerID = Convert.ToInt32(Request.Cookies["abcd"].Value);
+            Manager manager = vsc.Managers.Find(managerID);
+            ViewBag.account = manager.ManagerAccount;
             return View(manager);
         }
 
         //编辑信息
         public ActionResult EditInfo(string email,string phone)
         {
-            Manager manager = (Manager)Session["Manager"];
+            int managerID = Convert.ToInt32(Request.Cookies["abcd"].Value);
+            Manager manager = vsc.Managers.Find(managerID);
             manager.ManagerEmail = email;
             manager.ManagerPhone = phone;
 
@@ -36,19 +39,22 @@ namespace VideoSystem.Controllers.Back
                 vsc.Entry(manager).State = EntityState.Modified;
                 vsc.SaveChanges();
             }
-            Session["Manager"] = manager;
+
             return RedirectToAction("", "Settings");
         }
 
         //跳转到修改密码页面
         public ActionResult ModifyPassPage() {
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.account = manager.ManagerAccount;
             return View();
         }
 
         //修改密码
         public ActionResult ModifyPass(string oldPass,string newPass)
         {
-            Manager manager = (Manager)Session["Manager"];
+            int managerID = Convert.ToInt32(Request.Cookies["abcd"].Value);
+            Manager manager = vsc.Managers.Find(managerID);
 
             if (oldPass != manager.ManagerPassword)
             {
@@ -66,6 +72,7 @@ namespace VideoSystem.Controllers.Back
                 }
 
                 FormsAuthentication.SignOut();
+                Response.Cookies.Clear();
                 return RedirectToAction("", "Admin");
             }
         }

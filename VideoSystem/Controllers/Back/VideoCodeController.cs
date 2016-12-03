@@ -68,12 +68,17 @@ namespace VideoSystem.Controllers.Back
                                         select items).Count();
 
             ip.GetCurrentPageData(codeList, page_id);
+
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.account = manager.ManagerAccount;
             return View(ip);
         }
 
         public ActionResult CreateCodePage() {
             Video[] videoArray = vsc.Videos.ToArray();
 
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.account = manager.ManagerAccount;
             return View(videoArray);
         }
 

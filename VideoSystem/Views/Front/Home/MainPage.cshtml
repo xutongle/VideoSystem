@@ -118,21 +118,26 @@
         myPlayer.height(250);
     }
 
+    //用户意见反馈
     function submitSuggest()
     {
         var suggestText = jQuery("#suggestText");
         if (suggestText.val().length<=0)
         {
-            alert("反馈内容不能为空!");
-            suggestText.focus();
+            $.jBox.tip('反馈内容不能为空', 'error', { focusId: "suggestText" });
             return;
         }
         jQuery.post(
             "@Url.Content("~/Home/UserSuggest")",
             { "suggestText": suggestText.val()},
             function (data) {
-                alert("反馈成功!");
-                suggestText.val("");
+                if (data == "1") {
+                    $.jBox.tip('反馈成功', '提示');
+                    suggestText.val("");
+                }
+                else {
+                    $.jBox.tip('反馈失败', '提示');
+                }
             },
             "text"
         );

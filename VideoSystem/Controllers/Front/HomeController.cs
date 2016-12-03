@@ -26,7 +26,7 @@ namespace VideoSystem.Controllers.Front
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            Session.Clear();
+            Response.Cookies.Clear();
             return RedirectToAction("", "");
         }
 
@@ -34,11 +34,11 @@ namespace VideoSystem.Controllers.Front
         [CustAuthorize("user")]
         public ActionResult MainPage(string currentVideo = null)
         {
-
-            User u = (User)Session["User"];
+            int UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
+            User user = vsc.Users.Find(UserID);
 
             Code[] codeArray = (from item in vsc.Codes
-                                where item.UserID == u.UserID
+                                where item.UserID == user.UserID
                                 select item).ToArray();
 
             TempData["currentVideo"] = currentVideo;
@@ -54,7 +54,9 @@ namespace VideoSystem.Controllers.Front
             if (user.Count() > 0)
             {
                 FormsAuthentication.SetAuthCookie("User", false);
-                Session["User"] = user[0];
+                Response.Cookies["UserID"].Value = Convert.ToString(user[0].UserID);
+                Response.Cookies["UserID"].Expires = DateTime.MaxValue; 
+
                 return RedirectToAction("MainPage", "Home");
             }
             else
@@ -111,16 +113,20 @@ namespace VideoSystem.Controllers.Front
             Suggest suggest = new Suggest();
             suggest.SuggestText = suggestText;
             suggest.CreateTime = DateTime.Now;
-            User u = (User)Session["User"];
-            suggest.UserID = u.UserID;
-            suggest.User = u;
+
+            int UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
+            User user = vsc.Users.Find(UserID);
+
+            suggest.UserID = user.UserID;
+            suggest.User = user;
             if (ModelState.IsValid)
             {
                 vsc.Suggests.Add(suggest);
                 vsc.SaveChanges();
+                return Content("1");
             }
 
-            return Content("ok");
+            return Content("0");
         }
 
         //获取视频
@@ -137,7 +143,8 @@ namespace VideoSystem.Controllers.Front
             }
             //邀请码存在,但是用户已经有此邀请码对应的视频
             Code c = isCodeExist[0];
-            User user = (User)Session["User"];
+            int UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
+            User user = vsc.Users.Find(UserID);
             Code[] codeArray = vsc.Codes.Where(code => code.UserID == user.UserID).ToArray();
 
             int isExist = codeArray.Where(code2 => code2.VideoID == c.VideoID).ToArray().Length;
