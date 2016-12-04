@@ -103,7 +103,6 @@ namespace VideoSystem.Controllers.Back
             Code[] codeArray = null;
             string fileName = null;
 
-
             if (Request.IsAjaxRequest())
             {
                 int count = (from item in vsc.Codes

@@ -45,7 +45,7 @@
                                 <th>账号</th>
                                 <th>邮箱</th>
                                 <th>电话</th>
-                                <th>邀请码</th>
+                                <th>视频</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -57,11 +57,10 @@
                                         <td>@u.UserEmail</td>
                                         <td>@u.UserPhone</td>
                                         <td>
-                                            <a href="#">查看</a>
+                                            <a onclick="getVideo(@u.UserID);">查看</a>
                                         </td>
                                         <td>
-                                            <a href="#">[编辑]</a>
-                                            <a href="#">[删除]</a>
+                                            <a href="/UserManager/DeleteUser?userID=@u.UserID">[删除]</a>
                                         </td>
                                     </tr>
                             }
@@ -108,4 +107,18 @@
         }
         searchValue.html("<input type='text' class='form-control' name='searchValue' style='width: 200px;' placeholder=" + placeholder + " required/>");
     });
+
+    //获取视频
+    function getVideo(userID)
+    {
+        jQuery.getJSON({
+            url: "/UserManager/GetUserVideo",
+            data: {
+                "userID": userID
+            },
+            success: function (data) {
+                alert(data);
+            }
+        });
+    }
 </script>

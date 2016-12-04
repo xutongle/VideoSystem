@@ -27,7 +27,7 @@ namespace VideoSystem.Controllers.Back
         public ActionResult Index(int page_id = 1)
         {
             IEnumerable<Video> videoList = from items in vsc.Videos
-                                          orderby items.UploadTime
+                                           orderby items.UploadTime descending
                                           select items;
 
             TempData["videoCount"] = (from items in vsc.Videos
@@ -65,15 +65,6 @@ namespace VideoSystem.Controllers.Back
                 return RedirectToAction("UploadPage", "VideoManager");
             }
         }
-
-
-        //编辑视频
-        public ActionResult EditVideo()
-        {
-
-            return null;
-        }
-
 
         //删除视频
         public ActionResult DeleteVideo(int VideoID)

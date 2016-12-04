@@ -39,13 +39,47 @@ namespace VideoSystem.Controllers.Back
         public ActionResult UserSuggestPage(int page_id = 1) 
         {
             IEnumerable<Suggest> suggestList = from items in vsc.Suggests
-                                               orderby items.SuggestID
+                                               orderby items.CreateTime descending
                                                select items;
             Manager manager = (Manager)Session["Manager"];
             ViewBag.account = manager.ManagerAccount;
             ViewBag.searchAction = "/UserSuggestPage/Index/Page";
             ip.GetCurrentPageData(suggestList, page_id);
             return View(ip);
+        }
+
+        //删除用户
+        public ActionResult DeleteUser(int userID)
+        {
+            User user = vsc.Users.Find(userID);
+            if(ModelState.IsValid)
+            {
+                vsc.Users.Remove(user);
+                vsc.SaveChanges();
+            }
+            Code[] codeList = (from item in vsc.Codes
+                               where item.UserID == userID
+                                select item).ToArray();
+            //删除用户对应的邀请码
+            if (ModelState.IsValid)
+            {
+                foreach (Code c in codeList)
+                {
+                    vsc.Codes.Remove(c);
+                }
+                vsc.SaveChanges();
+            }
+            return RedirectToAction("", "UserManager");
+        }
+
+        //查看用户视频
+        public ActionResult GetUserVideo(int userID)
+        {
+            Code[] CodeArraay = (from item in vsc.Codes
+                                 where item.UserID == userID
+                                 select item).ToArray();
+
+            return Content("ok");
         }
     }
 }

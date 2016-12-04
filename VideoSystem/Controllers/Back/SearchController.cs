@@ -45,7 +45,7 @@ namespace VideoSystem.Controllers.Back
                 if (searchType == "code")
                 {
                     codeList = from items in vsc.Codes
-                               where items.CodeValue == searchValue
+                               where items.CodeValue.Contains(searchValue)
                                select items;
                 }
                 //按状态查询
@@ -65,6 +65,17 @@ namespace VideoSystem.Controllers.Back
                                where items.Video.VideoName.Contains(searchValue)
                                select items;
                 }
+
+                TempData["codeCount"] = (from items in vsc.Codes
+                                         select items).Count();
+
+                TempData["codeCountNotExport"] = (from items in vsc.Codes
+                                                  where items.CodeStatus == 0
+                                                  select items).Count();
+
+                TempData["codeCountUsed"] = (from items in vsc.Codes
+                                             where items.CodeStatus == 2
+                                             select items).Count();
 
                 ip.GetCurrentPageData(codeList, page_id);
                 ViewBag.searchAction = "/Search/Index/Page";
@@ -91,6 +102,9 @@ namespace VideoSystem.Controllers.Back
                                 where items.VideoName.Contains(searchValue)
                                 select items;
                 }
+
+                TempData["videoCount"] = (from items in vsc.Videos
+                                          select items).Count();
 
                 ip.GetCurrentPageData(videoList, page_id);
                 ViewBag.searchAction = "/Search/Index/Page";

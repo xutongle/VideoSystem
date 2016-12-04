@@ -22,11 +22,11 @@
                         <table>
                             <tr>
                                 <td id="searchValue">
-                                    <input type="text" class="form-control" name="searchValue" style="width: 200px;" required/>
+                                    <input type="text" class="form-control" name="searchValue" style="width: 200px;" placeholder='请输入邀请码' required/>
                                 </td>
                                 <td>
                                     <select class="form-control" style="width: 100px;" id="searchType" name="searchType">
-                                        <option value="code" selected>邀请码</option>
+                                        <option value="code" selected>按邀请码</option>
                                         <option value="status">按状态</option>
                                         <option value="video">按视频</option>
                                     </select>
@@ -53,7 +53,6 @@
                                 <th>邀请码</th>
                                 <th>状态</th>
                                 <th>视频</th>
-                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,9 +78,6 @@
                                         <td>已失效</td>
                                     }
                                     <td>@c.Video.VideoName</td>
-                                    <td>
-                                        <a href="#">[删除]</a>
-                                    </td>
                                 </tr>
                             }
                         </tbody>
