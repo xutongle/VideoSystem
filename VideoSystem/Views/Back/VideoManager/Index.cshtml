@@ -20,17 +20,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading">视频列表</div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form role="form" action="@Url.Content("~/Search")" method="get">
+                        <input type="hidden" name="model" value="Video"/>
                         <table>
                             <tr>
-                                <td>
-                                    <input type="text" class="form-control" id="name" placeholder="搜索" style="width: 200px;" />
+                                <td id="searchValue">
+                                    <input type="text" class="form-control" name="searchValue" placeholder="请输入视频编号" style="width: 200px;" />
                                 </td>
                                 <td>
-                                    <select class="form-control" style="width: 100px;">
-                                        <option>按编号</option>
-                                        <option>按名称</option>
-                                        <option>按时间</option>
+                                    <select class="form-control" style="width: 100px;" id="searchType" name="searchType">
+                                        <option value="videoID" selected>按编号</option>
+                                        <option value="videoName">按名称</option>
                                     </select>
                                 </td>
                                 <td>
@@ -92,14 +92,14 @@
 
                     <div style="text-align: center">
                         <ul class="pagination">
-                            <li><a href="@Url.Content("~/VideoManager/Index/Page1")">首页</a></li>
-                            <li><a href="@Url.Content("~/VideoManager/Index/Page" + prePageId)">&laquo;</a></li>
+                            <li><a href="@ViewBag.searchAction">首页</a></li>
+                            <li><a href="@ViewBag.searchAction@prePageId">&laquo;</a></li>
                             @for (int i = Model.start_page_num; i <= Model.end_page_num; i++)
                             {
-                                <li><a id="@i" href="@Url.Content("~/VideoManager/Index/Page" + i)">@i</a></li>
+                                <li><a id="@i" href="@ViewBag.searchAction@i">@i</a></li>
                             }
-                            <li><a href="@Url.Content("~/VideoManager/Index/Page" + nextPageId)">&raquo;</a></li>
-                            <li><a href="@Url.Content("~/VideoManager/Index/Page" + Model.total_pages)">末页</a></li>
+                            <li><a href="@ViewBag.searchAction@nextPageId">&raquo;</a></li>
+                            <li><a href="@ViewBag.searchAction@Model.total_pages">末页</a></li>
                         </ul>
                     </div>
                 </div>
@@ -110,6 +110,18 @@
 </div>
 
 <script>
+    jQuery("#searchType").on("change", function () {
+        var searchType = this.value;
+        var searchValue = jQuery("#searchValue");
+        if (searchType == "videoID") {
+            searchValue.html("<input type='text' class='form-control' name='searchValue' style='width: 200px;' placeholder=请输入视频编号 required/>");
+        }
+        if (searchType == "videoName") {
+            searchValue.html("<input type='text' class='form-control' name='searchValue' style='width: 200px;' placeholder=请输入视频名称 required/>");
+        }
+    });
+
+
     //导出单个视频的邀请码
     function exportExcel(videoID)
     {

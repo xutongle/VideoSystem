@@ -30,6 +30,7 @@ namespace VideoSystem.Controllers.Back
                                          select items;
             ip.GetCurrentPageData(userList, page_id);
             Manager manager = (Manager)Session["Manager"];
+            ViewBag.searchAction = "/UserManager/Index/Page";
             ViewBag.account = manager.ManagerAccount;
             return View(ip);
         }
@@ -42,6 +43,7 @@ namespace VideoSystem.Controllers.Back
                                                select items;
             Manager manager = (Manager)Session["Manager"];
             ViewBag.account = manager.ManagerAccount;
+            ViewBag.searchAction = "/UserSuggestPage/Index/Page";
             ip.GetCurrentPageData(suggestList, page_id);
             return View(ip);
         }

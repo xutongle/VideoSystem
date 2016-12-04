@@ -161,6 +161,8 @@
     <Compile Include="Concrete\SimpleVerifyCode.cs" />
     <Compile Include="Concrete\UploadFile.cs" />
     <Compile Include="Controllers\Back\AdminController.cs" />
+    <Compile Include="Controllers\Back\RSAController.cs" />
+    <Compile Include="Controllers\Back\SearchController.cs" />
     <Compile Include="Controllers\Back\SettingsController.cs" />
     <Compile Include="Controllers\Back\UploadController.cs" />
     <Compile Include="Controllers\Back\UserManagerController.cs" />
@@ -185,6 +187,10 @@
     <Compile Include="Migrations\201612020722274_deleteLog.Designer.cs">
       <DependentUpon>201612020722274_deleteLog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612030538199_deleteManagerLimits.cs" />
+    <Compile Include="Migrations\201612030538199_deleteManagerLimits.Designer.cs">
+      <DependentUpon>201612030538199_deleteManagerLimits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Manager.cs" />
     <Compile Include="Models\Model\User.cs" />
@@ -193,6 +199,7 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Content Include="Image\manager.png" />
     <Content Include="plugin\jBox\jquery-1.4.2.min.js" />
     <Content Include="plugin\jBox\jquery.jBox-2.2.min.js" />
     <Content Include="plugin\jBox\Skins2\Blue\images\jbox-close1.gif" />
@@ -650,6 +657,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612020722274_deleteLog.resx">
       <DependentUpon>201612020722274_deleteLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612030538199_deleteManagerLimits.resx">
+      <DependentUpon>201612030538199_deleteManagerLimits.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

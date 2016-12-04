@@ -17,17 +17,18 @@
             <div class="panel panel-default">
                 <div class="panel-heading">邀请码列表</div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form role="form" action="@Url.Content("~/Search")" method="get">
+                        <input type="hidden" name="model" value="Code"/>
                         <table>
                             <tr>
-                                <td>
-                                    <input type="text" class="form-control" id="name" style="width: 200px;" required/>
+                                <td id="searchValue">
+                                    <input type="text" class="form-control" name="searchValue" style="width: 200px;" required/>
                                 </td>
                                 <td>
-                                    <select class="form-control" style="width: 100px;" >
-                                        <option>邀请码</option>
-                                        <option>按状态</option>
-                                        <option>按视频</option>
+                                    <select class="form-control" style="width: 100px;" id="searchType" name="searchType">
+                                        <option value="code" selected>邀请码</option>
+                                        <option value="status">按状态</option>
+                                        <option value="video">按视频</option>
                                     </select>
                                 </td>
                                 <td>
@@ -93,14 +94,14 @@
 
                     <div style="text-align: center">
                         <ul class="pagination">
-                            <li><a href="@Url.Content("~/VideoCode/Index/Page1")">首页</a></li>
-                            <li><a href="@Url.Content("~/VideoCode/Index/Page" + prePageId)">&laquo;</a></li>
+                            <li><a href="@ViewBag.searchAction">首页</a></li>
+                            <li><a href="@ViewBag.searchAction@prePageId">&laquo;</a></li>
                             @for (int i = Model.start_page_num; i <= Model.end_page_num; i++)
                             {
-                                <li><a id="@i" href="@Url.Content("~/VideoCode/Index/Page" + i)">@i</a></li>
+                                <li><a id="@i" href="@ViewBag.searchAction@i">@i</a></li>
                             }
-                            <li><a href="@Url.Content("~/VideoCode/Index/Page" + nextPageId)">&raquo;</a></li>
-                            <li><a href="@Url.Content("~/VideoCode/Index/Page" + Model.total_pages)">末页</a></li>
+                            <li><a href="@ViewBag.searchAction@nextPageId">&raquo;</a></li>
+                            <li><a href="@ViewBag.searchAction@Model.total_pages">末页</a></li>
                         </ul>
                     </div>
                 </div>
@@ -108,3 +109,26 @@
         </div>
     </div>
 </div>
+<script>
+   
+
+    jQuery("#searchType").on("change", function () {
+        var searchType = this.value;
+        var searchValue = jQuery("#searchValue");
+        if (searchType == "code")
+        {
+            searchValue.html("<input type='text' class='form-control' name='searchValue' style='width: 200px;' placeholder=请输入邀请码 required/>");
+        }
+        if (searchType == "status") {
+            searchValue.html('<select class="form-control" style="width: 100px;" name="searchValue">'
+                             +'<option value="0" selected>未打印</option>'
+                             + '<option value="1">已打印</option>'
+                             + '<option value="2">已使用</option>'
+                             + '<option value="3">已失效</option>'
+                             +'</select>' );
+        }
+        if (searchType == "video") {
+            searchValue.html("<input type='text' class='form-control' name='searchValue' style='width: 200px;' placeholder=请输入视频名称 required/>");
+        }
+    });
+</script>

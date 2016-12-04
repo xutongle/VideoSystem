@@ -35,6 +35,7 @@ namespace VideoSystem.Controllers.Back
 
             ip.GetCurrentPageData(videoList, page_id);
             Manager manager = (Manager)Session["Manager"];
+            ViewBag.searchAction = "/VideoManager/Index/Page";
             ViewBag.account = manager.ManagerAccount;
             return View(ip);
         }

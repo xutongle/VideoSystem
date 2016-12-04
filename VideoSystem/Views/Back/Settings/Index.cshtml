@@ -23,21 +23,7 @@
                                 <td>账号：</td>
                                 <td>@Model.ManagerAccount</td>
                             </tr>
-                            <tr>
-                                <td>等级：</td>
-                                @{
-                                    string range;
-                                    if (Model.ManagerRange == 0)
-                                    {
-                                        range = "超级管理员";
-                                    }
-                                    else
-                                    {
-                                        range = "普通管理员";
-                                    }
-                                 }
-                                <td>@range</td>
-                            </tr>
+                            
                             <tr>
                                 <td>邮箱：</td>
                                 <td>

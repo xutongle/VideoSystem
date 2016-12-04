@@ -13,9 +13,11 @@
     <script src="~/Scripts/jquery-1.8.2.min.js"></script>
     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Scripts/Utils.js"></script>
+    
+    <script src="~/Scripts/RSA.js"></script>
 
-  <script type="text/javascript" src="~/plugin/jBox/jquery.jBox-2.2.min.js"></script>
-  <link type="text/css" rel="stylesheet" href="~/plugin/jBox/Skins/Gray/jbox.css"/>
+    <script type="text/javascript" src="~/plugin/jBox/jquery.jBox-2.2.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="~/plugin/jBox/Skins/Gray/jbox.css"/>
 
     <!--[if lt IE 9]>
     <script src="~/Scripts/html5shiv.js"></script>
@@ -33,7 +35,7 @@
 					<li class="dropdown pull-right">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>@ViewBag.account<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-                            <li><a href="@Url.Content("~/Settings/")"><span class="glyphicon glyphicon-user"></span> 信息</a></li>
+                            <li><a href="@Url.Content("~/Settings")"><span class="glyphicon glyphicon-user"></span> 信息</a></li>
 							<li><a href="@Url.Content("~/Settings/ModifyPassPage")"><span class="glyphicon glyphicon-cog"></span> 修改密码</a></li>
                             <li><a href="@Url.Content("~/Admin/Logout")"><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>
 						</ul>
@@ -45,11 +47,12 @@
 
     <!--左侧菜单栏 -->
     <div id="sidebar-collapse" class="sidebar collapsein" style="width:250px;">
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="综合搜索">
+			<div class="form-group" style="text-align:center;padding-top:10px;">
+                <img src="~/Image/manager.png" style="width:70px;height:70px;border-radius:35px;"/>
+                <p style="color:black;margin-bottom:0;">管理员：@ViewBag.account</p>
+                <a href="@Url.Content("~/Admin/Logout")">[退出]</a>
+                <a href="@Url.Content("~/Settings/ModifyPassPage")">[修改密码]</a>
 			</div>
-		</form>
 		<ul class="nav menu">
 			<li class="active"><a href="@Url.Content("~/Admin/BackMain/")"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
 

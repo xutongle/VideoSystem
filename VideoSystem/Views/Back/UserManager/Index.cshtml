@@ -18,17 +18,18 @@
             <div class="panel panel-default">
                 <div class="panel-heading">用户列表</div>
                 <div class="panel-body">
-                    <form role="form" method="post" action="@Url.Content("~/UserManager")">
+                    <form role="form" action="@Url.Content("~/Search")" method="get">
+                        <input type="hidden" name="model" value="User"/>
                         <table>
                             <tr>
-                                <td>
-                                    <input type="text" class="form-control" name="searchText" id="searchText" placeholder="搜索" style="width: 200px;" />
+                                <td id="searchValue">
+                                    <input type="text" class="form-control" name="searchValue" placeholder="请输入用户账号" style="width: 200px;" />
                                 </td>
                                 <td>
-                                    <select class="form-control" style="width: 120px;" name="searchType">
-                                        <option value="byAccount">按账号</option>
-                                        <option value="byEmail">按邮箱</option>
-                                        <option value="byPhone">按电话</option>
+                                    <select class="form-control" style="width: 120px;" id="searchType" name="searchType">
+                                        <option value="account">按账号</option>
+                                        <option value="email">按邮箱</option>
+                                        <option value="phone">按电话</option>
                                     </select>
                                 </td>
                                 <td>
@@ -74,14 +75,14 @@
 
                     <div style="text-align: center">
                         <ul class="pagination">
-                            <li><a href="@Url.Content("~/UserManager/Index/Page1")">首页</a></li>
-                            <li><a href="@Url.Content("~/UserManager/Index/Page" + prePageId)">&laquo;</a></li>
+                            <li><a href="@ViewBag.searchAction">首页</a></li>
+                            <li><a href="@ViewBag.searchAction@prePageId">&laquo;</a></li>
                             @for (int i = Model.start_page_num; i <= Model.end_page_num; i++)
                             {
-                                <li><a id="@i" href="@Url.Content("~/UserManager/Index/Page" + i)">@i</a></li>
+                                <li><a id="@i" href="@ViewBag.searchAction@i">@i</a></li>
                             }
-                            <li><a href="@Url.Content("~/UserManager/Index/Page" + nextPageId)">&raquo;</a></li>
-                            <li><a href="@Url.Content("~/UserManager/Index/Page" + Model.total_pages)">末页</a></li>
+                            <li><a href="@ViewBag.searchAction@nextPageId">&raquo;</a></li>
+                            <li><a href="@ViewBag.searchAction@Model.total_pages">末页</a></li>
                         </ul>
                     </div>
                     
@@ -91,3 +92,20 @@
     </div>
 
 </div>
+<script>
+    jQuery("#searchType").on("change", function () {
+        var searchType = this.value;
+        var searchValue = jQuery("#searchValue");
+        var placeholder = "";
+        if (searchType == "account") {
+            placeholder = "请输入用户账号";
+        }
+        if (searchType == "email") {
+            placeholder = "请输入用户邮箱";
+        }
+        if (searchType == "phone") {
+            placeholder = "请输入用户电话";
+        }
+        searchValue.html("<input type='text' class='form-control' name='searchValue' style='width: 200px;' placeholder=" + placeholder + " required/>");
+    });
+</script>

@@ -29,33 +29,14 @@ namespace VideoSystem.Controllers.Back
         //
         // GET: /VideoCode/
 
-        public ActionResult Index(int page_id = 1,int codeStatus = -1,string code = null)
+        public ActionResult Index(int page_id = 1)
         {
             IEnumerable<Code> codeList = null;
-           
-            //安状态查询
-            if (codeStatus != -1)
-            {
-                codeList = from items in vsc.Codes
-                           orderby items.CodeID
-                           where items.CodeStatus == codeStatus
-                           select items;
-            }
-            //查找邀请码
-            else if (code != null)
-            {
-                codeList = from items in vsc.Codes
-                           where items.CodeValue == code
-                           select items;
-            }
-            //查询全部
-            else
-            {
-                codeList = from items in vsc.Codes
-                           orderby items.CodeID
-                           select items;
-            }
-
+            
+            codeList = from items in vsc.Codes
+                       orderby items.CodeID
+                       select items;
+            
             TempData["codeCount"] = (from items in vsc.Codes
                                      select items).Count();
 
@@ -70,6 +51,7 @@ namespace VideoSystem.Controllers.Back
             ip.GetCurrentPageData(codeList, page_id);
 
             Manager manager = (Manager)Session["Manager"];
+            ViewBag.searchAction = "/VideoCode/Index/Page";
             ViewBag.account = manager.ManagerAccount;
             return View(ip);
         }

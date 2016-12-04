@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using VideoSystem.Abstract;
 using VideoSystem.Filters;
 using VideoSystem.Models;
 
@@ -13,6 +14,12 @@ namespace VideoSystem.Controllers.Front
     public class HomeController : Controller
     {
         private VideoSystemContext vsc = new VideoSystemContext();
+        private IEncryption ie;
+
+        public HomeController(IEncryption ie)
+        {
+            this.ie = ie;
+        }
 
         //
         // GET: /Home/
@@ -49,6 +56,7 @@ namespace VideoSystem.Controllers.Front
         [HttpPost]
         public ActionResult Main(string account, string password)
         {
+            password = ie.MyMD5(password);
             User[] user = vsc.Users.Where(u => u.UserAccount == account && u.UserPassword == password).ToArray();
 
             if (user.Count() > 0)
@@ -75,6 +83,10 @@ namespace VideoSystem.Controllers.Front
         //用户注册
         [HttpPost]
         public ActionResult Regist(User user) {
+
+            //用户密码加密存储
+            user.UserPassword = ie.MyMD5(user.UserPassword);
+
             if (ModelState.IsValid)
             {
                 vsc.Users.Add(user);
