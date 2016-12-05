@@ -111,14 +111,6 @@
     //获取视频
     function getVideo(userID)
     {
-        jQuery.getJSON({
-            url: "/UserManager/GetUserVideo",
-            data: {
-                "userID": userID
-            },
-            success: function (data) {
-                alert(data);
-            }
-        });
+        jQuery.jBox.open("iframe:/UserManager/GetUserVideo?userID=" + userID, "用户视频", 600, 350, { buttons: { "关闭": true } });
     }
 </script>

@@ -143,23 +143,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\ICreateCode.cs" />
-    <Compile Include="Abstract\IEncryption.cs" />
-    <Compile Include="Abstract\IExportExcel.cs" />
-    <Compile Include="Abstract\IPaging.cs" />
-    <Compile Include="Abstract\IUploadFile.cs" />
-    <Compile Include="Abstract\IVerifyCode.cs" />
+    <Compile Include="Models\Abstract\ICreateCode.cs" />
+    <Compile Include="Models\Abstract\IEncryption.cs" />
+    <Compile Include="Models\Abstract\IExportExcel.cs" />
+    <Compile Include="Models\Abstract\IPaging.cs" />
+    <Compile Include="Models\Abstract\IUploadFile.cs" />
+    <Compile Include="Models\Abstract\IVerifyCode.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\MyViewEngine.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Concrete\CreateCode.cs" />
-    <Compile Include="Concrete\Encryption.cs" />
-    <Compile Include="Concrete\ExportExcel.cs" />
-    <Compile Include="Concrete\Paging.cs" />
-    <Compile Include="Concrete\SimpleVerifyCode.cs" />
-    <Compile Include="Concrete\UploadFile.cs" />
+    <Compile Include="Models\Concrete\CreateCode.cs" />
+    <Compile Include="Models\Concrete\Encryption.cs" />
+    <Compile Include="Models\Concrete\ExportExcel.cs" />
+    <Compile Include="Models\Concrete\Paging.cs" />
+    <Compile Include="Models\Concrete\SimpleVerifyCode.cs" />
+    <Compile Include="Models\Concrete\UploadFile.cs" />
     <Compile Include="Controllers\Back\AdminController.cs" />
     <Compile Include="Controllers\Back\RSAController.cs" />
     <Compile Include="Controllers\Back\SearchController.cs" />
@@ -174,7 +174,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\NinjectDependency.cs" />
+    <Compile Include="Models\Infrastructure\NinjectDependency.cs" />
     <Compile Include="Migrations\201611291505472_createdatabase.cs" />
     <Compile Include="Migrations\201611291505472_createdatabase.Designer.cs">
       <DependentUpon>201611291505472_createdatabase.cs</DependentUpon>
@@ -638,6 +638,7 @@
     <Content Include="Views\Back\UserManager\UserSuggestPage.cshtml" />
     <Content Include="Views\Back\Admin\BackMain.cshtml" />
     <Content Include="Views\Front\Home\MainPage.cshtml" />
+    <Content Include="Views\Back\UserManager\GetUserVideo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

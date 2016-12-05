@@ -79,7 +79,7 @@ namespace VideoSystem.Controllers.Back
                                  where item.UserID == userID
                                  select item).ToArray();
 
-            return Content("ok");
+            return View(CodeArraay);
         }
     }
 }

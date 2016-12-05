@@ -127,10 +127,8 @@ namespace VideoSystem.Controllers.Front
             suggest.CreateTime = DateTime.Now;
 
             int UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
-            User user = vsc.Users.Find(UserID);
 
-            suggest.UserID = user.UserID;
-            suggest.User = user;
+            suggest.UserID = UserID;
             if (ModelState.IsValid)
             {
                 vsc.Suggests.Add(suggest);

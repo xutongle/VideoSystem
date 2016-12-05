@@ -74,7 +74,7 @@ namespace VideoSystem.Controllers.Back
 
                 foreach (string code in codeList)
                 {
-                    Code c = new Code() { CodeStatus = 0, CodeValue = code, Video = video, VideoID = video.VideoID, UserID = -1 };
+                    Code c = new Code() { CodeStatus = 0, CodeValue = code, VideoID = video.VideoID, UserID = -1 };
                     if (ModelState.IsValid)
                     {
                         vsc.Codes.Add(c);
