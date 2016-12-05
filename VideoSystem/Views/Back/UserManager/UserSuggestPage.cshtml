@@ -53,13 +53,27 @@
                         <tbody>
                             @foreach (Suggest s in Model.returnData) { 
                                 <tr>
-                                        <td>@s.SuggestID</td>
-                                        <td>@s.CreateTime</td>
-                                        <td>@s.SuggestText</td>
-                                        <td>@s.User.UserAccount</td>
-                                        <td>@s.User.UserEmail</td>
-                                        <td>@s.User.UserPhone</td>
-                                    </tr>
+                                    <td>@s.SuggestID</td>
+                                    <td>@s.CreateTime</td>
+                                    @{
+                                        string suggestTextAbstract = s.SuggestText;
+                                        if (suggestTextAbstract.Length >= 10)
+                                        {
+                                            suggestTextAbstract = suggestTextAbstract.Substring(0, 10);
+                                            suggestTextAbstract += "......";
+                                            <td>@suggestTextAbstract
+                                                <a id="@s.SuggestText" onclick="getAllSuggest(this.id);">[查看全部]</a>
+                                            </td>
+                                        }
+                                        else{
+                                            <td>@suggestTextAbstract</td>
+                                        }
+                                     }
+                                    
+                                    <td>@s.User.UserAccount</td>
+                                    <td>@s.User.UserEmail</td>
+                                    <td>@s.User.UserPhone</td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -106,4 +120,10 @@
         }
         searchValue.html("<input type='text' class='form-control' name='searchValue' style='width: 200px;' placeholder=" + placeholder + " required/>");
     });
+
+    //查看全部信息
+    function getAllSuggest(suggestText)
+    {
+        $.jBox.info( suggestText, '用户反馈');
+    }
 </script>
