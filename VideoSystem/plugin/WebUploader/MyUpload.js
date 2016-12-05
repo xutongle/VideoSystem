@@ -132,9 +132,6 @@ function newGuid() {
     return guid;
 }
 
-
-
-
 // 文件上传
 jQuery(function () {
 
@@ -146,25 +143,89 @@ jQuery(function () {
         },
         {
             beforeSendFile: function (file) {
+                var task = new $.Deferred();
+                //获取文件校验值
                 var filemd5 = (new WebUploader.Uploader()).md5File(file);
-                jQuery.post({
-                    url: '',
+                
+                jQuery.ajax({
+                    url: "/Upload/UploadVideo",
                     data: {
-                        status: "md5Check",
-                        md5: filemd5
+                        type: "init",
+                        guid: newGuid()
                     },
+                    type: "POST",
                     dataType: "json",
-                    success: function (data, textStatus, jqXHR) {
-                        
+                    cache: false,
+                    async: false,  // 同步
+                    timeout: 1000, //超时的话，认为该文件不曾上传过
+                }).then(function (data, textStatus, jqXHR) {
+                    if (data.complete == "true") { //若存在，这返回失败给WebUploader，表明该文件不需要上传                
+                        task.reject();
+                    } else {
+                        task.resolve();
                     }
+                }, function (jqXHR, textStatus, errorThrown) { //任何形式的验证失败，都触发重新上传
+                    task.resolve();
                 });
-                    
+                return $.when(task);
             },
-            beforeSend: function () {
-                //alert("ok");
+            beforeSend: function (block) {
+                //分片验证是否已传过，用于断点续传
+                var task = new $.Deferred();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Upload/UploadVideo",
+                    data: {
+                        type: "block",
+                        chunk: block.chunk,
+                        currentBlockSize: block.end - block.start
+                    },
+                    cache: false,
+                    async: false,  // 同步
+                    timeout: 1000, //超时的话，认为该分片未上传过
+                    dataType: "json"
+                }).then(function (data, textStatus, jqXHR) {
+                    if (data.is_exists == "true") { //若存在，返回失败给WebUploader，表明该分块不需要上传
+                        task.reject();
+                    } else {
+                        task.resolve();
+                    }
+                }, function (jqXHR, textStatus, errorThrown) { //任何形式的验证失败，都触发重新上传
+                    task.resolve();
+                });
+                return $.when(task);
             },
-            afterSendFile: function () {
-                //alert("ok");
+            afterSendFile: function (file) {
+                var chunksTotal = Math.ceil(file.size / (1024 * 1024 * 5));
+                if (chunksTotal > 1) {
+                    //合并请求
+                    var task = new $.Deferred();
+                    $.ajax({
+                        type: "POST",
+                        url: "/Upload/UploadVideo",
+                        data: {
+                            type: "merge",
+                            chunks: chunksTotal,
+                            size: file.size
+                        },
+                        cache: false,
+                        async: false,  // 同步
+                        dataType: "json"
+                    }).then(function (data, textStatus, jqXHR) {
+                        // 业务逻辑...
+                        //if (data)
+                        //{
+                        //    alert(data.videoLocal);
+                        //}
+                        alert(data.videoLocal);
+                        task.resolve();
+                    }, function (jqXHR, textStatus, errorThrown) {
+                        current_uploader.uploader.trigger('uploadError');
+                        task.reject();
+                    });
+                    return $.when(task);
+                }
             }
         }
     );

@@ -11,6 +11,6 @@ namespace VideoSystem.Abstract
     public interface IUploadFile
     {
         UploadInfo UploadImage(HttpPostedFileBase file, string saveLocal);
-        UploadInfo UploadVideo(HttpPostedFileBase file, string saveLocal, int chunk, int chunks, string guid);
+        UploadInfo UploadVideo(HttpPostedFileBase file, string saveLocal, int chunk, int chunks);
     }
 }

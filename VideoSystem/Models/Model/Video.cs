@@ -26,6 +26,8 @@ namespace VideoSystem.Models
         public string VideoLocal { get; set; }
         [Required]
         public string VideoImageLocal { get; set; }
+        [Required]
+        public string VideoMD5 { get; set; }
 
         public ICollection<Code> Code { get; set; }
     }

@@ -65,7 +65,7 @@ namespace VideoSystem.Concrete
             return info;
         }
 
-        public UploadInfo UploadVideo(HttpPostedFileBase file, string saveLocal,int chunk,int chunks,string guid)
+        public UploadInfo UploadVideo(HttpPostedFileBase file, string saveLocal,int chunk,int chunks)
         {
             UploadInfo info = new UploadInfo();
             string videoName = null;
@@ -78,36 +78,55 @@ namespace VideoSystem.Concrete
                 file.SaveAs(saveLocal + videoName + "." + fileSuffix);
             }
             else
-            {
-                //文件分块了
-                FileStream addFile = new FileStream(saveLocal+guid,FileMode.Append,FileAccess.Write);
-                BinaryWriter addWriter = new BinaryWriter(addFile);
-
-                Stream stream = file.InputStream;
-                BinaryReader tempReader = new BinaryReader(stream);
-                addWriter.Write(tempReader.ReadBytes((int)(stream.Length)));
-
-                tempReader.Close();
-                stream.Close();
-                addWriter.Close();
-                addFile.Close();
-
-                tempReader.Dispose();
-                stream.Dispose();
-                addWriter.Dispose();
-                addFile.Dispose();
-
-                if(chunk == (chunks-1))
-                {
-                    videoName = createImageName();
-                    FileInfo fileInfo = new FileInfo(saveLocal+guid);
-                    fileInfo.MoveTo(saveLocal + videoName + "." + fileSuffix);
-                }
-                
+            {//文件分块了
+                string[] directory = Directory.GetDirectories(saveLocal);
+                file.SaveAs(directory[0] + "/" + chunk + "." + fileSuffix);
             }
+            file.InputStream.Close();
+            file.InputStream.Dispose();
             info.statuCode = 200;
             info.info = "/UploadFiles/Videos/" + videoName + "." + fileSuffix;
             return info;
+        }
+
+        //合并文件
+        public string CombineFile(string[] blockFileName,string saveLocal)
+        {
+            string videoName = createImageName();
+            string fileSuffix = getFileSuffix(blockFileName[0]);
+
+            FileStream addFile = new FileStream(saveLocal + videoName + "." + fileSuffix, FileMode.Append, FileAccess.Write);
+            BinaryWriter addWriter = new BinaryWriter(addFile);
+            BinaryReader tempReader = null;
+            FileStream fs = null;
+            FileInfo blockFileInfo = null;
+
+            int blockNum = blockFileName.Length;
+            for (int i = 0; i < blockNum;i++ )
+            {
+                //读取分块文件字节流
+                fs = new FileStream(blockFileName[i], FileMode.Open, FileAccess.Read);
+                byte[] infbytes = new byte[(int)fs.Length];
+                fs.Read(infbytes, 0, infbytes.Length);
+
+                //合并分块文件
+                addWriter.Write(infbytes);
+            }
+
+            addWriter.Close();
+            addFile.Close();
+
+            addWriter.Dispose();
+            addFile.Dispose();
+
+            //合并完成后删除分块文件
+            //foreach (string s in blockFileName)
+            //{
+            //    blockFileInfo = new FileInfo(s);
+            //    blockFileInfo.Delete();
+            //}
+
+            return saveLocal + videoName + "." + fileSuffix;
         }
 
         //获取文件后缀

@@ -143,6 +143,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201612050608588_addMD5toVideo.cs" />
+    <Compile Include="Migrations\201612050608588_addMD5toVideo.Designer.cs">
+      <DependentUpon>201612050608588_addMD5toVideo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Abstract\ICreateCode.cs" />
     <Compile Include="Models\Abstract\IEncryption.cs" />
     <Compile Include="Models\Abstract\IExportExcel.cs" />
@@ -661,6 +665,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612030538199_deleteManagerLimits.resx">
       <DependentUpon>201612030538199_deleteManagerLimits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612050608588_addMD5toVideo.resx">
+      <DependentUpon>201612050608588_addMD5toVideo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
