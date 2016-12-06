@@ -8,7 +8,7 @@
         <div class="col-sm-12 col-md-4 col-lg-4 col-md-offset-7" id="div_login" style="">
             <h3 style="text-align: center">用户登录</h3>
             <p style="color:red;text-align:center;">@TempData["ErroInfo"]</p>
-            <form class="form-horizontal" role="form" method="post" action="@Url.Content("~/Home/Main")">
+            <form class="form-horizontal" role="form" method="post" action="@Url.Content("~/Home/Main")" id="userLoginForm">
                 <div class="form_table">
                     <table>
                         <tr>
@@ -36,7 +36,7 @@
                 </div>
 
                 <div style="margin-top: 10px; text-align: center">
-                    <button type="submit" class="btn btn-success">登陆</button>
+                    <button type="button" class="btn btn-success" onclick="login()">登陆</button>
                     <button type="reset" class="btn btn-success" style="margin-left: 10px">重置</button>
                 </div>
             </form>
@@ -63,3 +63,12 @@
         </div>
     </div>
 </div>
+<script>
+    function login()
+    {
+        var password = jQuery("#password").val();
+        strmd5 = $.md5(password).toLocaleUpperCase();
+        jQuery("#password").val(strmd5);
+        jQuery("#userLoginForm").submit();
+    }
+</script>

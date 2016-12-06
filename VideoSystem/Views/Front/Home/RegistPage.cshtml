@@ -84,7 +84,7 @@
                 </table>
 
                 <div style="margin-top: 10px; text-align: center">
-                    <button type="submit" class="btn btn-success">注册</button>
+                    <button type="button" class="btn btn-success" onclick="regist();">注册</button>
                     <button type="reset" class="btn btn-success" style="margin-left: 10px">重置</button>
                 </div>
             </form>
@@ -153,5 +153,17 @@
         }
     }
 
-   
+   //加密密码
+    function regist() {
+        var password = jQuery("#UserPassword").val();
+        var UserConfirmPassword = jQuery("#UserConfirmPassword").val();
+
+        var passMD5 = $.md5(password).toLocaleUpperCase();
+        var passConfirmMD5 = $.md5(UserConfirmPassword).toLocaleUpperCase();
+
+        jQuery("#UserPassword").val(passMD5);
+        jQuery("#UserConfirmPassword").val(passConfirmMD5);
+
+        jQuery("#registForm").submit();
+    }
 </script>

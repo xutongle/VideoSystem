@@ -56,7 +56,6 @@ namespace VideoSystem.Controllers.Front
         [HttpPost]
         public ActionResult Main(string account, string password)
         {
-            password = ie.MyMD5(password);
             User[] user = vsc.Users.Where(u => u.UserAccount == account && u.UserPassword == password).ToArray();
 
             if (user.Count() > 0)
@@ -83,9 +82,6 @@ namespace VideoSystem.Controllers.Front
         //用户注册
         [HttpPost]
         public ActionResult Regist(User user) {
-
-            //用户密码加密存储
-            user.UserPassword = ie.MyMD5(user.UserPassword);
 
             if (ModelState.IsValid)
             {

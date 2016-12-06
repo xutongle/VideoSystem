@@ -450,6 +450,7 @@
     <Content Include="plugin\WebUploader\Uploader.swf" />
     <Content Include="plugin\WebUploader\webuploader.css" />
     <Content Include="plugin\WebUploader\webuploader.js" />
+    <Content Include="Scripts\JQuery.md5.js" />
     <Content Include="Scripts\Utils.js" />
   </ItemGroup>
   <ItemGroup>
