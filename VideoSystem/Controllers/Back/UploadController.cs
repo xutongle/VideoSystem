@@ -51,9 +51,13 @@ namespace VideoSystem.Controllers.Back
 
         //上传视频
         [HttpPost]
-        public ActionResult UploadVideo(int chunk = -1, int chunks = -1)
+        public ActionResult UploadVideo(int chunk = 0, int chunks = 0)
         {
             string saveUrl = Server.MapPath("/") + "UploadFiles/Videos/";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            UploadInfo info = new UploadInfo();
+            //string jsonStr = serializer.Serialize(info);
 
             //ajax请求，判断文件是否上传，文件断点续传
             if (Request.IsAjaxRequest())
@@ -68,11 +72,16 @@ namespace VideoSystem.Controllers.Back
                     //从数据库中查找文件的md5值
                     if (Directory.Exists(saveUrl + guid))   //文件夹存在或文件已上传上传
                     {
-                        return Content("{['complete':'true']}");
+                        info.statuCode = 200;
+                        info.info = "true";
+                        return Content(serializer.Serialize(info));
                     }
                     //文件未上传，创建临时保存分块的文件夹
                     Directory.CreateDirectory(saveUrl + guid);
-                    return Content("{['complete':'false']}");
+
+                    info.statuCode = 200;
+                    info.info = "false";
+                    return Content(serializer.Serialize(info));
                 }
                 //上传每个分块之前
                 if (type == "block")
@@ -86,14 +95,18 @@ namespace VideoSystem.Controllers.Back
                     FileInfo fi = new FileInfo(tempDirectory[0] + chunk);
                     if (is_exists && fi.Length == currentBlockSize)
                     {
-                        return Content("{['is_exists':'true']}");
+                        info.statuCode = 200;
+                        info.info = "true";
+                        return Content(serializer.Serialize(info));
                     }
                     //如果分块上传了部分，则删除分块并重新上传
                     if (is_exists && fi.Length < currentBlockSize)
                     {
                         System.IO.File.Delete(tempDirectory[0] + chunk);
                     }
-                    return Content("{['is_exists':'false']}");
+                    info.statuCode = 200;
+                    info.info = "false";
+                    return Content(serializer.Serialize(info));
                 }
                 //整个文件上传完成后，合并所有分块
                 if (type == "merge")
@@ -102,7 +115,10 @@ namespace VideoSystem.Controllers.Back
                     string[] blockFileName = Directory.GetFiles(tempDirectory[0]+"/");
                     string videoLocal = uf.CombineFile(blockFileName, saveUrl);
 
-                    return Content("{['videoLocal':" + videoLocal + "]}");
+                    //合并完成，返回视频路径
+                    info.statuCode = 200;
+                    info.info = videoLocal;
+                    return Content(serializer.Serialize(info));
                 }
             }
 
@@ -110,26 +126,13 @@ namespace VideoSystem.Controllers.Back
             try { 
                 file = Request.Files[0];
             }
-            catch(ArgumentOutOfRangeException e){
-                
+            catch(Exception){
             }
             
-            UploadInfo info = null;
-
-            //is chunked
-            if (chunk != -1 && chunks != -1)
-            {
-                info = uf.UploadVideo(file, saveUrl, chunk, chunks);
-            }
-            else 
-            {
-                info = uf.UploadVideo(file, saveUrl, 0, 0);
-            }
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string jsonStr = serializer.Serialize(info);
-
-            return Content(jsonStr);
+            //上传文件
+            info = uf.UploadVideo(file, saveUrl, chunk, chunks);
+            //文件没有分块时返回保存的文件路径
+            return Content(serializer.Serialize(info));
         }
     }
 }

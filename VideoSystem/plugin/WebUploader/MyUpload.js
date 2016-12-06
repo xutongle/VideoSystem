@@ -145,7 +145,7 @@ jQuery(function () {
             beforeSendFile: function (file) {
                 var task = new $.Deferred();
                 //获取文件校验值
-                var filemd5 = (new WebUploader.Uploader()).md5File(file);
+                //var filemd5 = (new WebUploader.Uploader()).md5File(file);
                 
                 jQuery.ajax({
                     url: "/Upload/UploadVideo",
@@ -159,7 +159,7 @@ jQuery(function () {
                     async: false,  // 同步
                     timeout: 1000, //超时的话，认为该文件不曾上传过
                 }).then(function (data, textStatus, jqXHR) {
-                    if (data.complete == "true") { //若存在，这返回失败给WebUploader，表明该文件不需要上传                
+                    if (data.info == "true") { //若存在，这返回失败给WebUploader，表明该文件不需要上传                
                         task.reject();
                     } else {
                         task.resolve();
@@ -172,7 +172,6 @@ jQuery(function () {
             beforeSend: function (block) {
                 //分片验证是否已传过，用于断点续传
                 var task = new $.Deferred();
-
                 $.ajax({
                     type: "POST",
                     url: "/Upload/UploadVideo",
@@ -186,7 +185,7 @@ jQuery(function () {
                     timeout: 1000, //超时的话，认为该分片未上传过
                     dataType: "json"
                 }).then(function (data, textStatus, jqXHR) {
-                    if (data.is_exists == "true") { //若存在，返回失败给WebUploader，表明该分块不需要上传
+                    if (data.info == "true") { //若存在，返回失败给WebUploader，表明该分块不需要上传
                         task.reject();
                     } else {
                         task.resolve();
@@ -197,7 +196,7 @@ jQuery(function () {
                 return $.when(task);
             },
             afterSendFile: function (file) {
-                var chunksTotal = Math.ceil(file.size / (1024 * 1024 * 5));
+                var chunksTotal = Math.ceil(file.size / (1024 * 1024 * 3));
                 if (chunksTotal > 1) {
                     //合并请求
                     var task = new $.Deferred();
@@ -213,12 +212,8 @@ jQuery(function () {
                         async: false,  // 同步
                         dataType: "json"
                     }).then(function (data, textStatus, jqXHR) {
-                        // 业务逻辑...
-                        //if (data)
-                        //{
-                        //    alert(data.videoLocal);
-                        //}
-                        alert(data.videoLocal);
+                        jQuery("#VideoUrl").val(data.info);
+                        //alert(data.info);
                         task.resolve();
                     }, function (jqXHR, textStatus, errorThrown) {
                         current_uploader.uploader.trigger('uploadError');
@@ -245,17 +240,17 @@ jQuery(function () {
         //开启分块上传
         chunked: true,
         //每块大小
-        chunkSize: 1024 * 1024 * 5,
+        chunkSize: 1024 * 1024 * 3,
         //分块上传失败后重传的次数
         chunkRetry: 5,
         threads: 1,
         //队列大小限制
         fileNumLimit: 1,
         //单个文件大小限制
-        fileSingleSizeLimit: 1024 * 1024 * 1024 * 3,
+        fileSingleSizeLimit: 1024 * 1024 * 1024 * 5,
         accept: {
             title: 'Videoes',
-            extensions: 'mp4,flv,bhd',
+            extensions: 'mp4,flv',
             mimeTypes: 'video/*'
         },
         formData: {
@@ -291,7 +286,6 @@ jQuery(function () {
 
     uploader.on('uploadSuccess', function (file,response) {
         $('#' + file.id).find('p.state').text('上传成功');
-        jQuery("#VideoUrl").val(response.info);
     });
 
     uploader.on('uploadError', function (file, reason) {

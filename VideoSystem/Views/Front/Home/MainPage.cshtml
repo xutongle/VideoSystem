@@ -131,13 +131,11 @@
             "@Url.Content("~/Home/UserSuggest")",
             { "suggestText": suggestText.val()},
             function (data) {
-                if (data == "1") {
-                    $.jBox.tip('反馈成功', '提示');
+                if (data == "反馈成功")
+                {
                     suggestText.val("");
                 }
-                else {
-                    $.jBox.tip('反馈失败', '提示');
-                }
+                $.jBox.tip(data, "提示");
             },
             "text"
         );

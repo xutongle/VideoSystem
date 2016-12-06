@@ -32,11 +32,11 @@ namespace VideoSystem.Controllers.Back
         {
             if (Session["ValidateCode"].ToString() != verifycode)
             {
-                return Content("2");
+                return Content("验证码不正确，请重新输入!");
             }
             else
             {
-                return Content("1");
+                return Content(null);
             }
         }
     }

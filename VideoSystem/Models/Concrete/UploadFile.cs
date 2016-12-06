@@ -65,27 +65,38 @@ namespace VideoSystem.Concrete
             return info;
         }
 
-        public UploadInfo UploadVideo(HttpPostedFileBase file, string saveLocal,int chunk,int chunks)
+        //上传视频
+        public UploadInfo UploadVideo(HttpPostedFileBase file, string saveLocal, int chunk, int chunks)
         {
             UploadInfo info = new UploadInfo();
             string videoName = null;
-            string fileSuffix = getFileSuffix(file.FileName);
+            string fileSuffix = null;
 
-            //文件没有分块，直接保存
-            if (chunk == 0 && chunks == 0)
-            {
-                videoName = createImageName();
-                file.SaveAs(saveLocal + videoName + "." + fileSuffix);
+            try { 
+                fileSuffix = getFileSuffix(file.FileName);
+
+                //文件没有分块，直接保存
+                if (chunk == 0 && chunks == 0)
+                {
+                    videoName = createImageName();
+                    file.SaveAs(saveLocal + videoName + "." + fileSuffix);
+                    info.statuCode = 200;
+                    info.info = "/UploadFiles/Videos/" + videoName + "." + fileSuffix;
+                }
+                else
+                {//文件分块了
+                    string[] directory = Directory.GetDirectories(saveLocal);
+                    file.SaveAs(directory[0] + "/" + chunk + "." + fileSuffix);
+                    info.statuCode = 200;
+                    info.info = "";
+                }
+
+                file.InputStream.Flush();
+                file.InputStream.Close();
+                file.InputStream.Dispose();
             }
-            else
-            {//文件分块了
-                string[] directory = Directory.GetDirectories(saveLocal);
-                file.SaveAs(directory[0] + "/" + chunk + "." + fileSuffix);
+            catch(Exception){
             }
-            file.InputStream.Close();
-            file.InputStream.Dispose();
-            info.statuCode = 200;
-            info.info = "/UploadFiles/Videos/" + videoName + "." + fileSuffix;
             return info;
         }
 
@@ -97,9 +108,7 @@ namespace VideoSystem.Concrete
 
             FileStream addFile = new FileStream(saveLocal + videoName + "." + fileSuffix, FileMode.Append, FileAccess.Write);
             BinaryWriter addWriter = new BinaryWriter(addFile);
-            BinaryReader tempReader = null;
             FileStream fs = null;
-            FileInfo blockFileInfo = null;
 
             int blockNum = blockFileName.Length;
             for (int i = 0; i < blockNum;i++ )
@@ -111,7 +120,11 @@ namespace VideoSystem.Concrete
 
                 //合并分块文件
                 addWriter.Write(infbytes);
+                addWriter.Flush();
             }
+
+            addWriter.Flush();
+            addFile.Flush();
 
             addWriter.Close();
             addFile.Close();
@@ -126,7 +139,7 @@ namespace VideoSystem.Concrete
             //    blockFileInfo.Delete();
             //}
 
-            return saveLocal + videoName + "." + fileSuffix;
+            return "/UploadFiles/Videos/" + videoName + "." + fileSuffix;
         }
 
         //获取文件后缀

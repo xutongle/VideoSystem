@@ -143,9 +143,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Front\UserMainController.cs" />
     <Compile Include="Migrations\201612050608588_addMD5toVideo.cs" />
     <Compile Include="Migrations\201612050608588_addMD5toVideo.Designer.cs">
       <DependentUpon>201612050608588_addMD5toVideo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612060659502_deleteVideoMd5.cs" />
+    <Compile Include="Migrations\201612060659502_deleteVideoMd5.Designer.cs">
+      <DependentUpon>201612060659502_deleteVideoMd5.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Abstract\ICreateCode.cs" />
     <Compile Include="Models\Abstract\IEncryption.cs" />
@@ -165,7 +170,6 @@
     <Compile Include="Models\Concrete\SimpleVerifyCode.cs" />
     <Compile Include="Models\Concrete\UploadFile.cs" />
     <Compile Include="Controllers\Back\AdminController.cs" />
-    <Compile Include="Controllers\Back\RSAController.cs" />
     <Compile Include="Controllers\Back\SearchController.cs" />
     <Compile Include="Controllers\Back\SettingsController.cs" />
     <Compile Include="Controllers\Back\UploadController.cs" />
@@ -668,6 +672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612050608588_addMD5toVideo.resx">
       <DependentUpon>201612050608588_addMD5toVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612060659502_deleteVideoMd5.resx">
+      <DependentUpon>201612060659502_deleteVideoMd5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

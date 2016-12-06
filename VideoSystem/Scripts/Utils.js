@@ -1,4 +1,7 @@
-﻿function checkEmail() {
+﻿/*
+    检查邮箱格式
+*/
+function checkEmail() {
     var email = jQuery("#email");
     var re = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     if (!re.test(email.val()))
@@ -9,6 +12,9 @@
     }
 }
 
+/*
+    检查手机号格式
+*/
 function checkPhone() {
     var phone = jQuery("#phone");
     if (!(/^1(3|4|5|7|8)\d{9}$/.test(phone.val()))) {
@@ -25,7 +31,7 @@ function checkPhone() {
 function verifyCode() {
     var code = jQuery("#code");
     if (code.val().length <= 0) {
-        alert("验证码不能为空!");
+        alert("验证码不能为空");
         code.focus();
         return;
     }
@@ -34,8 +40,9 @@ function verifyCode() {
         "/VerifyCode/CheckVerifyCode",
         { "verifycode": code.val() },
         function (data, statusText, xhr) {
-            if (data == 2) {
-                alert("验证码不正确，请重新输入!");
+            if (data) {
+                //$.jBox.info(data, '提示');
+                alert(data);
                 code.val("");
                 code.focus();
                 return;
