@@ -139,7 +139,7 @@
                 },
                 success: function (data)
                 {
-                    if(data == "1")
+                    if (data == "erro")
                     {
                         $.jBox.info('邀请码数量不足', '提示');
                         return;
@@ -170,7 +170,7 @@
                         "VideoID": VideoID
                     },
                     success: function (data) {
-                        if (data = "1") {
+                        if (data = "success") {
                             window.location.href = "/VideoManager";
                         }
                     }
@@ -207,12 +207,7 @@
                     "codeCounts": f.codeCounts
                 },
                 success: function (data) {
-                    if (data == "0") {
-                        $.jBox.tip('生成失败', '提示');
-                    }
-                    else {
-                        $.jBox.tip('生成成功', '提示');
-                    }
+                    $.jBox.tip(data, '提示');
                 }
             });
             return true;

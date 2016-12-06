@@ -40,13 +40,14 @@ namespace VideoSystem.Controllers.Back
             return View(ip);
         }
 
-
+        //跳转上传视频页面
         public ActionResult UploadPage() {
             Manager manager = (Manager)Session["Manager"];
             ViewBag.account = manager.ManagerAccount;
             return View();
         }
 
+        //上传视频
         [HttpPost]
         public ActionResult UploadVideo(Video v) {
             v.UploadTime = DateTime.Now;
@@ -74,9 +75,9 @@ namespace VideoSystem.Controllers.Back
             {
                 vsc.Videos.Remove(v);
                 vsc.SaveChanges();
-                return Content("1");
+                return Content("success");
             }
-            return Content("0");
+            return Content("erro");
         }
     }
 }

@@ -105,14 +105,13 @@ namespace VideoSystem.Controllers.Front
                                   select us;
             if (u.Count() == 0)
             {
-                return Content("1");
+                return Content("success");
             }
             else
             {
-                return Content("2");
+                //账号已存在
+                return Content("erro");
             }
         }
-
-        
     }
 }

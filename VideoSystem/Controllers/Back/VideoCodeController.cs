@@ -64,6 +64,7 @@ namespace VideoSystem.Controllers.Back
             return View(videoArray);
         }
 
+        //生成邀请码
         [HttpPost]
         public ActionResult CreateCode(int codeCounts,int videoID)
         {
@@ -89,11 +90,11 @@ namespace VideoSystem.Controllers.Back
                     vsc.Entry(video).State = EntityState.Modified;
                     vsc.SaveChanges();
                 }
-                return Content("1");
+                return Content("生成失败");
             }
-            
 
-            return Content("0");
+
+            return Content("生成成功");
         }
 
         // GET: /VideoCode/ExportExcel
@@ -111,9 +112,9 @@ namespace VideoSystem.Controllers.Back
                 //请求的数量大于已有的数量
                 if (num > count)
                 {
-                    return Content("1");
+                    return Content("erro");
                 }
-                return Content("0");
+                return Content("success");
             }
             else {
                 //导出单个视频的邀请码

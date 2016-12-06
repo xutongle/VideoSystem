@@ -111,7 +111,7 @@
             "@Url.Content("~/Home/IsRegistAccountExist")",
             { "account": accountElement.val() },
             function (data, statusText, xhr) {
-                if (data == 2) {
+                if (data == "erro") {
                     alert("此账号已存在，请重新输入!");
                     accountElement.val("");
                     accountElement.focus();
