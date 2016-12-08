@@ -54,17 +54,59 @@ namespace VideoSystem.Controllers.Front
 
         //用户登录
         [HttpPost]
-        public ActionResult Main(string account, string password)
+        public ActionResult Main(string account, string password,string UserBrowser)
         {
             User[] user = vsc.Users.Where(u => u.UserAccount == account && u.UserPassword == password).ToArray();
-
             if (user.Count() > 0)
             {
-                FormsAuthentication.SetAuthCookie("User", false);
-                Response.Cookies["UserID"].Value = Convert.ToString(user[0].UserID);
-                Response.Cookies["UserID"].Expires = DateTime.MaxValue; 
+                string[] userBrowserArray = { user[0].UserBrowser1, user[0].UserBrowser2, user[0].UserBrowser3 };
 
-                return RedirectToAction("MainPage", "Home");
+                //用户浏览器不是已绑定的
+                if (!userBrowserArray.Contains(UserBrowser))
+                {
+                    if(!userBrowserArray.Contains("no"))
+                    {
+                        TempData["ErroInfo"] = "您无权在当前电脑登录!";
+                        return RedirectToAction("", "");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (userBrowserArray[i] == "no")
+                            {
+                                userBrowserArray[i] = UserBrowser;
+                                break;
+                            }
+                        }
+
+                        user[0].UserBrowser1 = userBrowserArray[0];
+                        user[0].UserBrowser2 = userBrowserArray[1];
+                        user[0].UserBrowser3 = userBrowserArray[2];
+
+                        if (ModelState.IsValid)
+                        {
+                            vsc.Entry(user[0]).State = EntityState.Modified;
+                            vsc.SaveChanges();
+                        }
+
+                        string userCookie = ie.SHA256(password);
+                        Session["userCookie"] = userCookie;
+                        Response.Cookies["userCookie"].Value = userCookie;
+                        Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
+
+                        return RedirectToAction("MainPage", "Home");
+                    }
+                }
+                else
+                {
+                    string userCookie = ie.SHA256(password);
+                    Session["userCookie"] = userCookie;
+                    Response.Cookies["userCookie"].Value = userCookie;
+                    Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
+
+                    return RedirectToAction("MainPage", "Home");
+                }
             }
             else
             {
@@ -82,7 +124,6 @@ namespace VideoSystem.Controllers.Front
         //用户注册
         [HttpPost]
         public ActionResult Regist(User user) {
-
             if (ModelState.IsValid)
             {
                 vsc.Users.Add(user);

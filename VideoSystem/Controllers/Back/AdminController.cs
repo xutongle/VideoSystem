@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using VideoSystem.Abstract;
 using VideoSystem.Filters;
 using VideoSystem.Models;
 
@@ -12,6 +13,12 @@ namespace VideoSystem.Controllers.Back
     public class AdminController : Controller
     {
         private VideoSystemContext vsc = new VideoSystemContext();
+        private IEncryption ie;
+
+        public AdminController(IEncryption ie)
+        {
+            this.ie = ie;
+        }
         //
         // GET: /Admin/
 
@@ -40,10 +47,11 @@ namespace VideoSystem.Controllers.Back
             }
             else
             {
-                FormsAuthentication.SetAuthCookie("Manager", false);
+                string userCookie = ie.SHA256(password);
+                Session["userCookie"] = userCookie;
+                Response.Cookies["userCookie"].Value = userCookie;
+                Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
 
-                Response.Cookies["abcd"].Value = Convert.ToString(managerArray[0].ManagerID);
-                Response.Cookies["abcd"].Expires = DateTime.MaxValue;
                 Session["Manager"] = managerArray[0];
                 return RedirectToAction("BackMain", "Admin");
             }

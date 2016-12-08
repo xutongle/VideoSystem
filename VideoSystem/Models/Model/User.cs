@@ -20,12 +20,13 @@ namespace VideoSystem.Models
         [Required]
         public string UserPhone { get; set; }
         [Required]
-        public string UserEquipmentType { get; set; }
+        public string UserBrowser1 { get; set; }
         [Required]
-        public string EquipmentCode { get; set; }
+        public string UserBrowser2 { get; set; }
+        [Required]
+        public string UserBrowser3 { get; set; }
         [NotMapped]
         public string UserConfirmPassword { get; set; }
-
 
         public ICollection<Suggest> Suggests { get; set; }
     }

@@ -67,6 +67,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -143,6 +144,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Back\TestController.cs" />
     <Compile Include="Controllers\Front\UserMainController.cs" />
     <Compile Include="Migrations\201612050608588_addMD5toVideo.cs" />
     <Compile Include="Migrations\201612050608588_addMD5toVideo.Designer.cs">
@@ -151,6 +153,14 @@
     <Compile Include="Migrations\201612060659502_deleteVideoMd5.cs" />
     <Compile Include="Migrations\201612060659502_deleteVideoMd5.Designer.cs">
       <DependentUpon>201612060659502_deleteVideoMd5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612070635281_addUserBrowserToUser.cs" />
+    <Compile Include="Migrations\201612070635281_addUserBrowserToUser.Designer.cs">
+      <DependentUpon>201612070635281_addUserBrowserToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612070749182_update.cs" />
+    <Compile Include="Migrations\201612070749182_update.Designer.cs">
+      <DependentUpon>201612070749182_update.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Abstract\ICreateCode.cs" />
     <Compile Include="Models\Abstract\IEncryption.cs" />
@@ -450,6 +460,7 @@
     <Content Include="plugin\WebUploader\Uploader.swf" />
     <Content Include="plugin\WebUploader\webuploader.css" />
     <Content Include="plugin\WebUploader\webuploader.js" />
+    <Content Include="Scripts\fingerprint.js" />
     <Content Include="Scripts\JQuery.md5.js" />
     <Content Include="Scripts\Utils.js" />
   </ItemGroup>
@@ -676,6 +687,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612060659502_deleteVideoMd5.resx">
       <DependentUpon>201612060659502_deleteVideoMd5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612070635281_addUserBrowserToUser.resx">
+      <DependentUpon>201612070635281_addUserBrowserToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612070749182_update.resx">
+      <DependentUpon>201612070749182_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

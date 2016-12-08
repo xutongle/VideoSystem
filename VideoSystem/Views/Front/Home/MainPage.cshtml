@@ -75,7 +75,7 @@
     <div class="row" style="margin-top:10px;">
         <div class="col-sm-12 col-md-6 col-lg-6 get_video">
             <h4>获取视频</h4>
-            <form class="form-inline" role="form" action="@Url.Content("~/Home/GetVideo")" method="post">
+            <form class="form-inline" role="form" action="@Url.Content("~/UserMain/GetVideo")" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" name="videoCode" id="name" placeholder="输入邀请码获取视频" required>
                 </div>
@@ -128,7 +128,7 @@
             return;
         }
         jQuery.post(
-            "@Url.Content("~/Home/UserSuggest")",
+            "@Url.Content("~/UserMain/UserSuggest")",
             { "suggestText": suggestText.val()},
             function (data) {
                 if (data == "反馈成功")

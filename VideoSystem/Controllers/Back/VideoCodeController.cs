@@ -90,11 +90,11 @@ namespace VideoSystem.Controllers.Back
                     vsc.Entry(video).State = EntityState.Modified;
                     vsc.SaveChanges();
                 }
-                return Content("生成失败");
+                return Content("生成成功");
             }
 
 
-            return Content("生成成功");
+            return Content("生成失败");
         }
 
         // GET: /VideoCode/ExportExcel

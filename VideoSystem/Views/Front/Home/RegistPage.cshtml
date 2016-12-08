@@ -3,18 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script>
-    jQuery(document).ready(function () {
-        var UserEquipmentType = jQuery("#UserEquipmentType");
-        var EquipmentCode = jQuery("#EquipmentCode");
-        UserEquipmentType.val(12312);
-        EquipmentCode.val("4565656");
-
-        
-
-    })
-</script>
-
 <div class="container">
     <div class="row vid_loac">
         <div class="col-sm-12 col-md-6 col-lg-6 col-md-offset-3" id="div_login">
@@ -64,8 +52,9 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control" id="phone" name="UserPhone" value="15709782993" required onblur="checkPhone();">
-                                <input type="hidden" id="UserEquipmentType" name="UserEquipmentType" />
-                                <input type="hidden" id="EquipmentCode" name="EquipmentCode" />
+                                <input type="hidden" name="UserBrowser1" value="no"/>
+                                <input type="hidden" name="UserBrowser2" value="no"/>
+                                <input type="hidden" name="UserBrowser3" value="no"/>
                             </td>
                         </tr>
                     </table>
