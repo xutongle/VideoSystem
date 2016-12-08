@@ -30,9 +30,9 @@ namespace VideoSystem.Controllers.Front
             suggest.SuggestText = suggestText;
             suggest.CreateTime = DateTime.Now;
 
-            int UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
+            User user = (User)(Session["User"]);
 
-            suggest.UserID = UserID;
+            suggest.UserID = user.UserID;
             if (ModelState.IsValid)
             {
                 vsc.Suggests.Add(suggest);
@@ -57,8 +57,7 @@ namespace VideoSystem.Controllers.Front
             }
             //邀请码存在,但是用户已经有此邀请码对应的视频
             Code c = isCodeExist[0];
-            int UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
-            User user = vsc.Users.Find(UserID);
+            User user = (User)(Session["User"]);
             Code[] codeArray = vsc.Codes.Where(code => code.UserID == user.UserID).ToArray();
 
             int isExist = codeArray.Where(code2 => code2.VideoID == c.VideoID).ToArray().Length;

@@ -41,8 +41,7 @@ namespace VideoSystem.Controllers.Front
         [CustAuthorize("user")]
         public ActionResult MainPage(string currentVideo = null)
         {
-            int UserID = Convert.ToInt32(Request.Cookies["UserID"].Value);
-            User user = vsc.Users.Find(UserID);
+            User user = (User)(Session["User"]);
 
             Code[] codeArray = (from item in vsc.Codes
                                 where item.UserID == user.UserID
@@ -90,8 +89,10 @@ namespace VideoSystem.Controllers.Front
                             vsc.SaveChanges();
                         }
 
-                        string userCookie = ie.SHA256(password);
+                        string userCookie = password + "-" + account;
                         Session["userCookie"] = userCookie;
+                        Session["User"] = user[0];
+                        Session["role"] = "user";
                         Response.Cookies["userCookie"].Value = userCookie;
                         Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
 
@@ -100,8 +101,10 @@ namespace VideoSystem.Controllers.Front
                 }
                 else
                 {
-                    string userCookie = ie.SHA256(password);
+                    string userCookie = password + "-" + account;
                     Session["userCookie"] = userCookie;
+                    Session["User"] = user[0];
+                    Session["role"] = "user";
                     Response.Cookies["userCookie"].Value = userCookie;
                     Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
 

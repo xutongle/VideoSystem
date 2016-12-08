@@ -27,6 +27,7 @@ namespace VideoSystem.Controllers.Back
             return View();
         }
 
+        //跳转主界面
         [CustAuthorize("admin")]
         public ActionResult BackMain()
         {
@@ -35,6 +36,7 @@ namespace VideoSystem.Controllers.Back
             return View();
         }
 
+        //管理员登录
         [HttpPost]
         public ActionResult BackLogin(string account, string password)
         {
@@ -47,8 +49,9 @@ namespace VideoSystem.Controllers.Back
             }
             else
             {
-                string userCookie = ie.SHA256(password);
-                Session["userCookie"] = userCookie;
+                string userCookie = password + "-" + account;
+
+                Session["role"] = "admin";
                 Response.Cookies["userCookie"].Value = userCookie;
                 Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
 
