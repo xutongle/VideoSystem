@@ -48,7 +48,7 @@ namespace VideoSystem.Controllers.Front
         [HttpPost]
         public ActionResult GetVideo(string videoCode)
         {
-            Code[] isCodeExist = vsc.Codes.Where(code => code.CodeValue == videoCode).ToArray();
+            Code[] isCodeExist = vsc.Codes.Where(code => code.CodeValue == videoCode && code.CodeStatus == 1 && code.UserID == -1).ToArray();
             //邀请码无效
             if (isCodeExist.Length <= 0)
             {

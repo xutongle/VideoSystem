@@ -186,3 +186,4 @@ E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.add
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.deleteVideoMd5.resources
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.addUserBrowserToUser.resources
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache

@@ -24,6 +24,11 @@ namespace VideoSystem.Filters
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             HttpRequestBase r = httpContext.Request;
+            if (httpContext.Session["role"] == null)
+            {
+                return false;
+            }
+            
             try {
                 string userCookie = r.Cookies["userCookie"].Value;
                 string[] info = userCookie.Split('-');

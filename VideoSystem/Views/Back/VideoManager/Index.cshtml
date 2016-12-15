@@ -45,6 +45,9 @@
                                 <td style="padding-left:30px;">
                                     <button type="button" class="btn btn-primary">视频总数：<span class="badge">@TempData["videoCount"]</span></button>
                                 </td>
+                                <td style="padding-left:10px;">
+                                    <a href="@Url.Content("~/VideoManager")" class="btn btn-primary" >刷新</a>
+                                </td>
                             </tr>
                         </table>
                     </form>
@@ -207,6 +210,7 @@
                     "codeCounts": f.codeCounts
                 },
                 success: function (data) {
+                    window.location.href = "/VideoManager";
                     $.jBox.tip(data, '提示');
                 }
             });

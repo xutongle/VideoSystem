@@ -146,19 +146,47 @@ namespace VideoSystem.Controllers.Back
                 //导出全部视频的邀请码
                 else
                 {
+                    int count = (from item in vsc.Codes
+                                 where item.CodeStatus == 0
+                                 select item).Count();
+                    //没有可用的邀请码
+                    if (count<=0)
+                    {
+                        return RedirectToAction("", "VideoManager");
+                    }
+
                     codeArray = (from item in vsc.Codes
                                  orderby item.CodeID descending
+                                 where item.CodeStatus == 0
                                  select item).ToArray();
                     fileName = "全部视频";
                 }
 
-
+                //修改邀请码状态
                 foreach (Code c in codeArray)
                 {
                     c.CodeStatus = 1;
                     if (ModelState.IsValid)
                     {
                         vsc.Entry(c).State = EntityState.Modified;
+                        vsc.SaveChanges();
+                    }
+                }
+
+                //修改视频邀请码数量
+                Video[] videoArray = vsc.Videos.ToArray();
+                foreach (Video v in videoArray)
+                {
+                    int codesNotUsed = (from item in vsc.Codes
+                                        where item.VideoID == v.VideoID && item.CodeStatus == 1
+                                        select item).Count();
+                    int codesUsed = v.CodeCounts - codesNotUsed;
+                    v.CodeNotUsed = codesNotUsed;
+                    v.CodeUsed = codesUsed;
+
+                    if (ModelState.IsValid)
+                    {
+                        vsc.Entry(v).State = EntityState.Modified;
                         vsc.SaveChanges();
                     }
                 }
