@@ -121,8 +121,11 @@ namespace VideoSystem.Concrete
                 //合并分块文件
                 addWriter.Write(infbytes);
                 addWriter.Flush();
+                fs.Flush();
+                fs.Close();
+                fs.Dispose();
             }
-
+            
             addWriter.Flush();
             addFile.Flush();
 
@@ -131,13 +134,6 @@ namespace VideoSystem.Concrete
 
             addWriter.Dispose();
             addFile.Dispose();
-
-            //合并完成后删除分块文件
-            //foreach (string s in blockFileName)
-            //{
-            //    blockFileInfo = new FileInfo(s);
-            //    blockFileInfo.Delete();
-            //}
 
             return "/UploadFiles/Videos/" + videoName + "." + fileSuffix;
         }

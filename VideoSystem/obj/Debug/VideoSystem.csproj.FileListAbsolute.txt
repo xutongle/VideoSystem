@@ -123,9 +123,7 @@ E:\myproject\毕设\VideoSystem\VideoSystem\bin\zh-Hans\System.Web.WebPages.Depl
 E:\myproject\毕设\VideoSystem\VideoSystem\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.dll
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.pdb
-E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.CreateTables.resources
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
-E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache
 E:\project\vs\毕设\VideoSystem\VideoSystem\bin\VideoSystem.dll
 E:\project\vs\毕设\VideoSystem\VideoSystem\bin\VideoSystem.pdb
 E:\project\vs\毕设\VideoSystem\VideoSystem\bin\Antlr3.Runtime.dll
@@ -178,3 +176,13 @@ E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.ad
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.deleteVideoMd5.resources
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.addUserBrowserToUser.resources
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\bin\Ninject.dll
+E:\myproject\毕设\VideoSystem\VideoSystem\bin\Ninject.xml
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.createdatabase.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.alter1.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.deleteLog.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.deleteManagerLimits.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.addMD5toVideo.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.deleteVideoMd5.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.addUserBrowserToUser.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources

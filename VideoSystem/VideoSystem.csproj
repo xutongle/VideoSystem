@@ -603,6 +603,7 @@
     <Content Include="plugin\jBox\Skins\SharePurple\images\Thumbs.db" />
     <Content Include="plugin\jBox\Skins\ShareRed\Desktop.ini" />
     <Content Include="plugin\jBox\Skins\ShareRed\images\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\111.pubxml" />
     <None Include="Properties\PublishProfiles\123.pubxml" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

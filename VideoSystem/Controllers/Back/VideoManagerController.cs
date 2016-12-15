@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -59,6 +60,18 @@ namespace VideoSystem.Controllers.Back
                 vsc.Videos.Add(v);
                 vsc.SaveChanges();
                 TempData["info"] = "视频添加成功";
+
+                //合并完成后删除分块文件
+                string saveUrl = Server.MapPath("/") + "UploadFiles/Videos/";
+                string[] tempDirectory = Directory.GetDirectories(saveUrl);
+                string[] blockFileName = Directory.GetFiles(tempDirectory[0] + "/");
+                foreach (string s in blockFileName)
+                {
+                    FileInfo blockFileInfo = new FileInfo(s);
+                    blockFileInfo.Delete();
+                }
+                Directory.Delete(tempDirectory[0]);
+
                 return RedirectToAction("UploadPage", "VideoManager");
             }
             else {
@@ -75,8 +88,20 @@ namespace VideoSystem.Controllers.Back
             {
                 vsc.Videos.Remove(v);
                 vsc.SaveChanges();
+
+                //删除视频文件和视频首图
+                string imgUrl = Server.MapPath(v.VideoImageLocal);
+                string videoUrl = Server.MapPath(v.VideoLocal);
+
+                FileInfo img = new FileInfo(imgUrl);
+                FileInfo video = new FileInfo(videoUrl);
+
+                img.Delete();
+                video.Delete();
+
                 return Content("success");
             }
+
             return Content("erro");
         }
     }
