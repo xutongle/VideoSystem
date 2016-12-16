@@ -64,6 +64,7 @@ namespace VideoSystem.Controllers.Back
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Clear();
             Response.Cookies.Clear();
             return RedirectToAction("","Admin");
         }

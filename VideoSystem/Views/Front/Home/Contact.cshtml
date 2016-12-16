@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "联系我们";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="@Url.Content("~/content/pagecss/main.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/Content/pagecss/contact.css")" rel="stylesheet" media="all"/>
+@Html.Partial("HomePartialView")
+
+<div class="contact">
+    <div class="container" style="margin-bottom: 20px">
+        <div class="container-fluid" style="margin: 10px;">
+            <div class="contact-main">
+                <div class="contact-top">
+
+                    <div class="col-md-7">
+                        <p style="margin-bottom: 15px">
+                            <span style="font-size: 20px; color: black">联 系 人：边东山</span>
+                        </p>
+                        <p style="margin-top: 15px">
+                            <span style="font-size: 20px; color: black">联系电话：15306891227，13909728716，15868956091</span>
+                        </p>
+                        <p style="margin-top: 15px">
+                            <span style="font-size: 20px; color: black">邮箱地址：2914082602@qq.com， 2919209998@qq.com </span>
+                        </p>
+                        <p style="margin-top: 15px">
+                            <span style="font-size: 20px; color: black">公司网址：www.qhgypa.com.</span>
+                        </p>
+                        <p style="margin-top: 15px"><span style="font-size: 20px; color: black">公司总部地址：青海省平安县平安镇东村  </span></p>
+                        <p style="margin: 15px auto"><span style="font-size: 20px; color: black">义乌销售部地址：浙江省义乌市稠城街道江北下朱9栋</span></p>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="contact-textarea">
+                            <form>
+                                <textarea name="suggestText" id="suggestText" placeholder="您的建议.."></textarea>
+                                <input type="button" value="提交" onclick="submitSuggest();">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //用户意见反馈
+    function submitSuggest() {
+        var suggestText = jQuery("#suggestText");
+        if (suggestText.val().length <= 0) {
+            $.jBox.tip('反馈内容不能为空', 'error', { focusId: "suggestText" });
+            return;
+        }
+        jQuery.post(
+            "@Url.Content("~/Home/UserSuggest")",
+            { "suggestText": suggestText.val() },
+            function (data) {
+                if (data == "反馈成功") {
+                    suggestText.val("");
+                }
+                $.jBox.tip(data, "提示");
+            },
+            "text"
+        );
+    }
+</script>

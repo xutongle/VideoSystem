@@ -1,90 +1,53 @@
 ﻿@{
-    ViewBag.Title = "古驿平安视频系统";
+    ViewBag.Title = "我的视频";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using VideoSystem.Models
+@model VideoSystem.Models.Code[]
 
-<div class="container">
-    <div class="row vid_loac">
-        <div class="col-sm-12 col-md-4 col-lg-4 col-md-offset-7" id="div_login" style="">
-            <h3 style="text-align: center">用户登录</h3>
-            <p style="color:red;text-align:center;">@TempData["ErroInfo"]</p>
-            <form class="form-horizontal" role="form" method="post" action="@Url.Content("~/Home/Main")" id="userLoginForm">
-                <div class="form_table">
-                    <table>
-                        <tr>
-                            <td>
-                                <label class="control-label">账号</label>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="account" name ="account" value="111" required >
-                            </td>
-                        </tr>
 
-                        <tr>
-                            <td>
-                                <label class="control-label">密码</label>
-                            </td>
-                            <td>
-                                <input type="password" class="form-control" id="password" name="password" value="123456789" required>
-                            </td>
-                        </tr>
-                    </table>
+<link href="@Url.Content("~/content/pagecss/main.css")" rel="stylesheet" type="text/css">
+<style>a:hover { text-decoration:none;}</style>
+
+@Html.Partial("HomePartialView")
+
+<link href="@Url.Content("~/content/pagecss/myvideo.css")" rel="stylesheet" type="text/css">
+<div class="gallery">
+    <div class="container">
+        <form class="form-inline" role="form" action="@Url.Content("~/Home/GetVideo")" method="post">
+            <div id="search_wrapper1" style="margin-top: 3em">
+                <div id="search_form" class="clearfix">
+                    <p>
+                        <input type="text" class="text" name="videoCode" placeholder="输入邀请码" required>
+                        <label class="btn2 btn-2 btn2-1b">
+                            <input type="submit" value="获取视频" >
+                        </label>
+                    </p>
                 </div>
+            </div>
+        </form>
 
-                <div style="text-align: center; margin-top: 10px;">
-                    <a href="@Url.Action("RegistPage")">没有账号，去注册</a>
-                </div>
+        <hr style="border-bottom: 1px solid #f15f43;" />
 
-                <div style="margin-top: 10px; text-align: center">
-                    <button type="button" class="btn btn-success" onclick="login()">登陆</button>
-                    <button type="reset" class="btn btn-success" style="margin-left: 10px">重置</button>
-                </div>
-            </form>
-            
-            <div class="col-lg-12 third_login">
-                <p style="font-size: 10px; color: #808080">第三方登陆</p>
-                <table>
-                    <tr>
-                        <td>
-                            <a href="#">
-                                <img src="~/Image/qq.png" /></a>
-                        </td>
-                        <td>
-                            <a href="#">
-                                <img src="~/Image/weixin.png" /></a>
-                        </td>
-                        <td>
-                            <a href="#">
-                                <img src="~/Image/zfb.png" /></a>
-                        </td>
-                    </tr>
-                </table>
+        <div class="gallery-main" style="padding-left: 0; padding-right: 0">
+            <div class="gallery-bottom">
+
+                @foreach(Code c in Model)
+                {
+                    <div class="col-md-3">
+                        <div class="view view-third" style="padding-left: 10px; padding-right: 10px; margin: 20px 0">
+                            <a href="~/Home/PlayVideo?videoID=@c.VideoID" class="b-link-stripe b-animate-go  swipebox">
+                                <img src="@c.Video.VideoImageLocal" alt="" class="img-responsive">
+                                <div class="mask" style="width:100%; height: 100%; background-image: url(/Image/video_image/play_icon.png); background-repeat: no-repeat; background-position: center center">
+                                </div>
+                                <h4 style="line-height:1.2; clear:both; overflow:visible;margin-top:8px; color:black; font-family:'Microsoft YaHei'">@c.Video.VideoName</h4>
+                            </a>
+                        </div>
+                    </div>	
+                }
+
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
 </div>
-<script>
-
-    jQuery(document).ready(function () {
-        //默认设置
-        var fp1 = new Fingerprint();
-        //canvas设置
-        var fp2 = new Fingerprint({ canvas: true });
-        //插件设置
-        var fp3 = new Fingerprint({ ie_activex: true });
-        //屏幕设置
-        var fp4 = new Fingerprint({ screen_resolution: true });
-
-        var str = "" + fp1.get() + fp2.get() + fp3.get() + fp4.get();
-
-        jQuery("#userLoginForm").append("<input type='hidden' name='UserBrowser' value='" + $.md5(str) + "'/>");
-    });
-
-    function login()
-    {
-        var password = jQuery("#password").val();
-        strmd5 = $.md5(password).toLocaleUpperCase();
-        jQuery("#password").val(strmd5);
-        jQuery("#userLoginForm").submit();
-    }
-</script>

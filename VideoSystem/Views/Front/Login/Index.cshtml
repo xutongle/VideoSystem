@@ -1,0 +1,114 @@
+﻿
+@{Layout = null;}
+<!DOCTYPE html>
+<html>
+     <head>
+     <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+     <link href="~/Content/app.css" rel="stylesheet" />
+     <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+     <script src="~/Scripts/Utils.js"></script>
+     <script src="~/Scripts/JQuery.md5.js"></script>
+     <script src="~/Scripts/fingerprint.js"></script>
+     <link type="text/css" rel="stylesheet" href="~/Content/pagecss/login.css" />
+     <title>用户登录</title>
+     </head>
+
+    <body>
+        <div class="navbar navbar-default head_footer" style="margin-bottom:0" >
+            <div class="container">
+               <img src="~/Image/logo.png"/ width="380" height="60">
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <p id="app_head" style="margin: 0"><b>古驿平安串珠视频系统</b></p>
+        </div>
+
+        <div id="back_behind">
+            <div class="container" id="back_front">
+                <div class="row vid_loac">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-md-offset-3" id="div_login">
+                        <form class="form-horizontal" role="form" method="post" action="@Url.Content("~/Login/Main")" id="userLoginForm">
+                            <table id="login_table" style="border-spacing: 20px; border-collapse: separate; width: 100%">
+                                <caption style="text-align: center; padding: 0">
+                                    <h3 style="margin: 2px">用户登录</h3>
+                                </caption>
+                                <tr style="margin-top: 0">
+                                    <td colspan="6">
+                                        <input type="text" placeholder="用户名" class="form-control" id="account" name="account" required>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="6">
+                                        <input type="password" placeholder="密   码" class="form-control" id="password" name="password" required>
+                                    </td>
+                                </tr>
+
+                                <tr style="margin: 0 auto">
+                                    <td colspan="6">
+                                        <p style="color: red;">@TempData["ErroInfo"]</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="width: 50%">
+                                        <button class="btn btn-success" id="submit_btn" onclick="login()">登录</button>
+                                    </td>
+                                    <td colspan="3" style="width: 50%">
+                                        <a class="btn btn-warning"  id="regist_btn" href="/Login/RegistPage">没有账户，去注册 </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="width: 33.3%">
+                                        <a href="#" class="btn login_3rd">
+                                            <img src="~/Image/qq.png" height="35" />
+                                            QQ
+                                        </a>
+                                    </td>
+                                    <td colspan="2" style="width: 33.3%">
+                                        <a href="#" class="btn login_3rd">
+                                            <img src="~/Image/weixin.png" height="35" />
+                                            微信
+                                        </a>
+                                    </td>
+                                    <td colspan="2" style="width: 33.3%">
+                                        <a href="#" class="btn login_3rd">
+                                            <img src="~/Image/weibo.png" height="35" />
+                                            微博
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+
+    jQuery(document).ready(function () {
+        //默认设置
+        var fp1 = new Fingerprint();
+        //canvas设置
+        var fp2 = new Fingerprint({ canvas: true });
+        //插件设置
+        var fp3 = new Fingerprint({ ie_activex: true });
+        //屏幕设置
+        var fp4 = new Fingerprint({ screen_resolution: true });
+
+        var str = "" + fp1.get() + fp2.get() + fp3.get() + fp4.get();
+
+        jQuery("#userLoginForm").append("<input type='hidden' name='UserBrowser' value='" + $.md5(str) + "'/>");
+    });
+
+    function login() {
+        var password = jQuery("#password").val();
+        strmd5 = $.md5(password).toLocaleUpperCase();
+        jQuery("#password").val(strmd5);
+        jQuery("#userLoginForm").submit();
+    }
+</script>

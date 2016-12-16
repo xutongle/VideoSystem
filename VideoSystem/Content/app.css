@@ -1,13 +1,49 @@
 ﻿/*手机端、iPad端竖屏*/
+@media (max-width: 600px) {
+    #modify_pass {
+        width:100%;
+    }
+
+    
+    #form_id {
+        background-color: white;
+    }
+}
 @media (max-width: 1023px) {
     * {
         margin:0;
     }
-    .container {
-        background-color:#cecece;
+
+    #back_behind,#back_front {
+        background:none;
+        background-image:none;
     }
+
+    #app_head {
+        margin:20px auto; 
+        font-size:20px; 
+        font-family:微软雅黑; 
+        color:white; 
+        padding:10px; 
+        background-color:blue;
+        display:block;
+    }
+
+    body {
+        width:100%;
+    }
+
+    #home_logo {
+        display:none;
+    }
+
+    #login_table {
+        border-spacing: 40px;
+        border-collapse: separate;
+    }
+
     .vid_loac {
-        margin-top:0px;
+        margin-top:30px;
     }
     .top {
         margin-top:10px;
@@ -73,12 +109,43 @@
 }
 /*PC端，iPad端横屏*/
 @media (min-width: 1023px) {
+
+     #back_behind {
+       background-image: url(../Image/back1.jpg);
+       position: absolute; 
+       bottom: 44%; 
+       width: 100%; 
+       margin-bottom: -260px; 
+       padding:10px;
+    }
+     
+     #back_front {
+        background-image: url(../Image/back_front.png);
+    }
+
+    #app_head {
+        display:none;
+    }
+
+    #register_div {
+        background-image:url(../Image/back1.jpg);
+    }
+
+      #form_id {
+        background-color: rgba(0,0,0,0.2);
+    }
+
     .current_video {
         display:none;
     }
     .vid_loac {
-        margin-top:100px;
+        margin-top:90px;
     }
+
+    .register_row{
+        margin-top:20px;
+    }
+
     .top {
         margin-top:0px;
     }
@@ -93,7 +160,7 @@
         width:40px;
     }
     #div_login {
-        border: solid 1px #808080;
+        /*border: solid 1px #808080;*/
         border-radius:5px;
         padding:10px
     }
@@ -173,4 +240,11 @@
 #ImagePreview {
     width:300px;
     height:300px;
+}
+
+
+#backLogin {
+    background-image:url(/Image/backLoginImg.jpg); 
+    background-size:cover;
+    
 }

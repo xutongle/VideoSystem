@@ -11,35 +11,15 @@ using VideoSystem.Models;
 
 namespace VideoSystem.Controllers.Front
 {
+    [CustAuthorize("user")]
     public class HomeController : Controller
     {
         private VideoSystemContext vsc = new VideoSystemContext();
-        private IEncryption ie;
-
-        public HomeController(IEncryption ie)
-        {
-            this.ie = ie;
-        }
-
+       
         //
         // GET: /Home/
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        //用户注销账户
-        public ActionResult LogOut()
-        {
-            FormsAuthentication.SignOut();
-            Response.Cookies.Clear();
-            return RedirectToAction("", "");
-        }
-
-        //跳转用户登录页面
-        [CustAuthorize("user")]
-        public ActionResult MainPage(string currentVideo = null)
+        //首页
+        public ActionResult Index(string currentVideo = null)
         {
             User user = (User)(Session["User"]);
 
@@ -51,111 +31,112 @@ namespace VideoSystem.Controllers.Front
             return View(codeArray);
         }
 
-        //用户登录
-        [HttpPost]
-        public ActionResult Main(string account, string password,string UserBrowser)
+        //产品展示
+        public ActionResult Product()
         {
-            User[] user = vsc.Users.Where(u => u.UserAccount == account && u.UserPassword == password).ToArray();
-            if (user.Count() > 0)
-            {
-                string[] userBrowserArray = { user[0].UserBrowser1, user[0].UserBrowser2, user[0].UserBrowser3 };
-
-                //用户浏览器不是已绑定的
-                if (!userBrowserArray.Contains(UserBrowser))
-                {
-                    if(!userBrowserArray.Contains("no"))
-                    {
-                        TempData["ErroInfo"] = "您无权在当前电脑登录!";
-                        return RedirectToAction("", "");
-                    }
-                    else
-                    {
-                        for (int i = 0; i < 3; i++)
-                        {
-                            if (userBrowserArray[i] == "no")
-                            {
-                                userBrowserArray[i] = UserBrowser;
-                                break;
-                            }
-                        }
-
-                        user[0].UserBrowser1 = userBrowserArray[0];
-                        user[0].UserBrowser2 = userBrowserArray[1];
-                        user[0].UserBrowser3 = userBrowserArray[2];
-
-                        if (ModelState.IsValid)
-                        {
-                            vsc.Entry(user[0]).State = EntityState.Modified;
-                            vsc.SaveChanges();
-                        }
-
-                        string userCookie = password + "-" + account;
-                        Session["userCookie"] = userCookie;
-                        Session["User"] = user[0];
-                        Session["role"] = "user";
-                        Response.Cookies["userCookie"].Value = userCookie;
-                        Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
-
-                        return RedirectToAction("MainPage", "Home");
-                    }
-                }
-                else
-                {
-                    string userCookie = password + "-" + account;
-                    Session["userCookie"] = userCookie;
-                    Session["User"] = user[0];
-                    Session["role"] = "user";
-                    Response.Cookies["userCookie"].Value = userCookie;
-                    Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
-
-                    return RedirectToAction("MainPage", "Home");
-                }
-            }
-            else
-            {
-                TempData["ErroInfo"] = "账号或密码错误!";
-                return RedirectToAction("", "");
-            }
-        }
-
-        //跳转注册页面
-        public ActionResult RegistPage() {
             return View();
         }
 
-       
-        //用户注册
-        [HttpPost]
-        public ActionResult Regist(User user) {
-            if (ModelState.IsValid)
-            {
-                vsc.Users.Add(user);
-                vsc.SaveChanges();
-                return RedirectToAction("", "");
-            }
-            else
-            {
-                TempData["ErroInfo"] = "注册失败";
-                return RedirectToAction("RegistPage", "Home");
-            }
+        //公司简介
+        public ActionResult About()
+        {
+            return View();
         }
 
-        //判断注册的账号是否存在
-        [HttpPost]
-        public ContentResult IsRegistAccountExist(string account)
+        //联系我们
+        public ActionResult Contact()
         {
-            IEnumerable<User> u = from us in vsc.Users.ToList()
-                                  where us.UserAccount == account
-                                  select us;
-            if (u.Count() == 0)
+            return View();
+        }
+
+        //播放视频
+        public ActionResult PlayVideo(int videoID)
+        {
+            Video[] currentVideo = vsc.Videos.Where(v => v.VideoID == videoID).ToArray();
+            return View(currentVideo[0]);
+        }
+
+        //用户反馈
+        [HttpPost]
+        public ContentResult UserSuggest(string suggestText)
+        {
+            Suggest suggest = new Suggest();
+            suggest.SuggestText = suggestText;
+            suggest.CreateTime = DateTime.Now;
+
+            User user = (User)(Session["User"]);
+
+            suggest.UserID = user.UserID;
+            if (ModelState.IsValid)
             {
-                return Content("success");
+                vsc.Suggests.Add(suggest);
+                vsc.SaveChanges();
+                return Content("反馈成功");
+            }
+
+            return Content("反馈失败");
+        }
+
+        //获取视频
+        [HttpPost]
+        public ActionResult GetVideo(string videoCode)
+        {
+            Code[] isCodeExist = vsc.Codes.Where(code => code.CodeValue == videoCode && code.CodeStatus == 1 && code.UserID == -1).ToArray();
+            //邀请码无效
+            if (isCodeExist.Length <= 0)
+            {
+                TempData["info"] = "验证码无效";
+                return RedirectToAction("Index", "Home");
+            }
+            //邀请码存在,但是用户已经有此邀请码对应的视频
+            Code c = isCodeExist[0];
+            User user = (User)(Session["User"]);
+            Code[] codeArray = vsc.Codes.Where(code => code.UserID == user.UserID).ToArray();
+
+            int isExist = codeArray.Where(code2 => code2.VideoID == c.VideoID).ToArray().Length;
+            if (isExist != 0)
+            {
+                c.CodeStatus = 3;
             }
             else
             {
-                //账号已存在
+                c.UserID = user.UserID;
+                c.CodeStatus = 2;
+            }
+
+            if (ModelState.IsValid)
+            {
+                vsc.Entry(c).State = EntityState.Modified;
+                vsc.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+        
+        //修改密码
+        [HttpPost]
+        public ActionResult ModifyPass(string oldPass, string newPass)
+        {
+            User user = (User)(Session["User"]);
+
+            if (oldPass != user.UserPassword)
+            {
                 return Content("erro");
             }
+
+            user.UserPassword = newPass;
+
+            if(ModelState.IsValid)
+            {
+                vsc.Entry(user).State = EntityState.Modified;
+                vsc.SaveChanges();
+            }
+
+            FormsAuthentication.SignOut();
+            Session.Clear();
+            Response.Cookies.Clear();
+            return Content("success");
         }
+        
     }
 }

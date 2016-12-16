@@ -145,7 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Back\TestController.cs" />
-    <Compile Include="Controllers\Front\UserMainController.cs" />
+    <Compile Include="Controllers\Front\LoginController.cs" />
     <Compile Include="Migrations\201612050608588_addMD5toVideo.cs" />
     <Compile Include="Migrations\201612050608588_addMD5toVideo.Designer.cs">
       <DependentUpon>201612050608588_addMD5toVideo.cs</DependentUpon>
@@ -217,6 +217,12 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Content Include="Content\pagecss\contact.css" />
+    <Content Include="Content\pagecss\login.css" />
+    <Content Include="Content\pagecss\main.css" />
+    <Content Include="Content\pagecss\myvideo.css" />
+    <Content Include="Content\pagecss\product.css" />
+    <Content Include="Content\pagecss\registe.css" />
     <Content Include="Image\manager.png" />
     <Content Include="plugin\jBox\jquery-1.4.2.min.js" />
     <Content Include="plugin\jBox\jquery.jBox-2.2.min.js" />
@@ -460,6 +466,7 @@
     <Content Include="plugin\WebUploader\Uploader.swf" />
     <Content Include="plugin\WebUploader\webuploader.css" />
     <Content Include="plugin\WebUploader\webuploader.js" />
+    <Content Include="Scripts\customjs\registe.js" />
     <Content Include="Scripts\fingerprint.js" />
     <Content Include="Scripts\JQuery.md5.js" />
     <Content Include="Scripts\Utils.js" />
@@ -644,9 +651,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Back\Admin\Index.cshtml" />
-    <Content Include="Views\Front\Home\Index.cshtml" />
     <Content Include="Views\Shared\_BackLayout.cshtml" />
-    <Content Include="Views\Front\Home\RegistPage.cshtml" />
     <Content Include="plugin\VideoJS\test.webm" />
     <Content Include="plugin\VideoJS\test.ogg" />
     <Content Include="Views\Back\VideoManager\Index.cshtml" />
@@ -658,8 +663,17 @@
     <Content Include="Views\Back\UserManager\Index.cshtml" />
     <Content Include="Views\Back\UserManager\UserSuggestPage.cshtml" />
     <Content Include="Views\Back\Admin\BackMain.cshtml" />
-    <Content Include="Views\Front\Home\MainPage.cshtml" />
     <Content Include="Views\Back\UserManager\GetUserVideo.cshtml" />
+    <Content Include="Views\Front\Login\Index.cshtml" />
+    <Content Include="Views\Front\Login\RegistPage.cshtml" />
+    <Content Include="Views\Front\Home\Index.cshtml" />
+    <Content Include="Views\Front\Home\About.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Front\Home\Contact.cshtml" />
+    <Content Include="Views\Front\Home\PlayVideo.cshtml" />
+    <Content Include="Views\Front\Home\Product.cshtml" />
+    <Content Include="Views\Shared\HomePartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -712,7 +726,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>20130</DevelopmentServerPort>
+          <DevelopmentServerPort>61626</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:61113/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

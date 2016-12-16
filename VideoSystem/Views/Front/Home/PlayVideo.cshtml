@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "古驿平安视频系统";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model VideoSystem.Models.Video
+
+
+<link href="@Url.Content("~/content/pagecss/main.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/plugin/VideoJS/video-js.css")" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/plugin/VideoJS/video.js")"></script>
+
+<script>
+    videojs.options.flash.swf = "@Url.Content("~/VideoJS/video-js.swf")";
+</script>
+
+@Html.Partial("HomePartialView")
+
+<div class="container">
+    <div class="row vid_loac" style="margin-top:30px">
+       
+
+        <div class="col-sm-12 col-md-8 col-lg-8  col-md-offset-2 " style="background-color:white;">
+             <h2 style="font-family: 'microsoft yaHei', 微软雅黑, arial; font-size:18px; color:#72ACE3">@Model.VideoName</h2>
+            <video id="video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" data-setup="{}">
+                <source src="@Model.VideoLocal" type='video/mp4' id="vvv"/>
+            </video>
+        </div> 
+    </div>
+</div>
+
+<script type="text/javascript">
+    //自动播放
+    var myPlayer = videojs('video');
+    videojs("video").ready(function () {
+        var myPlayer = this;
+        myPlayer.play();
+    });
+
+    //让播放器高度随设备变化
+    var screen_width = screen.availWidth;
+    if (screen_width >= 1024) {
+        myPlayer.height(500);
+    }
+    else if (screen_width >= 768) {
+        myPlayer.height(400);
+    }
+    else {
+        myPlayer.height(250);
+    }
+</script>
