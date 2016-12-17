@@ -52,8 +52,8 @@ namespace VideoSystem.Controllers.Back
                 string userCookie = password + "-" + account;
 
                 Session["role"] = "admin";
-                Response.Cookies["userCookie"].Value = userCookie;
-                Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
+                Response.Cookies["adminCookie"].Value = userCookie;
+                Response.Cookies["adminCookie"].Expires = DateTime.MaxValue;
 
                 Session["Manager"] = managerArray[0];
                 return RedirectToAction("BackMain", "Admin");

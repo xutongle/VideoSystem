@@ -31,16 +31,21 @@ namespace VideoSystem.Filters
             
             try {
                 string userCookie = r.Cookies["userCookie"].Value;
-                string[] info = userCookie.Split('-');
+                string adminCookie = r.Cookies["adminCookie"].Value;
+                string[] userInfo = userCookie.Split('-');
+                string[] adminInfo = adminCookie.Split('-');
 
-                if (userCookie != null)
+                string account = userInfo[1];
+                string password = userInfo[0];
+
+                string adminAccount = adminInfo[1];
+                string adminPass = adminInfo[0];
+                //用户是管理员
+                if (roles[0] == "admin")
                 {
-                    string account = info[1];
-                    string password = info[0];
-                    //用户是管理员
-                    if (roles[0] == "admin")
+                    if (adminCookie != null)
                     {
-                        Manager[] m = vsc.Managers.Where(manager => manager.ManagerPassword == password && manager.ManagerAccount == account).ToArray();
+                        Manager[] m = vsc.Managers.Where(manager => manager.ManagerPassword == adminPass && manager.ManagerAccount == adminAccount).ToArray();
                         if (m.Length <= 0)
                         {
                             return false;
@@ -50,8 +55,14 @@ namespace VideoSystem.Filters
                             return true;
                         }
                     }
-                    //一般用户
                     else
+                        return false;
+
+                }
+                //一般用户
+                else
+                {
+                    if (userCookie != null)
                     {
                         User[] u = vsc.Users.Where(user => user.UserPassword == password && user.UserAccount == account).ToArray();
                         if (u.Length <= 0)
@@ -63,9 +74,8 @@ namespace VideoSystem.Filters
                             return true;
                         }
                     }
-                }
-                else {
-                    return false;
+                    else
+                        return false;
                 }
             }
             catch(Exception)
