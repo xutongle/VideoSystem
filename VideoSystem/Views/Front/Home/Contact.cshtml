@@ -45,24 +45,4 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    //用户意见反馈
-    function submitSuggest() {
-        var suggestText = jQuery("#suggestText");
-        if (suggestText.val().length <= 0) {
-            $.jBox.tip('反馈内容不能为空', 'error', { focusId: "suggestText" });
-            return;
-        }
-        jQuery.post(
-            "@Url.Content("~/Home/UserSuggest")",
-            { "suggestText": suggestText.val() },
-            function (data) {
-                if (data == "反馈成功") {
-                    suggestText.val("");
-                }
-                $.jBox.tip(data, "提示");
-            },
-            "text"
-        );
-    }
-</script>
+<script src="~/Scripts/customjs/userSuggest.js"></script>

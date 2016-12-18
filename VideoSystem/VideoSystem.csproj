@@ -162,6 +162,10 @@
     <Compile Include="Migrations\201612070749182_update.Designer.cs">
       <DependentUpon>201612070749182_update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612180639240_changeUser.cs" />
+    <Compile Include="Migrations\201612180639240_changeUser.Designer.cs">
+      <DependentUpon>201612180639240_changeUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Abstract\ICreateCode.cs" />
     <Compile Include="Models\Abstract\IEncryption.cs" />
     <Compile Include="Models\Abstract\IExportExcel.cs" />
@@ -467,6 +471,12 @@
     <Content Include="plugin\WebUploader\webuploader.css" />
     <Content Include="plugin\WebUploader\webuploader.js" />
     <Content Include="Scripts\customjs\registe.js" />
+    <Content Include="Scripts\customjs\getVideo.js" />
+    <Content Include="Scripts\customjs\getVideoSource.js" />
+    <Content Include="Scripts\customjs\userLogin.js" />
+    <Content Include="Scripts\customjs\userSuggest.js" />
+    <Content Include="Scripts\customjs\setting.js" />
+    <Content Include="Scripts\customjs\videoManager.js" />
     <Content Include="Scripts\fingerprint.js" />
     <Content Include="Scripts\JQuery.md5.js" />
     <Content Include="Scripts\Utils.js" />
@@ -708,6 +718,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612070749182_update.resx">
       <DependentUpon>201612070749182_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612180639240_changeUser.resx">
+      <DependentUpon>201612180639240_changeUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

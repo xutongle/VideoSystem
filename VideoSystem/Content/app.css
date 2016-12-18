@@ -119,6 +119,14 @@
        padding:10px;
     }
      
+     #register_div {
+        position: absolute;
+        bottom: 50%;
+        width: 100%;
+        margin-bottom: -240px;
+        padding: 10px;
+    }
+
      #back_front {
         background-image: url(../Image/back_front.png);
     }

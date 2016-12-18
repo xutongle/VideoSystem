@@ -27,6 +27,10 @@ namespace VideoSystem.Models
         public string UserBrowser3 { get; set; }
         [NotMapped]
         public string UserConfirmPassword { get; set; }
+        [Required]
+        public string Uniq { get; set; }
+        [Required]
+        public string From { get; set; }
 
         public ICollection<Suggest> Suggests { get; set; }
     }

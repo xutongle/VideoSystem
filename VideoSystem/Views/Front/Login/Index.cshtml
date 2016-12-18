@@ -11,6 +11,7 @@
      <script src="~/Scripts/JQuery.md5.js"></script>
      <script src="~/Scripts/fingerprint.js"></script>
      <link type="text/css" rel="stylesheet" href="~/Content/pagecss/login.css" />
+     <script type="text/javascript" src="http://open.51094.com/user/myscript/158562cdb943a4.html"></script>
      <title>用户登录</title>
      </head>
 
@@ -60,23 +61,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="width: 33.3%">
-                                        <a href="#" class="btn login_3rd">
-                                            <img src="~/Image/qq.png" height="35" />
-                                            QQ
-                                        </a>
-                                    </td>
-                                    <td colspan="2" style="width: 33.3%">
-                                        <a href="#" class="btn login_3rd">
-                                            <img src="~/Image/weixin.png" height="35" />
-                                            微信
-                                        </a>
-                                    </td>
-                                    <td colspan="2" style="width: 33.3%">
-                                        <a href="#" class="btn login_3rd">
-                                            <img src="~/Image/weibo.png" height="35" />
-                                            微博
-                                        </a>
+                                    <td colspan="6" style="width: 100%;text-align:center">
+                                        <p style="color:black;">第三方登陆</p>
+                                        <span id="hzy_fast_login"></span>
                                     </td>
                                 </tr>
                             </table>
@@ -87,28 +74,4 @@
         </div>
     </body>
 </html>
-
-<script>
-
-    jQuery(document).ready(function () {
-        //默认设置
-        var fp1 = new Fingerprint();
-        //canvas设置
-        var fp2 = new Fingerprint({ canvas: true });
-        //插件设置
-        var fp3 = new Fingerprint({ ie_activex: true });
-        //屏幕设置
-        var fp4 = new Fingerprint({ screen_resolution: true });
-
-        var str = "" + fp1.get() + fp2.get() + fp3.get() + fp4.get();
-
-        jQuery("#userLoginForm").append("<input type='hidden' name='UserBrowser' value='" + $.md5(str) + "'/>");
-    });
-
-    function login() {
-        var password = jQuery("#password").val();
-        strmd5 = $.md5(password).toLocaleUpperCase();
-        jQuery("#password").val(strmd5);
-        jQuery("#userLoginForm").submit();
-    }
-</script>
+<script src="~/Scripts/customjs/userLogin.js"></script>

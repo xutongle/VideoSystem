@@ -187,3 +187,4 @@ E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.del
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.addUserBrowserToUser.resources
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.changeUser.resources

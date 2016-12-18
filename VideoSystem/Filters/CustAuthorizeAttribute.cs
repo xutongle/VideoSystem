@@ -30,21 +30,27 @@ namespace VideoSystem.Filters
             }
             
             try {
-                string userCookie = r.Cookies["userCookie"].Value;
-                string adminCookie = r.Cookies["adminCookie"].Value;
-                string[] userInfo = userCookie.Split('-');
-                string[] adminInfo = adminCookie.Split('-');
+                string userCookie = null;
+                string adminCookie = null;
 
-                string account = userInfo[1];
-                string password = userInfo[0];
+                if (r.Cookies["userCookie"] != null)
+                {
+                    userCookie = r.Cookies["userCookie"].Value;
+                }
+                if (r.Cookies["adminCookie"] != null)
+                {
+                    adminCookie = r.Cookies["adminCookie"].Value;
+                }
 
-                string adminAccount = adminInfo[1];
-                string adminPass = adminInfo[0];
+                
                 //用户是管理员
                 if (roles[0] == "admin")
                 {
                     if (adminCookie != null)
                     {
+                        string[] adminInfo = adminCookie.Split('-');
+                        string adminAccount = adminInfo[1];
+                        string adminPass = adminInfo[0];
                         Manager[] m = vsc.Managers.Where(manager => manager.ManagerPassword == adminPass && manager.ManagerAccount == adminAccount).ToArray();
                         if (m.Length <= 0)
                         {
@@ -64,6 +70,9 @@ namespace VideoSystem.Filters
                 {
                     if (userCookie != null)
                     {
+                        string[] userInfo = userCookie.Split('-');
+                        string account = userInfo[1];
+                        string password = userInfo[0];
                         User[] u = vsc.Users.Where(user => user.UserPassword == password && user.UserAccount == account).ToArray();
                         if (u.Length <= 0)
                         {
@@ -93,7 +102,7 @@ namespace VideoSystem.Filters
             }
             if (roles[0] == "user")
             {
-                filterContext.Result = new RedirectResult("~/Home");
+                filterContext.Result = new RedirectResult("~/Login");
             }
         }
     }
