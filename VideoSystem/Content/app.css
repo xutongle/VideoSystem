@@ -18,6 +18,15 @@
     #tip_img {
         width:100%;
     }
+    #app_head {
+        margin: auto; 
+        font-size:20px; 
+        font-family:微软雅黑; 
+        color:white; 
+        padding:10px; 
+        background-color:blue;
+        display:block;
+    }
 }
 @media (max-width: 1023px) and (min-width: 600px){
     * {
@@ -65,9 +74,6 @@
     }
     .top {
         margin-top:10px;
-    }
-    .head_footer {
-        display:none;
     }
     .third_login {
         margin-top: 100px; 

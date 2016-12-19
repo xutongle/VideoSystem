@@ -20,8 +20,7 @@ namespace VideoSystem.Controllers.Back
 
         public ActionResult Index()
         {
-            int managerID = Convert.ToInt32(Request.Cookies["abcd"].Value);
-            Manager manager = vsc.Managers.Find(managerID);
+            Manager manager = (Manager)Session["Manager"];
             ViewBag.account = manager.ManagerAccount;
             return View(manager);
         }
@@ -29,8 +28,7 @@ namespace VideoSystem.Controllers.Back
         //编辑信息
         public ActionResult EditInfo(string email,string phone)
         {
-            int managerID = Convert.ToInt32(Request.Cookies["abcd"].Value);
-            Manager manager = vsc.Managers.Find(managerID);
+            Manager manager = (Manager)Session["Manager"];
             manager.ManagerEmail = email;
             manager.ManagerPhone = phone;
 
@@ -53,8 +51,7 @@ namespace VideoSystem.Controllers.Back
         //修改密码
         public ActionResult ModifyPass(string oldPass,string newPass)
         {
-            int managerID = Convert.ToInt32(Request.Cookies["abcd"].Value);
-            Manager manager = vsc.Managers.Find(managerID);
+            Manager manager = (Manager)Session["Manager"];
 
             if (oldPass != manager.ManagerPassword)
             {
