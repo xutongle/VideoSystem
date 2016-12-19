@@ -2,7 +2,9 @@
 @{Layout = null;}
 <!DOCTYPE html>
 <html>
-     <head>
+    <head>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width" />
      <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
      <link href="~/Content/app.css" rel="stylesheet" />
      <script src="~/Scripts/jquery-1.8.2.min.js"></script>
@@ -47,14 +49,14 @@
                                     </td>
                                 </tr>
 
-                                <tr style="margin: 0 auto">
-                                    <td colspan="6">
-                                        <p style="color: red;">@TempData["ErroInfo"]</p>
+                                <tr>
+                                    <td colspan="6" style="text-align:center">
+                                        <p id="logininfo" style="color: red;"></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" style="width: 50%">
-                                        <button class="btn btn-success" id="submit_btn" onclick="login()">登录</button>
+                                        <button type="button" class="btn btn-success" id="submit_btn" onclick="login()">登录</button>
                                     </td>
                                     <td colspan="3" style="width: 50%">
                                         <a class="btn btn-warning"  id="regist_btn" href="/Login/RegistPage">没有账户，去注册 </a>

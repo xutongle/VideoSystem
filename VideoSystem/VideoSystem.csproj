@@ -228,6 +228,7 @@
     <Content Include="Content\pagecss\product.css" />
     <Content Include="Content\pagecss\registe.css" />
     <Content Include="Image\manager.png" />
+    <Content Include="Image\tip.png" />
     <Content Include="plugin\jBox\jquery-1.4.2.min.js" />
     <Content Include="plugin\jBox\jquery.jBox-2.2.min.js" />
     <Content Include="plugin\jBox\Skins2\Blue\images\jbox-close1.gif" />

@@ -10,6 +10,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using VideoSystem.Abstract;
 using VideoSystem.Filters;
 using VideoSystem.Models;
 
@@ -18,12 +19,30 @@ namespace VideoSystem.Controllers.Front
     public class LoginController : Controller
     {
         private VideoSystemContext vsc = new VideoSystemContext();
-
+        private IEncryption ie;
+        public LoginController(IEncryption ie)
+        {
+            this.ie = ie;
+        }
         //
         // GET: /Login/
         //用户登录页面
         public ActionResult Index()
         {
+            //自动登陆
+            if (Request.Cookies["userCookie"] != null)
+            {
+                string userCookie = Request.Cookies["userCookie"].Value;
+                Session["role"] = "user";
+                Session["userCookie"] = userCookie;
+
+                string cookie1 = userCookie.Split('-')[0];
+                string cookie2 = userCookie.Split('-')[1];
+                User[] user1 = vsc.Users.Where(u => u.UserAccount == cookie2 && u.UserPassword == cookie1).ToArray();
+                Session["User"] = user1[0];
+                return RedirectToAction("","Home");
+            }
+
             return View();
         }
 
@@ -32,12 +51,25 @@ namespace VideoSystem.Controllers.Front
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            Response.Cookies.Clear();
+            //设置cookie过期
+            Response.Cookies["userCookie"].Value = "null";
+            Response.Cookies["userCookie"].Expires = DateTime.Now.AddDays(-1);
+
             return RedirectToAction("", "");
         }
 
+        //获取用户浏览器指纹
+        public ActionResult GetUserBrowser(string UserBrowser = null)
+        {
+            if (Session["UserBrowser"] == null)
+            {
+                Session["UserBrowser"] = UserBrowser;
+            }
+            return null;
+        }
+
         //第三方登陆
-        public ActionResult ThirdLogin(string code)
+        public ActionResult ThirdLogin(string code = null)
         {
             string appid = "158562cdb943a4";
             string token = "b2d81a423fe83105d97023303de835fb";
@@ -59,9 +91,91 @@ namespace VideoSystem.Controllers.Front
             string uniq = jo["uniq"].ToString();
             string from = jo["from"].ToString();
 
+            User[] user = vsc.Users.Where(u => u.From == from && u.Uniq == uniq).ToArray();
+            string UserBrowser = Session["UserBrowser"].ToString();
+            //首次登陆，保存账号
+            if (user.Length <= 0)
+            {
+                string md5_uniq = ie.MyMD5(uniq);
+                User u = new User();
+                u.Uniq = uniq;
+                u.From = from;
+                u.UserAccount = md5_uniq + from;
+                u.UserPassword = md5_uniq;
+                u.UserPhone = "null";
+                u.UserEmail = "null";
+                u.UserBrowser1 = UserBrowser;
+                u.UserBrowser2 = "no";
+                u.UserBrowser3 = "no";
 
+                if (ModelState.IsValid)
+                {
+                    vsc.Users.Add(u);
+                    vsc.SaveChanges();
+                }
 
-            return RedirectToAction("Index", "Home");
+                string userCookie = u.UserPassword + "-" + u.UserAccount;
+                Session["userCookie"] = userCookie;
+                Session["User"] = u;
+                Session["role"] = "user";
+                Response.Cookies["userCookie"].Value = userCookie;
+                Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
+
+                return RedirectToAction("Index", "Home");
+            }
+            else {
+                string[] userBrowserArray = { user[0].UserBrowser1, user[0].UserBrowser2, user[0].UserBrowser3 };
+                //用户浏览器不是已绑定的
+                if (!userBrowserArray.Contains(UserBrowser))
+                {
+                    //用户绑定浏览器个数已满
+                    if (!userBrowserArray.Contains("no"))
+                    {
+                        return Content("nolimit");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            if (userBrowserArray[i] == "no")
+                            {
+                                userBrowserArray[i] = UserBrowser;
+                                break;
+                            }
+                        }
+
+                        user[0].UserBrowser1 = userBrowserArray[0];
+                        user[0].UserBrowser2 = userBrowserArray[1];
+                        user[0].UserBrowser3 = userBrowserArray[2];
+
+                        if (ModelState.IsValid)
+                        {
+                            vsc.Entry(user[0]).State = EntityState.Modified;
+                            vsc.SaveChanges();
+                        }
+
+                        string userCookie = user[0].UserPassword + "-" + user[0].UserAccount;
+                        Session["userCookie"] = userCookie;
+                        Session["User"] = user[0];
+                        Session["role"] = "user";
+                        Response.Cookies["userCookie"].Value = userCookie;
+                        Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
+
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                else {
+                    string userCookie = user[0].UserPassword + "-" + user[0].UserAccount;
+                    Session["userCookie"] = userCookie;
+                    Session["User"] = user[0];
+                    Session["role"] = "user";
+                    Response.Cookies["userCookie"].Value = userCookie;
+                    Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
         }
 
         //发送post请求
@@ -101,9 +215,8 @@ namespace VideoSystem.Controllers.Front
 
         //账号登陆
         [HttpPost]
-        public ActionResult Main(string UserBrowser,string account = null, string password = null)
+        public ActionResult Main(string UserBrowser,string account, string password)
         {
-           
             User[] user = vsc.Users.Where(u => u.UserAccount == account && u.UserPassword == password).ToArray();
             if (user.Count() > 0)
             {
@@ -114,8 +227,7 @@ namespace VideoSystem.Controllers.Front
                 {
                     if (!userBrowserArray.Contains("no"))
                     {
-                        TempData["ErroInfo"] = "您无权在当前电脑登录!";
-                        return RedirectToAction("", "");
+                        return Content("nolimit");
                     }
                     else
                     {
@@ -145,7 +257,7 @@ namespace VideoSystem.Controllers.Front
                         Response.Cookies["userCookie"].Value = userCookie;
                         Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
 
-                        return RedirectToAction("Index", "Home");
+                        return Content("success");
                     }
                 }
                 else
@@ -157,13 +269,12 @@ namespace VideoSystem.Controllers.Front
                     Response.Cookies["userCookie"].Value = userCookie;
                     Response.Cookies["userCookie"].Expires = DateTime.MaxValue;
 
-                    return RedirectToAction("Index", "Home");
+                    return Content("success");
                 }
             }
             else
             {
-                TempData["ErroInfo"] = "账号或密码错误!";
-                return RedirectToAction("", "");
+                return Content("error");
             }
         } 
 
@@ -177,17 +288,17 @@ namespace VideoSystem.Controllers.Front
         [HttpPost]
         public ActionResult Regist(User user)
         {
-
             if (ModelState.IsValid)
             {
                 vsc.Users.Add(user);
                 vsc.SaveChanges();
-                return RedirectToAction("", "");
+                //return RedirectToAction("", "Login");
+                return Content("success");
             }
             else
             {
-                TempData["ErroInfo"] = "注册失败";
-                return RedirectToAction("RegistPage", "Login");
+                //return RedirectToAction("RegistPage", "Login");
+                return Content("failure");
             }
         }
 
