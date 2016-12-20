@@ -144,28 +144,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Back\ProductController.cs" />
     <Compile Include="Controllers\Back\TestController.cs" />
     <Compile Include="Controllers\Front\LoginController.cs" />
-    <Compile Include="Migrations\201612050608588_addMD5toVideo.cs" />
-    <Compile Include="Migrations\201612050608588_addMD5toVideo.Designer.cs">
-      <DependentUpon>201612050608588_addMD5toVideo.cs</DependentUpon>
+    <Compile Include="Migrations\201612200311135_addProduct.cs" />
+    <Compile Include="Migrations\201612200311135_addProduct.Designer.cs">
+      <DependentUpon>201612200311135_addProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612060659502_deleteVideoMd5.cs" />
-    <Compile Include="Migrations\201612060659502_deleteVideoMd5.Designer.cs">
-      <DependentUpon>201612060659502_deleteVideoMd5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612070635281_addUserBrowserToUser.cs" />
-    <Compile Include="Migrations\201612070635281_addUserBrowserToUser.Designer.cs">
-      <DependentUpon>201612070635281_addUserBrowserToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612070749182_update.cs" />
-    <Compile Include="Migrations\201612070749182_update.Designer.cs">
-      <DependentUpon>201612070749182_update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612180639240_changeUser.cs" />
-    <Compile Include="Migrations\201612180639240_changeUser.Designer.cs">
-      <DependentUpon>201612180639240_changeUser.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Abstract\ICreateCode.cs" />
     <Compile Include="Models\Abstract\IEncryption.cs" />
     <Compile Include="Models\Abstract\IExportExcel.cs" />
@@ -197,24 +183,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Infrastructure\NinjectDependency.cs" />
-    <Compile Include="Migrations\201611291505472_createdatabase.cs" />
-    <Compile Include="Migrations\201611291505472_createdatabase.Designer.cs">
-      <DependentUpon>201611291505472_createdatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611291516382_alter1.cs" />
-    <Compile Include="Migrations\201611291516382_alter1.Designer.cs">
-      <DependentUpon>201611291516382_alter1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612020722274_deleteLog.cs" />
-    <Compile Include="Migrations\201612020722274_deleteLog.Designer.cs">
-      <DependentUpon>201612020722274_deleteLog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612030538199_deleteManagerLimits.cs" />
-    <Compile Include="Migrations\201612030538199_deleteManagerLimits.Designer.cs">
-      <DependentUpon>201612030538199_deleteManagerLimits.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model\Manager.cs" />
+    <Compile Include="Models\Model\Product.cs" />
     <Compile Include="Models\Model\User.cs" />
     <Compile Include="Models\Model\Video.cs" />
     <Compile Include="Models\Model\VideoSystemContext.cs" />
@@ -627,6 +597,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\video.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Image\bg.jpg" />
     <Content Include="Image\code.png" />
@@ -685,6 +656,9 @@
     <Content Include="Views\Front\Home\PlayVideo.cshtml" />
     <Content Include="Views\Front\Home\Product.cshtml" />
     <Content Include="Views\Shared\HomePartialView.cshtml" />
+    <Content Include="Views\Back\Product\Index.cshtml" />
+    <Content Include="Views\Back\Product\AddProductPage.cshtml" />
+    <Content Include="Views\Back\Product\EditProductPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -696,32 +670,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611291505472_createdatabase.resx">
-      <DependentUpon>201611291505472_createdatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611291516382_alter1.resx">
-      <DependentUpon>201611291516382_alter1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612020722274_deleteLog.resx">
-      <DependentUpon>201612020722274_deleteLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612030538199_deleteManagerLimits.resx">
-      <DependentUpon>201612030538199_deleteManagerLimits.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612050608588_addMD5toVideo.resx">
-      <DependentUpon>201612050608588_addMD5toVideo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612060659502_deleteVideoMd5.resx">
-      <DependentUpon>201612060659502_deleteVideoMd5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612070635281_addUserBrowserToUser.resx">
-      <DependentUpon>201612070635281_addUserBrowserToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612070749182_update.resx">
-      <DependentUpon>201612070749182_update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612180639240_changeUser.resx">
-      <DependentUpon>201612180639240_changeUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612200311135_addProduct.resx">
+      <DependentUpon>201612200311135_addProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

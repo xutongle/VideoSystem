@@ -3,39 +3,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@model VideoSystem.Models.Product[]
+@using VideoSystem.Models;
 
 <link href="@Url.Content("~/content/pagecss/main.css")" rel="stylesheet" type="text/css">
 <link href="@Url.Content("~/content/pagecss/product.css")" rel="stylesheet" type="text/css">
 
 @Html.Partial("HomePartialView")
 
-@{
-    string[] product_name = new string[] { "梦幻珠包包", "小狗纸巾盒", "龙凤喜", "精美花瓶", "精美花瓶", "呆萌兔子", "大八角果盘", "时尚台灯", "兔子笔筒"};
-}
-
-<div class="models">		
-		<div class="container">
-			<h3 style="font-size:30px">近期热销产品展示</h3>
+<div class="list">
+			<h3 class="title1" style="font-size:30px">近期热销产品展示</h3>
             <hr style="border-bottom: 1px solid #f15f43;" />
-			<div class="models-grids">	
-                
-                @for(int i = 0; i < 9; i++)	
-                {		
-				<div class="col-md-4 model-grids view view-fourth">
-					<a class="example-image-link" href="#" data-lightbox="example-set" data-title="">
-						<img src="/Image/products/@(i.ToString()).jpg" class="img-responsive" alt=""/>
-						<div class="mask">
-							<h5 style="font-style:normal; line-height:2">
-                                @product_name[i]<br />
-                                商品售价：¥20.0元<br />
-                                点击官网购买
-							</h5>
-
-						</div>
-					</a>
-				</div>
-				}
-				<div class="clearfix"> </div>	
+			<div class="row">
+                @foreach(Product p in Model)
+                {
+                    <div class="products">
+						    <img src="@p.ProductImg"/>
+						    <div class="mask">
+							    <h4 style="font-style:normal; line-height:2">
+                                    @p.ProductName  &nbsp;
+                                    ¥@p.ProductPrice  元&nbsp;
+                                    <a href="@p.ProductUrl">购买</a>
+							    </h4>
+						    </div>
+                    </div>
+                }
 			</div>				
 		</div>
-	</div>	

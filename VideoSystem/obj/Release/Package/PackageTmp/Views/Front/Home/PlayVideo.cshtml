@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "古驿平安视频系统";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model int
+
+
+<link href="@Url.Content("~/content/pagecss/main.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/plugin/VideoJS/video-js.css")" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/plugin/VideoJS/video.js")"></script>
+
+<script>
+    videojs.options.flash.swf = "@Url.Content("~/VideoJS/video-js.swf")";
+</script>
+
+@Html.Partial("HomePartialView")
+<input type="hidden" id="info" value="@Model"/>
+<div class="container" id="video_container">
+
+</div>
+<script src="@Url.Content("~/Scripts/customjs/getVideo.js")"></script>

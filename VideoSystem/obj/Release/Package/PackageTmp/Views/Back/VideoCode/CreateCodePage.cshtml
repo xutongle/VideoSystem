@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "CreateCodePage";
+    Layout = "~/Views/Shared/_BackLayout.cshtml";
+}
+@model VideoSystem.Models.Video[]
+@using VideoSystem.Models
+<div class="main" style="margin-left:290px;width:80%">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Content("~/Admin/BackMain/")"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">生成邀请码 </li>
+        </ol>
+    </div>
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">生成邀请码</div>
+                <div class="panel-body">
+                    <form role="form" style="width:300px;margin:auto;" id="createCodeForm">
+                            <table class="uploadTable">
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class=" control-label">选择视频</label>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" id="videoID"  name="videoID">
+                                            <option value="-1">未选择</option>
+                                            @foreach(Video v in Model){
+                                                <option value="@v.VideoID">@v.VideoName</option>
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class=" control-label">邀请码数量</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="codeCounts" name="codeCounts">
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div style="text-align:center;margin-top:20px;">
+                                    <button type="button" class="btn btn-primary" onclick="createCode();">开始生成</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function createCode()
+    {
+        reg = /^\+?[1-9][0-9]*$/
+        if (!reg.test(jQuery("#codeCounts").val())) {
+            $.jBox.tip('请输入正确的数字', 'error', { focusId: "codeCounts" });
+            return;
+        }
+        $.ajax({
+            url: "/VideoCode/CreateCode",
+            type: "POST",
+            data: jQuery("#createCodeForm").serialize(),
+            success: function (data) {
+                if (data == "0") {
+                    $.jBox.info('生成失败', '提示');
+                }
+                else {
+                    $.jBox.info('生成成功' + data, '提示');
+                }
+            }
+        });
+    }
+</script>

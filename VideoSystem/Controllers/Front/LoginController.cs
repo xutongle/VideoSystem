@@ -74,9 +74,10 @@ namespace VideoSystem.Controllers.Front
         {
             string appid = "158562cdb943a4";
             string token = "b2d81a423fe83105d97023303de835fb";
-            if (code == null)
+            if(code == null)
             {
-                return Content("获取信息失败");
+                TempData["info"] = "获取信息失败";
+                return RedirectToAction("Index", "Login");
             }
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
@@ -95,7 +96,7 @@ namespace VideoSystem.Controllers.Front
             User[] user = vsc.Users.Where(u => u.From == from && u.Uniq == uniq).ToArray();
             string UserBrowser;
 
-            if (Session["UserBrowser"] == null)
+            if(Session["UserBrowser"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -130,8 +131,7 @@ namespace VideoSystem.Controllers.Front
 
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
+            else {
                 string[] userBrowserArray = { user[0].UserBrowser1, user[0].UserBrowser2, user[0].UserBrowser3 };
                 //用户浏览器不是已绑定的
                 if (!userBrowserArray.Contains(UserBrowser))
@@ -139,7 +139,8 @@ namespace VideoSystem.Controllers.Front
                     //用户绑定浏览器个数已满
                     if (!userBrowserArray.Contains("no"))
                     {
-                        return Content("您无权在此电脑登陆");
+                        TempData["info"] = "您无权在此电脑登陆";
+                        return RedirectToAction("Index", "Login");
                     }
                     else
                     {
@@ -173,8 +174,7 @@ namespace VideoSystem.Controllers.Front
                     }
 
                 }
-                else
-                {
+                else {
                     string userCookie = user[0].UserPassword + "-" + user[0].UserAccount;
                     Session["userCookie"] = userCookie;
                     Session["User"] = user[0];
@@ -191,7 +191,7 @@ namespace VideoSystem.Controllers.Front
         public string SendPost(string url, Dictionary<string, string> dic)
         {
             string result = "";
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url + "?");
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url+"?");
             req.Method = "POST";
             req.ContentType = "application/x-www-form-urlencoded";
             #region 添加Post 参数
@@ -224,7 +224,7 @@ namespace VideoSystem.Controllers.Front
 
         //账号登陆
         [HttpPost]
-        public ActionResult Main(string UserBrowser, string account, string password)
+        public ActionResult Main(string UserBrowser,string account, string password)
         {
             User[] user = vsc.Users.Where(u => u.UserAccount == account && u.UserPassword == password).ToArray();
             if (user.Count() > 0)
@@ -285,7 +285,7 @@ namespace VideoSystem.Controllers.Front
             {
                 return Content("error");
             }
-        }
+        } 
 
         //跳转注册页面
         public ActionResult RegistPage()

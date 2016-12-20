@@ -29,10 +29,10 @@
                     <p id="erro_info" style="color:red;text-align:center">@TempData["erroInfo"]</p>
                     <form role="form" action="@Url.Content("~/Admin/BackLogin/")" method="post" id="LoginForm">
                         <div class="form-group">
-                            <input class="form-control" placeholder="账号" name="account" type="text" value="123" autofocus="" required >
+                            <input class="form-control" placeholder="账号" name="account" id="account" type="text" value="123" autofocus="" required >
                         </div>
                         <div class="form-group">
-                            <input class="form-control" id="password" name="password" type="password" value="1234" required>
+                            <input class="form-control" name="password" id="password" type="password" value="1234" required>
                         </div>
 
                         <table>
@@ -68,6 +68,21 @@
             var password = jQuery("#password").val();
             strmd5 = $.md5(password).toLocaleUpperCase();
             jQuery("#password").val(strmd5);
+
+            if (jQuery("#account").val().length <= 0)
+            {
+                jQuery("#erro_info").text("请输入账号");
+                return;
+            }
+            if (jQuery("#password").val().length <= 0) {
+                jQuery("#erro_info").text("请输入密码");
+                return;
+            }
+            if (jQuery("#code").val().length <= 0) {
+                jQuery("#erro_info").text("请输入验证码");
+                return;
+            }
+
             jQuery("#LoginForm").submit();
         }
     </script>

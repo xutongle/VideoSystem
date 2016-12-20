@@ -34,7 +34,8 @@ namespace VideoSystem.Controllers.Front
         //产品展示
         public ActionResult Product()
         {
-            return View();
+            Product[] productArray = vsc.Products.ToArray();
+            return View(productArray);
         }
 
         //公司简介

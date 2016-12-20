@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "我的视频";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using VideoSystem.Models
+@model VideoSystem.Models.Code[]
+
+
+<link href="@Url.Content("~/content/pagecss/main.css")" rel="stylesheet" type="text/css">
+<style>a:hover { text-decoration:none;}</style>
+
+@Html.Partial("HomePartialView")
+
+<link href="@Url.Content("~/content/pagecss/myvideo.css")" rel="stylesheet" type="text/css">
+<div class="gallery">
+    <div class="container">
+        <form class="form-inline" role="form" action="@Url.Content("~/Home/GetVideo")" method="post">
+            <div id="search_wrapper1" style="margin-top: 3em">
+                <div id="search_form" class="clearfix">
+                    <p>
+                        <input type="text" class="text" name="videoCode" placeholder="输入邀请码" required>
+                        <label class="btn2 btn-2 btn2-1b">
+                            <input type="submit" value="获取视频" >
+                        </label>
+                    </p>
+                </div>
+            </div>
+        </form>
+
+        <hr style="border-bottom: 1px solid #f15f43;" />
+
+        <div class="gallery-main" style="padding-left: 0; padding-right: 0">
+            <div class="gallery-bottom">
+                @if (Model.Length <= 0)
+                {
+                    <img src="~/Image/tip.png" id="tip_img"/>
+                }
+                else { 
+                    foreach(Code c in Model)
+                    {
+                        <div class="col-md-3">
+                            <div class="view view-third" style="padding-left: 10px; padding-right: 10px; margin: 20px 0">
+                                <a href="~/Home/PlayVideo?videoID=@c.VideoID" class="b-link-stripe b-animate-go  swipebox">
+                                    <img src="@c.Video.VideoImageLocal" alt="" class="img-responsive">
+                                    <div class="mask" style="width:100%; height: 100%; background-image: url(/Image/video_image/play_icon.png); background-repeat: no-repeat; background-position: center center">
+                                    </div>
+                                    <h4 style="line-height:1.2; clear:both; overflow:visible;margin-top:8px; color:black; font-family:'Microsoft YaHei'">@c.Video.VideoName</h4>
+                                </a>
+                            </div>
+                        </div>	
+                    }
+                }
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+/*---portfolio----*/
+
+@media (max-width: 400px){
+    .products {
+        width:96%;
+        margin-left:2%;
+        margin-right:2%;
+    }
+}
+@media (min-width:401px) and (max-width: 700px){
+    .products {
+        width:46%;
+        margin-left:2%;
+        margin-right:2%;
+        float:left;
+    }
+   
+}
+@media (min-width:701px) {
+    .products {
+        width:29%;
+        margin-left:2%;
+        margin-right:2%;
+        float:left;
+    }
+   
+}
+.products {
+    margin-top:10px;
+    border:1px solid #808080;
+}
+.list {
+    width:95%;
+    margin:auto;
+    padding:10px;
+}
+
+.title1 {
+    font-size: 2.5em;
+    text-transform: capitalize;
+    font-family: 'Buda-Light';
+    color: #994868;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}

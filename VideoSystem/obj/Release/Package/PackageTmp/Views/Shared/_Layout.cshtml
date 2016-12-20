@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Utils.js"></script>
+    <link href="~/Content/app.css" rel="stylesheet" />
+
+    <script src="~/Scripts/JQuery.md5.js"></script>
+    <script type="text/javascript" src="~/plugin/jBox/jquery.jBox-2.2.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="~/plugin/jBox/Skins/Gray/jbox.css"/>
+</head>
+<body>
+
+    @RenderBody()
+
+    <div class="footer" style="margin-top:20px">
+        <div class="container">
+            <div style="color:white; text-align:center;font-family:'微软雅黑'">
+                <p style="font-size: 16px; margin-bottom: 6px">Copyright &copy;青海古驿平安工艺品有限公司版权所有.</p>
+                <p style="font-size: 16px; margin-bottom: 6px">地址：青海省平安县平安镇东村 .</p>
+                <p style="font-size: 16px; margin-bottom: 6px">联系电话：15306891227 13909728716.</p>
+                <p style="font-size: 16px; margin-bottom: 6px">官方商城：http://www.qhgypa.com/index.php </p>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
