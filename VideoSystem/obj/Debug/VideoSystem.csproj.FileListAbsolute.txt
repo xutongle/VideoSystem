@@ -225,3 +225,4 @@ C:\Users\Administrator\Desktop\VideoSystem\VideoSystem\VideoSystem\obj\Debug\Vid
 C:\Users\Administrator\Desktop\VideoSystem\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.addProduct.resources
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache

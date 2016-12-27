@@ -6,8 +6,7 @@ function checkEmail() {
     var re = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     if (!re.test(email.val()))
     {
-        alert("请输入有效的邮箱！");
-        email.focus();
+        jQuery("#info").text("请输入有效的邮箱！");
         return;
     }
 }
@@ -18,8 +17,7 @@ function checkEmail() {
 function checkPhone() {
     var phone = jQuery("#phone");
     if (!(/^1(3|4|5|7|8)\d{9}$/.test(phone.val()))) {
-        alert("请输入正确的手机号！");
-        phone.focus();
+        jQuery("#info").text("请输入正确的手机号！");
         return;
     }
 }
@@ -31,8 +29,7 @@ function checkPhone() {
 function verifyCode() {
     var code = jQuery("#code");
     if (code.val().length <= 0) {
-        alert("验证码不能为空");
-        code.focus();
+        jQuery("#info").text("验证码不能为空");
         return;
     }
 
@@ -42,9 +39,8 @@ function verifyCode() {
         function (data, statusText, xhr) {
             if (data) {
                 //$.jBox.info(data, '提示');
-                alert(data);
+                jQuery("#info").text(data);
                 code.val("");
-                code.focus();
                 return;
             }
         },
