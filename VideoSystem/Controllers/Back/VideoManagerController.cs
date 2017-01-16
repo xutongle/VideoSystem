@@ -41,46 +41,79 @@ namespace VideoSystem.Controllers.Back
             return View(ip);
         }
 
+        //上传视频首图
+        public ActionResult UploadImg(int videoID,string VideoImageLocal)
+        {
+            Video v = vsc.Videos.Find(videoID);
+            v.VideoImageLocal = VideoImageLocal;
+
+            if (ModelState.IsValid)
+            {
+                vsc.Entry(v).State = EntityState.Modified;
+                vsc.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "VideoManager");
+        }
+
         //跳转上传视频页面
-        public ActionResult UploadPage() {
+        public ActionResult UploadPage(int VideoID) {
             Manager manager = (Manager)Session["Manager"];
             ViewBag.account = manager.ManagerAccount;
-            return View();
+
+            return View(vsc.Videos.Find(VideoID));
         }
 
         //上传接收来自客户端的视频信息
         [AllowAnonymous]
         public ActionResult UploadVideo(string videoInfo, string token)
         {
-            string[] info = videoInfo.Split('_');
-            string video_id = info[0];
-            string video_uuid = info[1];
-            string video_name = info[2];
+            if (token != null & token == "123456789")
+            {
+                string[] info = videoInfo.Split('_');
+                string video_id = info[0];
+                string video_uuid = info[1];
+                string video_name = info[2];
 
+                Video v = new Video();
+                v.CodeCounts = 0;
+                v.CodeNotUsed = 0;
+                v.CodeUsed = 0;
+                v.ls_video_id = int.Parse(video_id);
+                v.ls_video_uuid = video_uuid;
+                v.VideoName = video_name;
+                v.VideoImageLocal = "null";
+                v.UploadTime = DateTime.Now;
 
+                if (ModelState.IsValid)
+                {
+                    vsc.Videos.Add(v);
+                    vsc.SaveChanges();
+                    return Content("ok");
+                }
+            }
 
-
-            return Content(videoInfo + ":" + token);
+            return Content("error");
         }
 
         //删除视频
         public ActionResult DeleteVideo(int VideoID)
         {
             Video v = vsc.Videos.Find(VideoID);
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 vsc.Videos.Remove(v);
                 vsc.SaveChanges();
 
                 //删除视频文件和视频首图
-                string imgUrl = Server.MapPath(v.VideoImageLocal);
-                string videoUrl = Server.MapPath(v.VideoLocal);
+                if (v.VideoImageLocal != "null")
+                {
+                    string imgUrl = Server.MapPath(v.VideoImageLocal);
 
-                FileInfo img = new FileInfo(imgUrl);
-                FileInfo video = new FileInfo(videoUrl);
+                    FileInfo img = new FileInfo(imgUrl);
 
-                img.Delete();
-                video.Delete();
+                    img.Delete();
+                }
 
                 return Content("success");
             }

@@ -53,24 +53,7 @@ namespace VideoSystem.Controllers.Front
         //播放视频页面
         public ActionResult PlayVideo(int videoID)
         {
-
-            return View(videoID);
-        }
-
-        //获取视频代码
-        public ActionResult GetVideo(int info)
-        {
-            Video[] currentVideo = vsc.Videos.Where(v => v.VideoID == info).ToArray();
-            
-
-            return Content("<div class='row vid_loac' style='margin-top:30px'>"
-                           + "<div class='col-sm-12 col-md-8 col-lg-8  col-md-offset-2 ' style='background-color:white;'>"
-                                    + "<h2 style='font-family: microsoft yaHei, 微软雅黑, arial; font-size:18px; color:#72ACE3'>" + currentVideo[0].VideoName+ "</h2>"
-                                    + "<video id='video' class='video-js vjs-default-skin vjs-big-play-centered' controls preload='auto' width='100%' data-setup='{}'>"
-                                    + "<source src='" + currentVideo[0].VideoLocal+ "' type='video/mp4'/>"
-                                    + "</video>"
-                                    + "</div>"
-                                    + "</div>");       
+            return View(vsc.Videos.Find(videoID));
         }
 
         //用户反馈

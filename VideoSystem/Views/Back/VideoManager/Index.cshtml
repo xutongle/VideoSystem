@@ -71,7 +71,13 @@
                                     <td>@v.VideoID</td>
                                     <td>@v.VideoName</td>
                                     <td>
-                                        <img style="width:100px;height:70px;" src="@v.VideoImageLocal"/>
+                                        @if (@v.VideoImageLocal == "null")
+                                        {
+                                            <a href="/VideoManager/UploadPage?VideoID=@v.VideoID">[上传首图]</a>
+                                        }
+                                        else { 
+                                            <img style="width:100px;height:70px;" src="@v.VideoImageLocal"/>
+                                        }
                                     </td>
                                     <td>@v.UploadTime</td>
                                     <td>@v.CodeCounts</td>

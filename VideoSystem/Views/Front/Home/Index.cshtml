@@ -41,7 +41,13 @@
                         <div class="col-md-3">
                             <div class="view view-third" style="padding-left: 10px; padding-right: 10px; margin: 20px 0">
                                 <a href="~/Home/PlayVideo?videoID=@c.VideoID" class="b-link-stripe b-animate-go  swipebox">
-                                    <img src="@c.Video.VideoImageLocal" alt="" class="img-responsive">
+                                    @if (c.Video.VideoImageLocal == "null")
+                                    {
+                                        <img src="@Url.Content("~/Image/qhpa.jpg")" alt="" class="img-responsive">
+                                    }
+                                    else{
+                                        <img src="@c.Video.VideoImageLocal" alt="" class="img-responsive">
+                                    }
                                     <div class="mask" style="width:100%; height: 100%; background-image: url(/Image/video_image/play_icon.png); background-repeat: no-repeat; background-position: center center">
                                     </div>
                                     <h4 style="line-height:1.2; clear:both; overflow:visible;margin-top:8px; color:black; font-family:'Microsoft YaHei'">@c.Video.VideoName</h4>

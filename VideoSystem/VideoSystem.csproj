@@ -145,11 +145,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Back\ProductController.cs" />
-    <Compile Include="Controllers\Back\TestController.cs" />
     <Compile Include="Controllers\Front\LoginController.cs" />
-    <Compile Include="Migrations\201612200311135_addProduct.cs" />
-    <Compile Include="Migrations\201612200311135_addProduct.Designer.cs">
-      <DependentUpon>201612200311135_addProduct.cs</DependentUpon>
+    <Compile Include="Migrations\201701161343033_modifyVideo.cs" />
+    <Compile Include="Migrations\201701161343033_modifyVideo.Designer.cs">
+      <DependentUpon>201701161343033_modifyVideo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Abstract\ICreateCode.cs" />
@@ -197,6 +196,7 @@
     <Content Include="Content\pagecss\myvideo.css" />
     <Content Include="Content\pagecss\product.css" />
     <Content Include="Content\pagecss\registe.css" />
+    <Content Include="Content\pagecss\video.css" />
     <Content Include="Image\manager.png" />
     <Content Include="Image\tip.png" />
     <Content Include="plugin\jBox\jquery-1.4.2.min.js" />
@@ -600,7 +600,6 @@
     <None Include="Properties\PublishProfiles\video.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Image\bg.jpg" />
-    <Content Include="Image\code.png" />
     <Content Include="Image\qq.png" />
     <Content Include="Image\weixin.png" />
     <Content Include="Image\zfb.png" />
@@ -670,8 +669,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612200311135_addProduct.resx">
-      <DependentUpon>201612200311135_addProduct.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701161343033_modifyVideo.resx">
+      <DependentUpon>201701161343033_modifyVideo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
