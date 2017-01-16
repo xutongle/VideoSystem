@@ -13,6 +13,10 @@ namespace VideoSystem.Models
         [Key]
         public int VideoID { get; set; }
         [Required]
+        public int ls_video_id { get; set; }
+        [Required]
+        public string ls_video_uuid { get; set; }
+        [Required]
         public string VideoName { get; set; }
         [Required]
         public DateTime UploadTime { get; set; }
@@ -22,8 +26,6 @@ namespace VideoSystem.Models
         public int CodeUsed { get; set; }
         [Required]
         public int CodeNotUsed { get; set; }
-        [Required]
-        public string VideoLocal { get; set; }
         [Required]
         public string VideoImageLocal { get; set; }
 
