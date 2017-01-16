@@ -48,36 +48,18 @@ namespace VideoSystem.Controllers.Back
             return View();
         }
 
-        //上传视频
-        [HttpPost]
-        public ActionResult UploadVideo(Video v) {
-            v.UploadTime = DateTime.Now;
-            v.CodeCounts = 0;
-            v.CodeNotUsed = 0;
+        //上传接收来自客户端的视频信息
+        [AllowAnonymous]
+        public ActionResult UploadVideo(string videoInfo, string token)
+        {
+            string[] info = videoInfo.Split('_');
+            string video_id = info[0];
+            string video_uuid = info[1];
+            string video_name = info[2];
 
-            if (ModelState.IsValid)
-            {
-                vsc.Videos.Add(v);
-                vsc.SaveChanges();
-                TempData["info"] = "视频添加成功";
 
-                //合并完成后删除分块文件
-                string saveUrl = Server.MapPath("/") + "UploadFiles/Videos/";
-                string[] tempDirectory = Directory.GetDirectories(saveUrl);
-                string[] blockFileName = Directory.GetFiles(tempDirectory[0] + "/");
-                foreach (string s in blockFileName)
-                {
-                    FileInfo blockFileInfo = new FileInfo(s);
-                    blockFileInfo.Delete();
-                }
-                Directory.Delete(tempDirectory[0]);
 
-                return RedirectToAction("UploadPage", "VideoManager");
-            }
-            else {
-                TempData["info"] = "请选择视频首图和要上传的视频文件";
-                return RedirectToAction("UploadPage", "VideoManager");
-            }
+            return Content(videoInfo + ":" + token);
         }
 
         //删除视频
