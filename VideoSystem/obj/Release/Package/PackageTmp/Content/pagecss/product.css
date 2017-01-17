@@ -29,6 +29,10 @@
     margin-top:10px;
     border:1px solid #808080;
 }
+.products img
+{
+    width:100%;
+}
 .list {
     width:95%;
     margin:auto;

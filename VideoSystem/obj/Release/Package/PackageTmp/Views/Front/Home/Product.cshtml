@@ -3,6 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@model VideoSystem.Models.Product[]
+@using VideoSystem.Models;
 
 <link href="@Url.Content("~/content/pagecss/main.css")" rel="stylesheet" type="text/css">
 <link href="@Url.Content("~/content/pagecss/product.css")" rel="stylesheet" type="text/css">
@@ -13,52 +15,18 @@
 			<h3 class="title1" style="font-size:30px">近期热销产品展示</h3>
             <hr style="border-bottom: 1px solid #f15f43;" />
 			<div class="row">
-                <div class="products" style="border:1px solid;">
-                    <a class="example-image-link" href="#" data-lightbox="example-set" data-title="">
-						<img src="/Image/products/0.jpg" class="img-responsive" alt=""/>
-						<div class="mask">
-							<h5 style="font-style:normal; line-height:2">
-                                梦幻珠包包  &nbsp;&nbsp;
-                                ¥20.0元
-							</h5>
-						</div>
-					</a>
-                </div>
-
-                <div class="products">
-                    <a href="#">
-						<img src="/Image/products/0.jpg" class="img-responsive" alt=""/>
-						<div class="mask">
-							<h5 style="font-style:normal; line-height:2">
-                                梦幻珠包包  &nbsp;&nbsp;
-                                ¥20.0元
-							</h5>
-						</div>
-					</a>
-                </div>
-
-                <div class="products" style="border:1px solid;">
-                    <a  href="#">
-						<img src="/Image/products/0.jpg" class="img-responsive" alt=""/>
-						<div class="mask">
-							<h5 style="font-style:normal; line-height:2">
-                                梦幻珠包包  &nbsp;&nbsp;
-                                ¥20.0元
-							</h5>
-						</div>
-					</a>
-                </div>
-
-                <div class="products" style="border:1px solid;">
-                    <a  href="#">
-						<img src="/Image/products/0.jpg" class="img-responsive" alt=""/>
-						<div class="mask">
-							<h5 style="font-style:normal; line-height:2">
-                                梦幻珠包包  &nbsp;&nbsp;
-                                ¥20.0元
-							</h5>
-						</div>
-					</a>
-                </div>
+                @foreach(Product p in Model)
+                {
+                    <div class="products">
+						    <img src="@p.ProductImg"/>
+						    <div class="mask">
+							    <h4 style="font-style:normal; line-height:2">
+                                    @p.ProductName  &nbsp;
+                                    ¥@p.ProductPrice  元&nbsp;
+                                    <a href="@p.ProductUrl">购买</a>
+							    </h4>
+						    </div>
+                    </div>
+                }
 			</div>				
 		</div>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="VideoSystemData-Web.config Connection String" description="VideoSystemData 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="Data Source=(LocalDb)\.\share_VideoSystem;Initial Catalog=VideoSystemData;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|VideoSystemData.mdf" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Administrator\\Desktop\\VideoSystem\\VideoSystem\\VideoSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='VideoSystemData']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="E:\\project\\vs\\毕设\\VideoSystem\\VideoSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='VideoSystemData']/@connectionString" />
   </parameter>
 </parameters>

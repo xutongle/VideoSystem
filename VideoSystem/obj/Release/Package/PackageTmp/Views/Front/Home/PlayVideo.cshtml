@@ -2,20 +2,66 @@
     ViewBag.Title = "古驿平安视频系统";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model int
+
+@model VideoSystem.Models.Video
 
 
 <link href="@Url.Content("~/content/pagecss/main.css")" rel="stylesheet" type="text/css">
-<link href="@Url.Content("~/plugin/VideoJS/video-js.css")" rel="stylesheet" type="text/css">
-<script src="@Url.Content("~/plugin/VideoJS/video.js")"></script>
+<link href="@Url.Content("~/content/pagecss/video.css")" rel="stylesheet" type="text/css">
 
-<script>
-    videojs.options.flash.swf = "@Url.Content("~/VideoJS/video-js.swf")";
-</script>
 
 @Html.Partial("HomePartialView")
-<input type="hidden" id="info" value="@Model"/>
-<div class="container" id="video_container">
 
+<div class="video" id="" style="width:100%;padding-top:20px;">
+
+    <script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/vod/bcloud.js"></script>
+    <script id="autoJs01709845d4" type="text/javascript">
+        var pNode = document.getElementById("autoJs01709845d4").parentNode,
+		    pt, pb, dWidth = pNode.clientWidth,
+		    pHeight = pNode.clientHeight;
+
+        if (dWidth>600)
+        {
+            dWidth = pNode.clientWidth * 0.7;
+        }
+
+        dHeight = ReCallHeight(pHeight, dWidth, pNode);
+
+        function ReCallHeight(h, w, a) {
+            try {
+                pt = window.getComputedStyle(a, null).paddingTop;
+                pb = window.getComputedStyle(a, null).paddingBottom;
+            } catch (e) {
+                pt = a.currentStyle.paddingTop;
+                pb = a.currentStyle.paddingBottom;
+            }
+            h = h - parseInt(pt) - parseInt(pb);
+            if (h && (typeof h == "number") && h == h && h > 0) {
+                return h;
+            } else {
+                var ua = navigator.userAgent.toLowerCase();
+                var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+				    isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+				    isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+				    isMobile = isIphone || isAndroid;
+                if (isMobile) {
+                    return w * 9 / 16;
+                } else {
+
+                    return (w * 9 / 16) + 36;
+                }
+            }
+        };
+        var player = new CloudVodPlayer();
+        player.init({
+            "uu": "ievel39qfn",
+            "vu": "@Model.ls_video_uuid",
+            "pu": "100094a179",
+            "auto_play": 0,
+            "gpcflag": 1,
+            "width": dWidth,
+            "height": dHeight,
+            "lang": "zh_CN"
+        });
+    </script>
 </div>
-<script src="@Url.Content("~/Scripts/customjs/getVideo.js")"></script>

@@ -10,12 +10,12 @@ using VideoSystem.Models;
 
 namespace VideoSystem.Controllers.Back
 {
-    public class AdminController : Controller
+    public class QhgypaczController : Controller
     {
         private VideoSystemContext vsc = new VideoSystemContext();
         private IEncryption ie;
 
-        public AdminController(IEncryption ie)
+        public QhgypaczController(IEncryption ie)
         {
             this.ie = ie;
         }
@@ -45,7 +45,7 @@ namespace VideoSystem.Controllers.Back
             if (managerArray.Count() <= 0)
             {
                 TempData["erroInfo"] = "账号或密码错误！";
-                return RedirectToAction("", "Admin");
+                return RedirectToAction("", "Qhgypacz");
             }
             else
             {
@@ -56,7 +56,7 @@ namespace VideoSystem.Controllers.Back
                 Response.Cookies["adminCookie"].Expires = DateTime.MaxValue;
 
                 Session["Manager"] = managerArray[0];
-                return RedirectToAction("BackMain", "Admin");
+                return RedirectToAction("BackMain", "Qhgypacz");
             }
         }
 
@@ -66,7 +66,7 @@ namespace VideoSystem.Controllers.Back
             FormsAuthentication.SignOut();
             Session.Clear();
             Response.Cookies.Clear();
-            return RedirectToAction("","Admin");
+            return RedirectToAction("", "Qhgypacz");
         }
 
     }

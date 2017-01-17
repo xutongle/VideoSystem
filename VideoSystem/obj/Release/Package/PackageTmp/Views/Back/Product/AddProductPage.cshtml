@@ -1,9 +1,8 @@
 ﻿@{
-    ViewBag.Title = "UploadPage";
+    ViewBag.Title = "添加产品";
     Layout = "~/Views/Shared/_BackLayout.cshtml";
 }
-
-@model VideoSystem.Models.Video
+@using System.IO;
 
 
 <link rel="stylesheet" type="text/css" href="~/plugin/WebUploader/webuploader.css">
@@ -16,33 +15,48 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="@Url.Content("~/Admin/BackMain/")"><span class="glyphicon glyphicon-home"></span></a></li>
-            <li class="active">上传首图</li>
+            <li class="active">添加产品</li>
         </ol>
     </div>
     <!--/.row-->
     <div class="row">
         <div class="">
             <div class="panel panel-default">
-                <div class="panel-heading">上传首图</div>
+                <div class="panel-heading">添加产品</div>
                 <div class="panel-body">
                     <p style="color:red;text-align:center;">@TempData["info"]</p>
-                    <form role="form" style="width:600px;margin:auto;" id="uploadForm" action="@Url.Action("UploadImg","VideoManager")" method="post">
+                    <form role="form" style="width:600px;margin:auto;" id="uploadForm" action="@Url.Action("AddProduct","Product")" method="post">
                             <table class="uploadTable">
                                 <tr>
                                     <td class="ut_title">
-                                        <label class=" control-label">视频名称</label>
+                                        <label class=" control-label">产品名称</label>
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control" id="VideoName" name="VideoName" value="@Model.VideoName">
-                                        <input type="hidden" name="videoID" value="@Model.VideoID"/>
+                                        <input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="请输入产品名称" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="ut_title">
-                                        <label class=" control-label">视频首图</label>
+                                        <label class=" control-label">产品价格</label>
                                     </td>
                                     <td>
-                                        <input type="hidden" class="form-control" id="ImageUrl" name="VideoImageLocal">
+                                        <input type="number" class="form-control" id="ProductPrice" name="ProductPrice" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class=" control-label">产品链接</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="ProductUrl" name="ProductUrl" value="http://" placeholder="请输入产品链接" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ut_title">
+                                        <label class=" control-label">产品图片</label>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" class="form-control" id="ImageUrl" name="ProductImg">
                                         <div id="uploader-demo">
                                             <!--用来存放item-->
                                             <div id="thelist" class="uploader-list"></div>
@@ -50,6 +64,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                
                             </table>
 
                             <div style="text-align:center;margin-top:20px;">
