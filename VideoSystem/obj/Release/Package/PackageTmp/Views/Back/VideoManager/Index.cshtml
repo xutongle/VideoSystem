@@ -9,7 +9,7 @@
 <div class="main" style="margin-left:290px;width:80%">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="@Url.Content("~/Admin/BackMain/")"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li><a href="@Url.Content("~/Qhgypacz/BackMain/")"><span class="glyphicon glyphicon-home"></span></a></li>
             <li class="active">视频列表</li>
         </ol>
     </div>
@@ -77,6 +77,7 @@
                                         }
                                         else { 
                                             <img style="width:100px;height:70px;" src="@v.VideoImageLocal"/>
+                                            <a href="/VideoManager/UploadPage?VideoID=@v.VideoID">[更换首图]</a>
                                         }
                                     </td>
                                     <td>@v.UploadTime</td>

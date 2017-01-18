@@ -70,7 +70,7 @@ namespace VideoSystem.Controllers.Back
 
                 FormsAuthentication.SignOut();
                 Response.Cookies.Clear();
-                return RedirectToAction("", "Admin");
+                return RedirectToAction("", "Qhgypacz");
             }
         }
     }

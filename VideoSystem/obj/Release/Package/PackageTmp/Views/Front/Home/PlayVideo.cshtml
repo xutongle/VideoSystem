@@ -57,11 +57,28 @@
             "uu": "ievel39qfn",
             "vu": "@Model.ls_video_uuid",
             "pu": "100094a179",
-            "auto_play": 0,
+            "auto_play": 1,
+            "rate": 800,
             "gpcflag": 1,
             "width": dWidth,
             "height": dHeight,
-            "lang": "zh_CN"
+            "lang": "zh_CN",
+            callbackJs: "callback"
         });
+
+        function callback(type) {
+            if (type == "videoStart") {
+                player.sdk.setHorseRaceLampInfo({
+                    "show": "on",
+                    "content": "青海古驿平安串珠",
+                    "fontSize": "20",
+                    "fontColor": "0x00db00",
+                    "setting": "1",
+                    "interval": "5",
+                    "lifeTime": "30"
+                });
+            }
+        }
     </script>
+
 </div>

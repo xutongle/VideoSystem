@@ -28,8 +28,9 @@ namespace VideoSystem.Controllers.Back
                                       select items).Count();
 
             IEnumerable<Product> productList = from item in vsc.Products
-                                               orderby item.ProductID
+                                               orderby item.ProductID descending
                                                select item;
+
             ip.GetCurrentPageData(productList, page_id);
             Manager manager = (Manager)Session["Manager"];
             ViewBag.searchAction = "/Product/Index/Page";

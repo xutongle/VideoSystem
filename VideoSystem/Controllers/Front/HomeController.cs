@@ -34,7 +34,9 @@ namespace VideoSystem.Controllers.Front
         //产品展示
         public ActionResult Product()
         {
-            Product[] productArray = vsc.Products.ToArray();
+            Product[] productArray = (from item in vsc.Products
+                                      orderby item.ProductID descending
+                                      select item).ToArray();
             return View(productArray);
         }
 

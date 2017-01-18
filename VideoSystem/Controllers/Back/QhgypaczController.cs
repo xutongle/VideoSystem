@@ -20,7 +20,7 @@ namespace VideoSystem.Controllers.Back
             this.ie = ie;
         }
         //
-        // GET: /Admin/
+        // GET: /Qhgypacz/
 
         public ActionResult Index()
         {
@@ -44,8 +44,7 @@ namespace VideoSystem.Controllers.Back
 
             if (managerArray.Count() <= 0)
             {
-                TempData["erroInfo"] = "账号或密码错误！";
-                return RedirectToAction("", "Qhgypacz");
+                return Content("error");
             }
             else
             {
@@ -56,7 +55,8 @@ namespace VideoSystem.Controllers.Back
                 Response.Cookies["adminCookie"].Expires = DateTime.MaxValue;
 
                 Session["Manager"] = managerArray[0];
-                return RedirectToAction("BackMain", "Qhgypacz");
+
+                return Content("ok");
             }
         }
 

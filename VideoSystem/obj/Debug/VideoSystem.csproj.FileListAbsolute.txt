@@ -171,9 +171,7 @@ C:\Users\Administrator\Desktop\VideoSystem\VideoSystem\VideoSystem\obj\Debug\Vid
 C:\Users\Administrator\Desktop\VideoSystem\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Desktop\VideoSystem\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.addProduct.resources
 C:\Users\Administrator\Desktop\VideoSystem\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
-E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.addProduct.resources
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
-E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache
 E:\project\vs\毕设\VideoSystem\VideoSystem\bin\VideoSystem.dll
 E:\project\vs\毕设\VideoSystem\VideoSystem\bin\VideoSystem.pdb
 E:\project\vs\毕设\VideoSystem\VideoSystem\bin\Antlr3.Runtime.dll
@@ -220,3 +218,4 @@ E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.pdb
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources

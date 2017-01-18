@@ -98,7 +98,7 @@ namespace VideoSystem.Filters
         {
             if (roles[0] == "admin")
             {
-                filterContext.Result = new RedirectResult("~/Admin");
+                filterContext.Result = new RedirectResult("~/Qhgypacz");
             }
             if (roles[0] == "user")
             {
