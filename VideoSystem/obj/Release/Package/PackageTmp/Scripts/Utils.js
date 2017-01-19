@@ -7,6 +7,8 @@ function checkEmail() {
     if (!re.test(email.val()))
     {
         jQuery("#info").text("请输入有效的邮箱！");
+        email.val("");
+        email.focus();
         return;
     }
 }
@@ -18,6 +20,8 @@ function checkPhone() {
     var phone = jQuery("#phone");
     if (!(/^1(3|4|5|7|8)\d{9}$/.test(phone.val()))) {
         jQuery("#info").text("请输入正确的手机号！");
+        phone.val("");
+        phone.focus();
         return;
     }
 }

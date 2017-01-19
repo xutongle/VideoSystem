@@ -29,6 +29,7 @@ namespace VideoSystem.Controllers.Front
 
             TempData["currentVideo"] = currentVideo;
             TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
+            TempData["UserPass"] = ((User)(Session["User"])).UserPassword;
             return View(codeArray);
         }
 
@@ -40,6 +41,7 @@ namespace VideoSystem.Controllers.Front
                                       select item).ToArray();
 
             TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
+            TempData["UserPass"] = ((User)(Session["User"])).UserPassword;
             return View(productArray);
         }
 
@@ -47,6 +49,7 @@ namespace VideoSystem.Controllers.Front
         public ActionResult About()
         {
             TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
+            TempData["UserPass"] = ((User)(Session["User"])).UserPassword;
             return View();
         }
 
@@ -54,6 +57,7 @@ namespace VideoSystem.Controllers.Front
         public ActionResult Contact()
         {
             TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
+            TempData["UserPass"] = ((User)(Session["User"])).UserPassword;
             return View();
         }
 
@@ -61,6 +65,7 @@ namespace VideoSystem.Controllers.Front
         public ActionResult PlayVideo(int videoID)
         {
             TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
+            TempData["UserPass"] = ((User)(Session["User"])).UserPassword;
             return View(vsc.Videos.Find(videoID));
         }
 

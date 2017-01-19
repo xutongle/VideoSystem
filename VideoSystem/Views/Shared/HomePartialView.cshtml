@@ -32,14 +32,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人中心<b class="caret"></b></a>
                     <input type="hidden" id="userEmail" value="@TempData["UserEmail"]"/>
                     <ul class="dropdown-menu">
-                        @if(TempData["UserEmail"] == "no")
-                        {
-                           
-                        }
-                        
-                        @if(TempData["UserEmail"] != "no")
+                        @if (TempData["UserPass"].ToString() != "no")
                         {
                             <li><a href="#" data-toggle="modal" data-target="#modify_pass">修改密码</a></li>
+                        }
+                        else
+                        {
+
                         }
                         <li><a href="@Url.Content("~/Login/LogOut/")" onclick="return confirm('确认退出当前账号？')">退出</a></li>
                     </ul>
@@ -94,7 +93,7 @@
 <script>
     jQuery(function () {
         var email = jQuery("#userEmail").val();
-        if (email != "no")
+        if (email == "no")
         {
             exportExcel();
         }

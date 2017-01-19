@@ -109,9 +109,9 @@ namespace VideoSystem.Controllers.Front
                 u.Uniq = uniq;
                 u.From = from;
                 u.UserAccount = md5_uniq + from;
-                u.UserPassword = md5_uniq;
-                u.UserPhone = "null";
-                u.UserEmail = "null";
+                u.UserPassword = "no";
+                u.UserPhone = "no";
+                u.UserEmail = "no";
                 u.UserBrowser1 = UserBrowser;
                 u.UserBrowser2 = "no";
                 u.UserBrowser3 = "no";
