@@ -25,10 +25,6 @@ namespace VideoSystem.Models
         public string UserBrowser2 { get; set; }
         [Required]
         public string UserBrowser3 { get; set; }
-        [Required]
-        public string UserBrowser4 { get; set; }
-        [Required]
-        public string UserBrowser5 { get; set; }
         [NotMapped]
         public string UserConfirmPassword { get; set; }
         [Required]

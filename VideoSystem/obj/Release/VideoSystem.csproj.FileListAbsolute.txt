@@ -97,7 +97,6 @@ E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.csprojResol
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.csproj.GenerateResource.Cache
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.dll
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.pdb
-E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.Migrations.update.resources
 E:\myproject\毕设\VideoSystem\VideoSystem\bin\VideoSystem.dll
 E:\myproject\毕设\VideoSystem\VideoSystem\bin\VideoSystem.pdb
 E:\myproject\毕设\VideoSystem\VideoSystem\bin\Antlr3.Runtime.dll
@@ -144,3 +143,4 @@ E:\myproject\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.Migrations.u
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.csproj.GenerateResource.Cache
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.dll
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.pdb
+E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Release\VideoSystem.Migrations.modifyUser.resources

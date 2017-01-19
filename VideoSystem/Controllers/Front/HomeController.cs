@@ -28,6 +28,7 @@ namespace VideoSystem.Controllers.Front
                                 select item).ToArray();
 
             TempData["currentVideo"] = currentVideo;
+            TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
             return View(codeArray);
         }
 
@@ -37,25 +38,48 @@ namespace VideoSystem.Controllers.Front
             Product[] productArray = (from item in vsc.Products
                                       orderby item.ProductID descending
                                       select item).ToArray();
+
+            TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
             return View(productArray);
         }
 
         //公司简介
         public ActionResult About()
         {
+            TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
             return View();
         }
 
         //联系我们
         public ActionResult Contact()
         {
+            TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
             return View();
         }
 
         //播放视频页面
         public ActionResult PlayVideo(int videoID)
         {
+            TempData["UserEmail"] = ((User)(Session["User"])).UserEmail;
             return View(vsc.Videos.Find(videoID));
+        }
+
+        //完善信息
+        public ActionResult FinishInfo(string phone,string email)
+        {
+            User user = (User)(Session["User"]);
+
+            user.UserEmail = email;
+            user.UserPhone = phone;
+
+            if (ModelState.IsValid)
+            {
+                vsc.Entry(user).State = EntityState.Modified;
+                vsc.SaveChanges();
+                return Content("ok");
+            }
+
+            return Content("error");
         }
 
         //用户反馈

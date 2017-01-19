@@ -146,9 +146,9 @@
   <ItemGroup>
     <Compile Include="Controllers\Back\ProductController.cs" />
     <Compile Include="Controllers\Front\LoginController.cs" />
-    <Compile Include="Migrations\201701171343481_update.cs" />
-    <Compile Include="Migrations\201701171343481_update.Designer.cs">
-      <DependentUpon>201701171343481_update.cs</DependentUpon>
+    <Compile Include="Migrations\201701191328397_modifyUser.cs" />
+    <Compile Include="Migrations\201701191328397_modifyUser.Designer.cs">
+      <DependentUpon>201701191328397_modifyUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Abstract\ICreateCode.cs" />
@@ -598,6 +598,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\video.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -671,8 +672,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701171343481_update.resx">
-      <DependentUpon>201701171343481_update.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701191328397_modifyUser.resx">
+      <DependentUpon>201701191328397_modifyUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

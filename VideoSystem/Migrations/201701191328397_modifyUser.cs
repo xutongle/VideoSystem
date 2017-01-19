@@ -3,7 +3,7 @@ namespace VideoSystem.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class update : DbMigration
+    public partial class modifyUser : DbMigration
     {
         public override void Up()
         {

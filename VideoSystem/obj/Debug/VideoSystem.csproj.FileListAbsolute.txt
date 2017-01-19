@@ -215,7 +215,7 @@ E:\project\vs\毕设\VideoSystem\VideoSystem\bin\zh-Hans\System.Web.WebPages.Dep
 E:\project\vs\毕设\VideoSystem\VideoSystem\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.dll
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.pdb
-E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources
+E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.modifyUser.resources
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache
-E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.update.resources

@@ -115,8 +115,6 @@ namespace VideoSystem.Controllers.Front
                 u.UserBrowser1 = UserBrowser;
                 u.UserBrowser2 = "no";
                 u.UserBrowser3 = "no";
-                u.UserBrowser4 = "no";
-                u.UserBrowser5 = "no";
 
                 if (ModelState.IsValid)
                 {
@@ -134,7 +132,7 @@ namespace VideoSystem.Controllers.Front
                 return RedirectToAction("Index", "Home");
             }
             else {
-                string[] userBrowserArray = { user[0].UserBrowser1, user[0].UserBrowser2, user[0].UserBrowser3, user[0].UserBrowser4, user[0].UserBrowser5 };
+                string[] userBrowserArray = { user[0].UserBrowser1, user[0].UserBrowser2, user[0].UserBrowser3 };
                 //用户浏览器不是已绑定的
                 if (!userBrowserArray.Contains(UserBrowser))
                 {
@@ -146,7 +144,7 @@ namespace VideoSystem.Controllers.Front
                     }
                     else
                     {
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             if (userBrowserArray[i] == "no")
                             {
@@ -158,8 +156,6 @@ namespace VideoSystem.Controllers.Front
                         user[0].UserBrowser1 = userBrowserArray[0];
                         user[0].UserBrowser2 = userBrowserArray[1];
                         user[0].UserBrowser3 = userBrowserArray[2];
-                        user[0].UserBrowser4 = userBrowserArray[3];
-                        user[0].UserBrowser5 = userBrowserArray[4];
 
                         if (ModelState.IsValid)
                         {
@@ -233,7 +229,7 @@ namespace VideoSystem.Controllers.Front
             User[] user = vsc.Users.Where(u => u.UserAccount == account && u.UserPassword == password).ToArray();
             if (user.Count() > 0)
             {
-                string[] userBrowserArray = { user[0].UserBrowser1, user[0].UserBrowser2, user[0].UserBrowser3, user[0].UserBrowser4, user[0].UserBrowser5 };
+                string[] userBrowserArray = { user[0].UserBrowser1, user[0].UserBrowser2, user[0].UserBrowser3};
 
                 //用户浏览器不是已绑定的
                 if (!userBrowserArray.Contains(UserBrowser))
@@ -244,7 +240,7 @@ namespace VideoSystem.Controllers.Front
                     }
                     else
                     {
-                        for (int i = 0; i <5; i++)
+                        for (int i = 0; i <3; i++)
                         {
                             if (userBrowserArray[i] == "no")
                             {
@@ -256,8 +252,6 @@ namespace VideoSystem.Controllers.Front
                         user[0].UserBrowser1 = userBrowserArray[0];
                         user[0].UserBrowser2 = userBrowserArray[1];
                         user[0].UserBrowser3 = userBrowserArray[2];
-                        user[0].UserBrowser4 = userBrowserArray[3];
-                        user[0].UserBrowser5 = userBrowserArray[4];
 
                         if (ModelState.IsValid)
                         {

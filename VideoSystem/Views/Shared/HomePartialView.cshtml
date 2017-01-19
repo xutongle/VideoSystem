@@ -26,12 +26,21 @@
                 </li>
 
                 <li>
-                    <a href="@Url.Content("~/Home/Contact")"">联系我们</a>
+                    <a href="@Url.Content("~/Home/Contact")">联系我们</a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人中心<b class="caret"></b></a>
+                    <input type="hidden" id="userEmail" value="@TempData["UserEmail"]"/>
                     <ul class="dropdown-menu">
-                        <li><a href="#" data-toggle="modal" data-target="#modify_pass">修改密码</a></li>
+                        @if(TempData["UserEmail"] == "no")
+                        {
+                           
+                        }
+                        
+                        @if(TempData["UserEmail"] != "no")
+                        {
+                            <li><a href="#" data-toggle="modal" data-target="#modify_pass">修改密码</a></li>
+                        }
                         <li><a href="@Url.Content("~/Login/LogOut/")" onclick="return confirm('确认退出当前账号？')">退出</a></li>
                     </ul>
                 </li>
@@ -83,6 +92,45 @@
     </div>
 </div>
 <script>
+    jQuery(function () {
+        var email = jQuery("#userEmail").val();
+        if (email != "no")
+        {
+            exportExcel();
+        }
+    })
+
+    function exportExcel() {
+        var html = "<div style='padding:10px;'>"
+                    + "电话：<input type='text' id='phone' name='phone' onblur='checkPhone();'/><br/><br/>"
+                    +"邮箱：<input type='text' id='email' name='email' onblur='checkEmail();'/>"
+                    +"<p id='info' style='color:red;'><p/></div>";
+        var submit = function (v, h, f) {
+            if (f.phone == '' || f.email == '') {
+                $.jBox.tip("请输入完整的信息。", 'error', { focusId: "phone", focusId: "email" });
+                return false;
+            }
+
+            $.ajax({
+                url: "/Home/FinishInfo",
+                data: {
+                    "phone": f.phone,
+                    "email": f.email
+                },
+                success: function (data) {
+                    if (data == "erro") {
+                        $.jBox.info('信息提交失败', '提示');
+                    }
+                    else {
+                        $.jBox.info('信息提交成功', '提示');
+                    }
+                }
+            });
+            return true;
+        };
+        $.jBox(html, { title: "完善信息", submit: submit });
+    }
+
     jQuery("#submit").on('click', function () {
         var modifyForm = jQuery("#modifyForm");
         var oldPass = jQuery("#oldPass").val();

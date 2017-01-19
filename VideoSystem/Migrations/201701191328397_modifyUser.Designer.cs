@@ -5,13 +5,13 @@ namespace VideoSystem.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class update : IMigrationMetadata
+    public sealed partial class modifyUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(update));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(modifyUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701171343481_update"; }
+            get { return "201701191328397_modifyUser"; }
         }
         
         string IMigrationMetadata.Source
