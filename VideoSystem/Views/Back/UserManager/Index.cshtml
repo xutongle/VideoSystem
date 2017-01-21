@@ -55,8 +55,20 @@
                                 <tr>
                                         <td>@u.UserID</td>
                                         <td>@u.UserAccount</td>
-                                        <td>@u.UserEmail</td>
-                                        <td>@u.UserPhone</td>
+                                        @if (u.UserEmail == "no")
+                                        {
+                                            <td>无</td>
+                                        }else { 
+                                            <td> @u.UserEmail</td>
+                                        }
+
+                                        @if (u.UserPhone == "no")
+                                        {
+                                            <td>无</td>
+                                        }else { 
+                                            <td> @u.UserPhone</td>
+                                        }
+                                        
                                         <td>@u.From</td>
                                         <td>
                                             <a onclick="getVideo(@u.UserID);">查看</a>
