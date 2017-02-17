@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using VideoSystem.Abstract;
 using VideoSystem.Filters;
 using VideoSystem.Models;
+using VideoSystem.Models.LCUtils;
 
 namespace VideoSystem.Controllers.Back
 {
@@ -109,16 +110,60 @@ namespace VideoSystem.Controllers.Back
                 if (v.VideoImageLocal != "null")
                 {
                     string imgUrl = Server.MapPath(v.VideoImageLocal);
-
                     FileInfo img = new FileInfo(imgUrl);
-
                     img.Delete();
                 }
 
-                return Content("success");
+                LCUtils lc = new LCUtils();
+                jsonout result = lc.deleteVideo(v.ls_video_id);
+
+                if (result.code == "0")
+                {
+                    return Content("success");
+                }
+                else {
+                    return Content("erro");
+                }
             }
 
             return Content("erro");
+        }
+
+        public ActionResult getCode(int VideoID = -1, int page_id = 1)
+        {
+            if (VideoID != -1)
+            {
+                Session["VideoID"] = VideoID;
+            }
+            else {
+                VideoID = (int)Session["VideoID"];
+            }
+
+            IEnumerable<Code> codeList = null;
+
+            codeList = from items in vsc.Codes
+                       where items.VideoID == VideoID
+                       orderby items.CodeID
+                       select items;
+
+            ip.GetCurrentPageData(codeList, page_id);
+
+            TempData["codeCount"] = (from items in vsc.Codes
+                                     where items.VideoID == VideoID
+                                     select items).Count();
+
+            TempData["codeCountNotExport"] = (from items in vsc.Codes
+                                              where items.CodeStatus == 0 && items.VideoID == VideoID
+                                              select items).Count();
+
+            TempData["codeCountUsed"] = (from items in vsc.Codes
+                                         where items.CodeStatus == 2 && items.VideoID == VideoID
+                                         select items).Count();
+
+            Manager manager = (Manager)Session["Manager"];
+            ViewBag.searchAction = "/VideoManager/getCode/Page";
+            ViewBag.account = manager.ManagerAccount;
+            return View(ip);
         }
     }
 }

@@ -182,6 +182,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Infrastructure\NinjectDependency.cs" />
+    <Compile Include="Models\LCUtils\LCUtils.cs" />
     <Compile Include="Models\Model\Manager.cs" />
     <Compile Include="Models\Model\Product.cs" />
     <Compile Include="Models\Model\User.cs" />
@@ -661,6 +662,7 @@
     <Content Include="Views\Back\Product\Index.cshtml" />
     <Content Include="Views\Back\Product\AddProductPage.cshtml" />
     <Content Include="Views\Back\Product\EditProductPage.cshtml" />
+    <Content Include="Views\Back\VideoManager\getCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

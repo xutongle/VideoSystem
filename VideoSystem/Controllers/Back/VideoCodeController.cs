@@ -81,7 +81,6 @@ namespace VideoSystem.Controllers.Back
                         vsc.Codes.Add(c);
                         vsc.SaveChanges();
                     }
-
                 }
 
                 video.CodeNotUsed += codeCounts;
@@ -92,8 +91,6 @@ namespace VideoSystem.Controllers.Back
                 }
                 return Content("生成成功");
             }
-
-
             return Content("生成失败");
         }
 

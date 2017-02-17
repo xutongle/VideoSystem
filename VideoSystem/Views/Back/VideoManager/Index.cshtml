@@ -25,12 +25,12 @@
                         <table>
                             <tr>
                                 <td id="searchValue">
-                                    <input type="text" class="form-control" name="searchValue" placeholder="请输入视频编号" style="width: 200px;" />
+                                    <input type="text" class="form-control" name="searchValue" placeholder="请输入视频名称" style="width: 200px;" />
                                 </td>
                                 <td>
                                     <select class="form-control" style="width: 100px;" id="searchType" name="searchType">
-                                        <option value="videoID" selected>按编号</option>
-                                        <option value="videoName">按名称</option>
+                                        <option value="videoName" selected>按名称</option>
+                                        <option value="videoID">按编号</option>
                                     </select>
                                 </td>
                                 <td>
@@ -88,6 +88,7 @@
                                         <a onclick="createCode(@v.VideoID);">[生成邀请码]</a>
                                         <a onclick="deleteVideo(@v.VideoID);">[删除]</a>
                                         <a onclick="exportExcel(@v.VideoID);">[导出邀请码]</a>
+                                        <a href="@Url.Content("~/VideoManager/getCode?VideoID="+v.VideoID)">[查看邀请码]</a>
                                     </td>
                                 </tr>
                             }

@@ -81,6 +81,54 @@ namespace VideoSystem.Controllers.Back
                 ViewBag.searchAction = "/Search/Index/Page";
                 return View("/Views/Back/VideoCode/Index.cshtml", ip);
             }
+            //查询视频邀请码
+            if (model == "VideoCode")
+            {
+                int VideoID = (int)Session["VideoID"];
+
+                IEnumerable<Code> codeList = null;
+
+                //按邀请码查询
+                if (searchType == "code")
+                {
+                    codeList = from items in vsc.Codes
+                               where items.CodeValue.Contains(searchValue) && items.VideoID == VideoID
+                               select items;
+                }
+                //按状态查询
+                if (searchType == "status")
+                {
+                    int statusInt = Convert.ToInt32(searchValue);
+                    codeList = from items in vsc.Codes
+                               orderby items.CodeID
+                               where items.CodeStatus == statusInt && items.VideoID == VideoID
+                               select items;
+                }
+                //按视频查询
+                if (searchType == "video")
+                {
+                    codeList = from items in vsc.Codes
+                               orderby items.CodeID
+                               where items.Video.VideoName.Contains(searchValue) && items.VideoID == VideoID
+                               select items;
+                }
+
+                TempData["codeCount"] = (from items in vsc.Codes
+                                         where items.VideoID == VideoID
+                                         select items).Count();
+
+                TempData["codeCountNotExport"] = (from items in vsc.Codes
+                                                  where items.CodeStatus == 0 && items.VideoID == VideoID
+                                                  select items).Count();
+
+                TempData["codeCountUsed"] = (from items in vsc.Codes
+                                             where items.CodeStatus == 2 && items.VideoID == VideoID
+                                             select items).Count();
+
+                ip.GetCurrentPageData(codeList, page_id);
+                ViewBag.searchAction = "/Search/Index/Page";
+                return View("/Views/Back/VideoManager/getCode.cshtml", ip);
+            }
             //查询视频
             if (model == "Video")
             {

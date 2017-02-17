@@ -37,7 +37,7 @@ namespace VideoSystem.Concrete
         public string getCode(string str)
         {
             //md5加密
-            string data = encryption.MyMD5(str);
+            string data = encryption.SHA1(str);
             //改变字母大小写
             byte[] dataByte = toLow(data);
             byte[] codeByte = new byte[10];
