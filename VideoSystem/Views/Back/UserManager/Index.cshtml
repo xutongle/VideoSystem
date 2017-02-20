@@ -74,7 +74,8 @@
                                             <a onclick="getVideo(@u.UserID);">查看</a>
                                         </td>
                                         <td>
-                                            <a href="/UserManager/DeleteUser?userID=@u.UserID">[删除]</a>
+                                            <a onclick="deleteUser(@u.UserID);" href="#">[删除]</a>
+                                            <a onclick="clear(@u.UserID);" href="/UserManager/ClearBroser?phone=@u.UserPhone">[清除绑定]</a>
                                         </td>
                                     </tr>
                             }
@@ -126,5 +127,24 @@
     function getVideo(userID)
     {
         jQuery.jBox.open("iframe:/UserManager/GetUserVideo?userID=" + userID, "用户视频", 600, 350, { buttons: { "关闭": true } });
+    }
+
+    //删除用户
+    function deleteUser(userID)
+    {
+        //UserManager/DeleteUser
+        var t = confirm("删除用户将一并删除用户的视频，请再次确认");
+        if (t) {
+            location.href = "/UserManager/DeleteUser?userID=" + userID;
+        }
+        else {
+            return;
+        }
+    }
+
+    //清除绑定
+    function clear()
+    {
+        
     }
 </script>

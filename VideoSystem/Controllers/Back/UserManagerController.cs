@@ -81,5 +81,13 @@ namespace VideoSystem.Controllers.Back
 
             return View(CodeArraay);
         }
+
+        //清除绑定
+        public ActionResult ClearBroser(string userID)
+        {
+            User user = vsc.Users.Find(userID);
+
+            return null;
+        }
     }
 }
