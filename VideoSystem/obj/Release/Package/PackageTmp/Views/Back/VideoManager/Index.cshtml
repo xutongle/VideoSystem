@@ -73,7 +73,9 @@
                                     <td>
                                         @if (@v.VideoImageLocal == "null")
                                         {
-                                            <a href="/VideoManager/UploadPage?VideoID=@v.VideoID">[上传首图]</a>
+                                            <nobr>
+                                                <a href="/VideoManager/UploadPage?VideoID=@v.VideoID">[上传首图]</a>
+                                            </nobr>
                                         }
                                         else { 
                                             <img style="width:100px;height:70px;" src="@v.VideoImageLocal"/>
@@ -85,10 +87,12 @@
                                     <td>@v.CodeUsed</td>
                                     <td>@v.CodeNotUsed</td>
                                     <td>
-                                        <a onclick="createCode(@v.VideoID);">[生成邀请码]</a>
-                                        <a onclick="deleteVideo(@v.VideoID);">[删除]</a>
-                                        <a onclick="exportExcel(@v.VideoID);">[导出邀请码]</a>
-                                        <a href="@Url.Content("~/VideoManager/getCode?VideoID="+v.VideoID)">[查看邀请码]</a>
+                                        <nobr>
+                                            <a onclick="createCode(@v.VideoID);">[生成邀请码]</a>
+                                            <a onclick="deleteVideo(@v.VideoID);">[删除]</a>
+                                            <a onclick="exportExcel(@v.VideoID);">[导出邀请码]</a>
+                                            <a href="@Url.Content("~/VideoManager/getCode?VideoID="+v.VideoID)">[查看邀请码]</a>
+                                        </nobr>
                                     </td>
                                 </tr>
                             }

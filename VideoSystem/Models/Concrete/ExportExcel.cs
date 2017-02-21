@@ -20,7 +20,7 @@ namespace VideoSystem.Concrete
             dt.Columns.Add("视频名称");
             dt.Columns.Add("邀请码编号");
             dt.Columns.Add("邀请码");
-
+           
             foreach(Code c in codeArray)
             {
                 dt.Rows.Add(c.Video.VideoID,c.Video.VideoName,c.CodeID,c.CodeValue);
@@ -39,7 +39,13 @@ namespace VideoSystem.Concrete
                 HSSFWorkbook book = new HSSFWorkbook();
                 ISheet sheet = book.CreateSheet(dt.TableName);
 
+                sheet.SetColumnWidth(0,10*256);
+                sheet.SetColumnWidth(1, 80 * 256);
+                sheet.SetColumnWidth(2, 10 * 256);
+                sheet.SetColumnWidth(3, 20 * 256);
+
                 IRow row = sheet.CreateRow(0);
+                
                 for (int i = 0; i < dt.Columns.Count; i++)
                 {
                     row.CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);

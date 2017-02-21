@@ -54,8 +54,10 @@
                                     <th>@p.ProductPrice</th>
                                     <th>@p.ProductUrl</th>
                                     <th>
-                                        <a onclick="editProduct(@p.ProductID);">[编辑]</a>
-                                        <a onclick="deleteProduct(@p.ProductID);">[删除]</a>
+                                        <nobr>
+                                            <a onclick="editProduct(@p.ProductID);">[编辑]</a>
+                                            <a onclick="deleteProduct(@p.ProductID);">[删除]</a>
+                                        </nobr>
                                     </th>
                                 </tr>
                             }

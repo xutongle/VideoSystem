@@ -218,4 +218,5 @@ E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.pdb
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.modifyUser.resources
 E:\project\vs\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csproj.GenerateResource.Cache
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.Migrations.modifyUser.resources
+E:\myproject\毕设\VideoSystem\VideoSystem\bin\JsonObject.dll
 E:\myproject\毕设\VideoSystem\VideoSystem\obj\Debug\VideoSystem.csprojResolveAssemblyReference.cache

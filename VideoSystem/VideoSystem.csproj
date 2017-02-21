@@ -46,6 +46,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="JsonObject">
+      <HintPath>C:\Users\Administrator\Desktop\JsonObject\JsonObject.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
@@ -146,6 +149,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Back\ProductController.cs" />
     <Compile Include="Controllers\Front\LoginController.cs" />
+    <Compile Include="Controllers\Front\PhoneCodeController.cs" />
     <Compile Include="Migrations\201701191328397_modifyUser.cs" />
     <Compile Include="Migrations\201701191328397_modifyUser.Designer.cs">
       <DependentUpon>201701191328397_modifyUser.cs</DependentUpon>
@@ -166,6 +170,7 @@
     <Compile Include="Models\Concrete\Encryption.cs" />
     <Compile Include="Models\Concrete\ExportExcel.cs" />
     <Compile Include="Models\Concrete\Paging.cs" />
+    <Compile Include="Models\Concrete\PhoneCode.cs" />
     <Compile Include="Models\Concrete\SimpleVerifyCode.cs" />
     <Compile Include="Models\Concrete\UploadFile.cs" />
     <Compile Include="Controllers\Back\QhgypaczController.cs" />
