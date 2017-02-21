@@ -1,8 +1,4 @@
-#account, #password {
-    border-color: #ccc;
-    width: 100%;
-    border-radius: 0;
-}
+
 
 
 #back_front {
@@ -12,7 +8,7 @@
     background-position: center center;
 }
 
-#submit_btn {
+.submit_btn {
     width: 100%;
     height: 35px;
     background-color: #2185C5;

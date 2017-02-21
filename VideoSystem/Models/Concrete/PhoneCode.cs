@@ -14,10 +14,13 @@ namespace VideoSystem.Models.Concrete
     {
         static int length = 6;
 
-        public static string getPhoneCode(string phone)
+        public static Dictionary<string, string> getPhoneCode(string phone)
         {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
             string appkey = "223601d2948be4a3118b786e41120d58"; //配置您申请的appkey
             string modleID = "28734";
+            string code = createCode();
 
             //2.发送短信
             string url2 = "http://v.juhe.cn/sms/send";
@@ -26,7 +29,7 @@ namespace VideoSystem.Models.Concrete
 
             parameters2.Add("mobile", phone); //接收短信的手机号码
             parameters2.Add("tpl_id", modleID); //短信模板ID，请参考个人中心短信模板设置
-            parameters2.Add("tpl_value", "#code#=" + createCode()); //变量名和变量值对。如果你的变量名或者变量值中带有#&amp;=中的任意一个特殊符号，请先分别进行urlencode编码后再传递，&lt;a href=&quot;http://www.juhe.cn/news/index/id/50&quot; target=&quot;_blank&quot;&gt;详细说明&gt;&lt;/a&gt;
+            parameters2.Add("tpl_value", "#code#=" + code); //变量名和变量值对。如果你的变量名或者变量值中带有#&amp;=中的任意一个特殊符号，请先分别进行urlencode编码后再传递，&lt;a href=&quot;http://www.juhe.cn/news/index/id/50&quot; target=&quot;_blank&quot;&gt;详细说明&gt;&lt;/a&gt;
             parameters2.Add("key", appkey);//你申请的key
             parameters2.Add("dtype", "json"); //返回数据的格式,xml或json，默认json
 
@@ -37,13 +40,16 @@ namespace VideoSystem.Models.Concrete
 
             if (errorCode2 == "0")
             {
+                result.Add("info","success");
+                result.Add("code", code);
                 Console.WriteLine("成功");
-                return "success";
+                return result;
             }
             else
             {
                 Console.WriteLine(newObj2["error_code"].Value + ":" + newObj2["reason"].Value);
-                return "error";
+                result.Add("info", "erro");
+                return result;
             }
         }
 

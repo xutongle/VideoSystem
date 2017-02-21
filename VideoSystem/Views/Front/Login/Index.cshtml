@@ -13,7 +13,7 @@
      <script src="~/Scripts/JQuery.md5.js"></script>
      <script src="~/Scripts/fingerprint.js"></script>
      <link type="text/css" rel="stylesheet" href="~/Content/pagecss/login.css" />
-     <script type="text/javascript" src="http://open.51094.com/user/myscript/158562cdb943a4.html"></script>
+     @*<script type="text/javascript" src="http://open.51094.com/user/myscript/158562cdb943a4.html"></script>*@
      <title>用户登录</title>
      </head>
 
@@ -33,42 +33,51 @@
             <div class="container" id="back_front">
                 <div class="row vid_loac">
                     <div class="col-sm-12 col-md-6 col-lg-6 col-md-offset-3" id="div_login">
-                        <form class="form-horizontal" role="form" method="post" action="@Url.Content("~/Login/Main")" id="userLoginForm">
+                        <form class="form-horizontal" role="form" method="post" id="userLoginForm">
                             <table id="login_table" style="border-spacing: 20px; border-collapse: separate; width: 100%">
                                 <caption style="text-align: center; padding: 0">
                                     <h3 style="margin: 2px">用户登录</h3>
                                 </caption>
                                 <tr style="margin-top: 0">
                                     <td colspan="6">
-                                        <input type="text" placeholder="用户名" class="form-control" id="account" name="account" required>
+                                         <input type="text" placeholder="手机号" class="form-control" id="phone" name="phone">
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="6">
-                                        <input type="password" placeholder="密   码" class="form-control" id="password" name="password" required>
+                                    <td>
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td >
+                                                    <input type="password" placeholder="验证码" class="form-control" id="code" name="code">
+                                                </td>
+                                                <td >
+                                                    <button type="button" class="btn btn-success submit_btn" onclick="getCode();">获取验证码</button>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="6" style="text-align:center">
+                                    <td style="text-align:center">
                                         <p id="logininfo" style="color: red;">@TempData["info"]</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" style="width: 50%">
-                                        <button type="button" class="btn btn-success" id="submit_btn" onclick="login()">登录</button>
+                                    <td>
+                                        <button type="button" class="btn btn-success submit_btn" id="submit_btn" onclick="login()">登录</button>
                                     </td>
-                                    <td colspan="3" style="width: 50%">
+                                    @*<td colspan="3" style="width: 50%">
                                         <a class="btn btn-warning"  id="regist_btn" href="/Login/RegistPage">没有账户，去注册 </a>
-                                    </td>
+                                    </td>*@
                                 </tr>
-                                <tr>
+                                @*<tr>
                                     <td colspan="6" style="width: 100%;text-align:center">
                                         <p style="color:black;">第三方登陆</p>
                                         <span id="hzy_fast_login"></span>
                                     </td>
-                                </tr>
+                                </tr>*@
                             </table>
                         </form>
                     </div>

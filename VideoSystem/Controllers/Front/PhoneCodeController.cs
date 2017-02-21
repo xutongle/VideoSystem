@@ -14,9 +14,14 @@ namespace VideoSystem.Controllers.Front
 
         public ActionResult Index(string phone)
         {
-            string result = PhoneCode.getPhoneCode(phone);
-
-            return Content(result);
+            Dictionary<string, string> result = PhoneCode.getPhoneCode(phone);
+            if (result["info"].Equals("success"))
+            {
+                return Content("success");
+            }
+            else {
+                return Content("erro");
+            }
         }
     }
 }
